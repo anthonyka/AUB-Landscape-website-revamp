@@ -1,0 +1,50 @@
+@import './colors.css';
+
+/* fieldsets */
+fieldset{
+    border: 1px solid var(--primary-dark-border);
+    height: max-content;
+    padding: 10px;
+}
+fieldset legend{
+    width: auto;
+    padding: 0 0.5rem;
+}
+fieldset > div{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+/* body */
+body{
+    padding: 2%;
+}
+main{
+    width: 75%;
+    margin: 0 auto;
+}
+
+/* drowpdown */
+.dropdown-menu{
+    max-height: 200px;
+    overflow-y: auto;
+}
+.dropdown{
+    padding: 5px;
+}
+
+#country-map{
+    /* display: none; */
+    flex: 0 0 30%;
+}
+#country-map img{
+    width: 100%;
+}
+#country-climate{
+    flex: 0 0 50%;
+}
+
+#temperatureSelect{
+    display: none;
+}
