@@ -23,6 +23,7 @@
         <div>
             <h2>Criteria</h2>
             <form action="">
+                <!-- Country and Climate -->
                 <fieldset>
                     <legend>Country and Climate</legend>
                     <div id="fieldsetin">
@@ -38,13 +39,24 @@
                                     <!-- TODO: fetch countries from backend + automatically populate in JS -->
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
                                         id="country-dropdown">
-
                                     </div>
                                 </div>
                             </div>
-                            <!-- Choose filtering temperatures
-                            <select class="form-select" aria-label="Default select example" multiple id="temperatureSelect">
-                            </select> -->
+
+                            <div id="temperatureSelect">
+                                Choose filtering temperatures
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button"
+                                        id="temperatureDropDownButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Choose temperature
+                                    </button>
+                                    <!-- TODO: fetch countries from backend + automatically populate in JS -->
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
+                                        id="temperature-dropdown">
+                                    </div>
+                                    
+                                </div>
+                            </div>
                         </div>
                         <div id="country-map">
                             <img src="" alt="">
@@ -52,6 +64,11 @@
                     </div>
 
                 </fieldset>
+
+                <!-- TODO: Temperature -->
+                <!-- <fieldset>
+
+                </fieldset> -->
             </form>
 
         </div>

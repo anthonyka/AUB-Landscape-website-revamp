@@ -50,24 +50,43 @@ function createDDItemCountry(country) {
     return item;
 }
 //climate
-
 function genTemperatureDD(country){
+    //reset temps
+    let temperatureDiv = getID("temperatureSelect");
+    temperatureDiv.style.display = "none";
+    let temperatureDropDown = getID("temperature-dropdown");
+    temperatureDropDown.innerHTML="";
     let temp = country.temperatures;
-    let tempDD = getID("temperatureSelect");
+    let tempDD = getID("temperature-dropdown");
     for (let index = 0; index < temp.length; index++) {
         let item = createDDItemTemp(temp[index]);
         tempDD.appendChild(item);
     }
-    tempDD.style.display="block";
+   getID("temperatureSelect").style.display = "block";
 }
 
 function createDDItemTemp(text) {
-    let option = document.createElement("option");
-    option.id = "temperatureDD-" + text;;
-    option.innerHTML = text;
-    option.value = text;
-    option.style.backgroundColor = temperatureColor(text);
-    return option;
+    let div = document.createElement("div");
+    let check= document.createElement("input");
+    let temp = document.createElement("label");
+
+    temp.innerHTML = text;
+    temp.classList.add("temperatures-colors");
+    temp.classList.add("form-check-label");
+    temp.setAttribute("for", "checkboxTemp"+text)
+    temp.style.backgroundColor = temperatureColor(text);
+
+    check.classList.add("form-check-input");
+    check.setAttribute("type","checkbox");
+    check.value = text;
+    check.id = "checkboxTemp"+text;
+
+    div.classList.add("form-check");
+
+    div.appendChild(check);
+    div.appendChild(temp);
+    
+    return div;
 }
 
 function showImage(country) {
@@ -79,6 +98,7 @@ function showImage(country) {
 }
 
 function temperatureColor(temp) {
+    temp = parseFloat(temp);
     if (temp >= 30) {
         return "red";
     } else if (temp >= 25) {
@@ -89,6 +109,8 @@ function temperatureColor(temp) {
         return "green";
     }
 }
+
+
 
 
 

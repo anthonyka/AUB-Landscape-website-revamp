@@ -48,3 +48,11 @@ main{
 #temperatureSelect{
     display: none;
 }
+
+.temperatures-colors{
+    width: 100%;
+    text-align: center;
+}
+#temperature-dropdown{
+    padding: 5%;
+}
