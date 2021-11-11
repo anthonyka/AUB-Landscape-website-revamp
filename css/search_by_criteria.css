@@ -2,17 +2,23 @@
 
 /* fieldsets */
 fieldset{
-    border: 1px solid var(--primary-dark-border);
+    border: 2px solid var(--primary-dark-border);
     height: max-content;
     padding: 10px;
+    margin: 5px;
 }
 fieldset legend{
     width: auto;
     padding: 0 0.5rem;
+    float: none;
 }
-fieldset > div{
+#fieldsetin{
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
+}
+fieldset h5{
+    padding-left: 8px;
 }
 
 
@@ -47,6 +53,7 @@ main{
 
 #temperatureSelect{
     display: none;
+    padding: 5px;
 }
 
 .temperatures-colors{
@@ -55,4 +62,47 @@ main{
 }
 #temperature-dropdown{
     padding: 5%;
+}
+
+/* boxes css */
+.filterSections{
+    padding-left: 10px;
+}
+
+.filterSubSection{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.boxWithImageText{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 150px;
+    width: 150px;
+    padding: 5px;
+    margin: 10px;
+    opacity: 0.5;
+}
+
+.boxWithImageTextSmall{
+    height: 115px !important;
+    width: 115px !important;
+}
+.boxWithImageText:hover{
+    opacity: 0.9;
+    border: 2px solid var(--passive-border);
+}
+
+.boxWithImageTextSelected{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 150px;
+    width: 150px;
+    margin: 10px;
+    padding: 5px;
+    border: 2px solid var(--primary-active-border);
 }
