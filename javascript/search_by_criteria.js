@@ -1,4 +1,5 @@
-//map creation
+//------------------map creation start-----------------//
+
 const domainImages = "https://landscapeplants.aub.edu.lb/images/search/plant/";
 const plantTypeMap = new Map();
 plantTypeMap.set("Cactus/Succulent", domainImages + "CactusSucculent.png");
@@ -14,12 +15,19 @@ lightMap.set("Full", domainImages + "full.png");
 lightMap.set("Part", domainImages + "part.png");
 lightMap.set("Shade", domainImages + "shade.png");
 
+const soilMap = new Map();
+soilMap.set("Clay", domainImages + "clay.png");
+soilMap.set("Sand", domainImages + "sand.png");
+soilMap.set("Loam", domainImages + "loam.png");
+
+
+//-------------------map creation end---------------------//
 window.onload = function () {
     getCountries();
     initializeTooltips();
     createPlantType();
     createLight();
-
+    createSoil();
 }
 
 //----------other functions--------//
@@ -129,33 +137,41 @@ function temperatureColor(temp) {
     }
 }
 
-//Plant type
+//create filter box
 function selectFilter() {
     if (this.getAttribute("selected") == "true") {
         this.classList.add("boxWithImageText");
         this.classList.remove("boxWithImageTextSelected")
-        if(this == getID("light")){
+        if(this == getID("light") || this == getID("soil")){
             div.classList.add("boxWithImageTextSmall");
         }
         this.setAttribute("selected", "false");
     } else {
         this.classList.remove("boxWithImageText")
         this.classList.add("boxWithImageTextSelected");
-        if(this == getID("light")){
+        if(this == getID("light") || this == getID("soil")){
             div.classList.add("boxWithImageTextSmall");
         }
         this.setAttribute("selected", "true");
     }
 }
 
+//populate plant type
 function createPlantType() {
     let plantType = getID("plantType");
     createFilterBoxes(plantType, plantTypeMap);
 }
 
+//populate light
 function createLight() {
     let light = getID("light");
     createFilterBoxes(light, lightMap);
+}
+
+//populate soil
+function createSoil() {
+    let soil = getID("soil");
+    createFilterBoxes(soil, soilMap);
 }
 
 //other
@@ -170,7 +186,7 @@ function createFilterBoxes(parentDiv, usedMap){
     for (let [key, value] of usedMap) {
         let div = document.createElement("div");
         div.classList.add("boxWithImageText");
-        if(usedMap == lightMap){
+        if(usedMap == lightMap || usedMap == soilMap){
             div.classList.add("boxWithImageTextSmall");
         }
         let image = document.createElement("img");
@@ -179,6 +195,7 @@ function createFilterBoxes(parentDiv, usedMap){
         text.innerHTML=key;
         div.appendChild(image);
         div.appendChild(text);
+        div.style.cursor = "pointer";
         div.addEventListener("click",selectFilter)
         parentDiv.appendChild(div);
     }

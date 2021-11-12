@@ -2,4 +2,6 @@
     --primary-dark-border:rgb(5, 139, 0);
     --primary-active-border: rgb(7, 196, 0);
     --passive-border: lightgrey;
+
+    --passive-font-color: lightslategray;
 }

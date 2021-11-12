@@ -106,3 +106,21 @@ main{
     padding: 5px;
     border: 2px solid var(--primary-active-border);
 }
+
+/* soil section */
+#soilMegaSection{
+    display: flex;
+    justify-content: space-between;
+}
+#soilPH{
+    display: block;
+}
+#soilPH > div{
+    margin-left: 15px;
+}
+#soilPH >div:first-child{
+    margin-top:25px;
+}
+#soilPH span{
+    color: var(--passive-font-color);
+}
