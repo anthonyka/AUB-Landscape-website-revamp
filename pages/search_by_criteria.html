@@ -6,9 +6,11 @@
     <meta name="author" content="Anthony Kahwaji">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <script src="../javascript/search_by_criteria.js" type="text/javascript"></script>
+    <script src="https://kit.fontawesome.com/a12d4bda75.js" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link href="../css/search_by_criteria.css" type="text/css" rel="stylesheet" />
+
 </head>
 
 <body>
@@ -25,111 +27,536 @@
             <form action="">
                 <!-- Country and Climate -->
                 <fieldset>
-                    <legend>Country and Climate</legend>
-                    <div id="fieldsetin">
-                        <div id="country-climate">
-                            <div id="country-div" class="dropdown">
-                                Filter by country
-                                <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button"
-                                        id="countryDropDownButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Choose a country
-                                    </button>
+                    <legend>Country and Climate <i class="fas fa-eye"></i></legend>
+                    
 
-                                    <!-- TODO: fetch countries from backend + automatically populate in JS -->
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
-                                        id="country-dropdown">
+                    <div class="content">
+                        <img src="" alt="">
+                        <div id="fieldsetin">
+                            <div id="country-climate">
+                                <div id="country-div" class="dropdown">
+                                    Filter by country
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button"
+                                            id="countryDropDownButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Choose a country
+                                        </button>
+
+                                        <!-- TODO: fetch countries from backend + automatically populate in JS -->
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
+                                            id="country-dropdown">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="temperatureSelect">
+                                    Choose filtering temperatures
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button"
+                                            id="temperatureDropDownButton" data-bs-toggle="dropdown"
+                                            aria-expanded="false">
+                                            Choose temperature
+                                        </button>
+                                        <!-- TODO: fetch countries from backend + automatically populate in JS -->
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
+                                            id="temperature-dropdown">
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
-
-                            <div id="temperatureSelect">
-                                Choose filtering temperatures
-                                <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button"
-                                        id="temperatureDropDownButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Choose temperature
-                                    </button>
-                                    <!-- TODO: fetch countries from backend + automatically populate in JS -->
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
-                                        id="temperature-dropdown">
-                                    </div>
-
-                                </div>
+                            <div id="country-map">
+                                <img src="" alt="">
                             </div>
-                        </div>
-                        <div id="country-map">
-                            <img src="" alt="">
                         </div>
                     </div>
+
 
                 </fieldset>
                 <fieldset>
                     <legend data-bs-toggle="tooltip" title="Use the options below to search for plants based on a combination of characteristics.
                     If in doubt about any characteristic, don't hesitate to leave a field blank.
-                    For a definition of each search term, refer to the glossary for help.">Basic Info</legend>
+                    For a definition of each search term, refer to the glossary for help.">Basic Info <i class="fas fa-eye"></i></legend>
 
-                    <!-- Plant type section -->
-                    <div id="plantTypeSection" class="filterSections">
-                        <h5>Plant Type</h5>
-                        <div id="plantType" class="filterSubSection">
+                    <div class="content">
+                        <!-- Plant type section -->
+                        <div id="plantTypeSection" class="filterSections">
+                            <h5>Plant Type</h5>
+                            <div id="plantType" class="filterSubSection">
+                            </div>
+                            <hr>
                         </div>
-                        <hr>
-                    </div>
 
-                    <!-- Light section -->
-                    <div id="lightSection" class="filterSections">
-                        <h5>Light</h5>
-                        <div id="light" class="filterSubSection">
+                        <!-- Light section -->
+                        <div id="lightSection" class="filterSections">
+                            <h5>Light</h5>
+                            <div id="light" class="filterSubSection">
+                            </div>
+                            <hr>
                         </div>
-                        <hr>
-                    </div>
 
-                    <!-- Soil section -->
-                    <div id="soilMegaSection">
-                        <div id="soilSection" class="filterSections">
-                            <h5>Soil</h5>
-                            <div id="soil" class="filterSubSection">
+                        <!-- Soil section -->
+                        <div id="soilMegaSection" class="megaSection">
+                            <div id="soilSection" class="filterSections">
+                                <h5>Soil</h5>
+                                <div id="soil" class="filterSubSection">
+                                </div>
+
+                            </div>
+
+                            <!-- Soil pH section -->
+                            <div id="soilPHSection" class="filterSections">
+                                <h5>Soil pH</h5>
+                                <div id="soilPH" class="filterSubSection checksMegaSection">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="acidSoilPH" value="0">
+                                        <label class="form-check-label" for="acidSoilPH">
+                                            Acidic <span>(pH&lt;7)</span>
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="neutralSoilPH" value="7">
+                                        <label class="form-check-label" for="neutralSoilPH">
+                                            Neutral <span>(pH=7)</span>
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="basicSoilPH" value="14">
+                                        <label class="form-check-label" for="basicSoilPH">
+                                            Basic <span>(pH&gt;7)</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <!-- water section -->
+                        <div id="waterSection" class="filterSections">
+                            <hr>
+                            <h5>Water</h5>
+                            <div id="water" class="filterSubSection">
+                            </div>
+                            <hr>
+                        </div>
+
+                        <!-- Tolerance -->
+                        <div id="toleranceLifeCyleMegaSecion" class="megaSection">
+                            <div id="toleranceSection" class="filterSections">
+                                <h5>Tolerance</h5>
+                                <div id="tolerance" class="filterSubSection">
+                                    <table>
+                                        <tr>
+                                            <td class="toleranceRadioTitle">
+                                                Heat
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio"
+                                                        name="toleranceHeatRadio" id="THRY">
+                                                    <label class="form-check-label" for="THRY">
+                                                        Yes
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio"
+                                                        name="toleranceHeatRadio" id="THRN">
+                                                    <label class="form-check-label" for="THRN">
+                                                        No
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="toleranceRadioTitle">
+                                                Drought
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio"
+                                                        name="toleranceDroughtRadio" id="TDRY">
+                                                    <label class="form-check-label" for="TDRY">
+                                                        Yes
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio"
+                                                        name="toleranceDroughtRadio" id="TDRN">
+                                                    <label class="form-check-label" for="TDRN">
+                                                        No
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="toleranceRadioTitle">
+                                                Frost
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio"
+                                                        name="toleranceFrostRadio" id="TFRY">
+                                                    <label class="form-check-label" for="TFRY">
+                                                        Yes
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio"
+                                                        name="toleranceFrostRadio" id="TFRN">
+                                                    <label class="form-check-label" for="TFRN">
+                                                        No
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="toleranceRadioTitle">
+                                                Salt
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio"
+                                                        name="toleranceSaltRadio" id="TSRG">
+                                                    <label class="form-check-label" for="TSRG">
+                                                        Good
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio"
+                                                        name="toleranceSaltRadio" id="TSRM">
+                                                    <label class="form-check-label" for="TSRM">
+                                                        Moderate
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio"
+                                                        name="toleranceSaltRadio" id="TSRP">
+                                                    <label class="form-check-label" for="TSRP">
+                                                        Poor
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <!-- Life Cycle section -->
+                            <div id="lifeCycleSection" class="filterSections">
+                                <h5>Life Cycle</h5>
+                                <div id="lifeCycle" class="filterSubSection checksMegaSection">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="lifeCycleRadio"
+                                            id="lifeCycleAnnual">
+                                        <label class="form-check-label" for="lifeCycleAnnual">
+                                            Annual
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="lifeCycleRadio"
+                                            id="lifeCyclePerennial">
+                                        <label class="form-check-label" for="lifeCyclePerennial">
+                                            Perennial
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="lifeCycleRadio"
+                                            id="lifeCycleBiennial">
+                                        <label class="form-check-label" for="lifeCycleBiennial">
+                                            Biennial
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-
-                        <!-- Soil pH section -->
-                        <div id="soilPHSection" class="filterSections">
-                            <h5>Soil pH</h5>
-                            <div id="soilPH" class="filterSubSection">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="acidSoilPH" value="0">
-                                    <label class="form-check-label" for="acidSoilPH">
-                                        Acidic <span>(pH&lt;7)</span>
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="neutralSoilPH" value="7">
-                                    <label class="form-check-label" for="neutralSoilPH">
-                                        Acidic <span>(pH=7)</span>
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="basicSoilPH" value="14">
-                                    <label class="form-check-label" for="basicSoilPH">
-                                        Acidic <span>(pH&gt;7)</span>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
                     </div>
-
-                    <!-- water section -->
-                    <div id="waterSection" class="filterSections">
-                        <h5>Water</h5>
-                        <div id="water" class="filterSubSection">
-                        </div>
-                        <hr>
-                    </div>
-
-
                 </fieldset>
+
+                <fieldset>
+                    <legend data-bs-toggle="tooltip" title="Use the options below to search for plants based on a combination of characteristics.
+                    If in doubt about any characteristic, don't hesitate to leave a field blank.
+                    For a definition of each search term, refer to the glossary for help.">Plant Uses <i class="fas fa-eye"></i></legend>
+                    <div class="content">
+                        <!-- Outdoor section -->
+                        <div id="outdoorSection" class="filterSections">
+                            <h5>Outdoor</h5>
+                            <div id="outdoor" class="filterSubSection checksMainContent">
+                                <table width="100%">
+                                    <tr>
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="screen" value="screen">
+                                                <label class="form-check-label" for="screen">
+                                                    Screen
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="hedge" value="hedge">
+                                                <label class="form-check-label" for="hedge">
+                                                    Hedge
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="borderPlant" value="borderPlant">
+                                                <label class="form-check-label" for="borderPlant">
+                                                    Border Plant
+                                                </label>
+                                            </div>
+                                        </td>
+                                       
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="massPlanting" value="massPlanting">
+                                                <label class="form-check-label" for="massPlanting">
+                                                    Mass Planting
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="specimen" value="specimen">
+                                                <label class="form-check-label" for="specimen">
+                                                    Specimen
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="street" value="street">
+                                                <label class="form-check-label" for="street">
+                                                    Street
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        <hr>
+                        </div>
+
+                        <!-- Specialized section -->
+                        <div id="specializedSection" class="filterSections">
+                            <h5>Specialized</h5>
+                            <div id="specialized" class="filterSubSection checksMainContent">
+                                <table width="100%">
+                                    <tr>
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="topiary" value="topiary">
+                                                <label class="form-check-label" for="topiary">
+                                                    Topiary
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="container" value="container">
+                                                <label class="form-check-label" for="container">
+                                                    Container
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="bonsai" value="bonsai">
+                                                <label class="form-check-label" for="bonsai">
+                                                    Bonsai
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="espalier" value="espalier">
+                                                <label class="form-check-label" for="espalier">
+                                                    Espalier
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="indoor" value="indoor">
+                                                <label class="form-check-label" for="indoor">
+                                                    Indoor
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="sportsField" value="sportsField">
+                                                <label class="form-check-label" for="sportsField">
+                                                    Sports Field
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </div>
+                            <hr>
+                        </div>
+
+                        <!-- NativeEnvironment section -->
+                        <div id="nativeEnvironmentSection" class="filterSections">
+                            <h5>Native Environment</h5>
+                            <div id="nativeEnvironment" class="filterSubSection checksMainContent">
+                                <table width="100%">
+                                    <tr>
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="shade" value="shade">
+                                                <label class="form-check-label" for="shade">
+                                                    Shade
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="windbreak" value="windbreak">
+                                                <label class="form-check-label" for="windbreak">
+                                                    Windbreak
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="erosionControl" value="erosionControl">
+                                                <label class="form-check-label" for="erosionControl">
+                                                    Erosion Control
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="pollutionTolerant" value="pollutionTolerant">
+                                                <label class="form-check-label" for="pollutionTolerant">
+                                                    Pollution Tolerant/Urban
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="reclamation" value="reclamation">
+                                                <label class="form-check-label" for="reclamation">
+                                                    Reclamation
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="wildlife" value="wildlife">
+                                                <label class="form-check-label" for="wildlife">
+                                                    Wildlife
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="nativeToLebanon" value="nativeToLebanon">
+                                                <label class="form-check-label" for="nativeToLebanon">
+                                                    Native to Lebanon
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <hr>
+                        </div>
+
+                         <!-- human use section -->
+                         <div id="humanUseSection" class="filterSections">
+                            <h5>Human Use</h5>
+                            <div id="humanUse" class="filterSubSection checksMainContent">
+                                <table width="100%">
+                                    <tr>
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="edible" value="edible">
+                                                <label class="form-check-label" for="edible">
+                                                    Edible
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="medicinal" value="medicinal">
+                                                <label class="form-check-label" for="medicinal">
+                                                    Medicinal
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="cutFlower" value="cutFlower">
+                                                <label class="form-check-label" for="cutFlower">
+                                                    Cut Flower/ Arrangement
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <hr>
+                        </div>
+                        
+                        <!-- building section -->
+                        <div id="buildingSection" class="filterSections">
+                            <h5>Human Use</h5>
+                            <div id="building" class="filterSubSection checksMainContent">
+                                <table width="100%">
+                                    <tr>
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="intensiveRoof" value="intensiveRoof">
+                                                <label class="form-check-label" for="intensiveRoof">
+                                                    Intensive Green Roof
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="extensiveRoof" value="extensiveRoof">
+                                                <label class="form-check-label" for="extensiveRoof">
+                                                    Extensive Green Roof
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="facade" value="facade">
+                                                <label class="form-check-label" for="cutFlower">
+                                                    Facade
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                </fieldset>
+
             </form>
 
         </div>

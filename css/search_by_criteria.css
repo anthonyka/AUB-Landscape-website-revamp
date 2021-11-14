@@ -1,4 +1,5 @@
 @import './colors.css';
+@import '../fonts/fonts.css';
 
 /* fieldsets */
 fieldset{
@@ -107,20 +108,51 @@ main{
     border: 2px solid var(--primary-active-border);
 }
 
+.form-check-input, .form-check-label{
+    cursor: pointer;
+}
+
 /* soil section */
-#soilMegaSection{
+.megaSection{
     display: flex;
     justify-content: space-between;
 }
-#soilPH{
+.checksMegaSection{
     display: block;
 }
-#soilPH > div{
+.checksMegaSection > div{
     margin-left: 15px;
 }
-#soilPH >div:first-child{
+.checksMegaSection >div:first-child{
     margin-top:25px;
 }
-#soilPH span{
+.checksMegaSection span{
     color: var(--passive-font-color);
+}
+
+#soilPHSection, #lifeCycleSection{
+    flex: 0 1 25%;
+}
+
+/* tolerance */
+
+.toleranceRadioTitle{
+    font-weight: bold;
+    padding-right: 25px;
+}
+
+td{
+    text-align: left;
+    vertical-align: top;
+}
+
+table{
+    border-spacing: 10px;
+    border-collapse: separate;
+}
+
+/* Usage section */
+
+.checksMainContent > div{
+    margin-left: 15px;
 }

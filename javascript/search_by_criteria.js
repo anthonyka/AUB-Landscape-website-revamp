@@ -20,6 +20,10 @@ soilMap.set("Clay", domainImages + "clay.png");
 soilMap.set("Sand", domainImages + "sand.png");
 soilMap.set("Loam", domainImages + "loam.png");
 
+const waterMap = new Map();
+waterMap.set("High", domainImages + "water-high.png");
+waterMap.set("Moderate", domainImages + "moderate.png");
+waterMap.set("Low", domainImages + "water-low.png");
 
 //-------------------map creation end---------------------//
 window.onload = function () {
@@ -28,6 +32,8 @@ window.onload = function () {
     createPlantType();
     createLight();
     createSoil();
+    createWater();
+    hideAndUnhide();
 }
 
 //----------other functions--------//
@@ -142,14 +148,14 @@ function selectFilter() {
     if (this.getAttribute("selected") == "true") {
         this.classList.add("boxWithImageText");
         this.classList.remove("boxWithImageTextSelected")
-        if(this == getID("light") || this == getID("soil")){
+        if(this == getID("light") || this == getID("soil")|| this == getID("water")){
             div.classList.add("boxWithImageTextSmall");
         }
         this.setAttribute("selected", "false");
     } else {
         this.classList.remove("boxWithImageText")
         this.classList.add("boxWithImageTextSelected");
-        if(this == getID("light") || this == getID("soil")){
+        if(this == getID("light") || this == getID("soil") || this == getID("water")){
             div.classList.add("boxWithImageTextSmall");
         }
         this.setAttribute("selected", "true");
@@ -174,6 +180,12 @@ function createSoil() {
     createFilterBoxes(soil, soilMap);
 }
 
+//populate water
+function createWater() {
+    let water = getID("water");
+    createFilterBoxes(water, waterMap);
+}
+
 //other
 function initializeTooltips() {
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
@@ -186,7 +198,7 @@ function createFilterBoxes(parentDiv, usedMap){
     for (let [key, value] of usedMap) {
         let div = document.createElement("div");
         div.classList.add("boxWithImageText");
-        if(usedMap == lightMap || usedMap == soilMap){
+        if(usedMap == lightMap || usedMap == soilMap || usedMap == waterMap){
             div.classList.add("boxWithImageTextSmall");
         }
         let image = document.createElement("img");
@@ -198,6 +210,32 @@ function createFilterBoxes(parentDiv, usedMap){
         div.style.cursor = "pointer";
         div.addEventListener("click",selectFilter)
         parentDiv.appendChild(div);
+    }
+}
+
+// Hide and unhide elements
+function hideAndUnhide() {
+    let iconsShow = document.querySelectorAll('.fa-eye');
+    for (let index = 0; index < iconsShow.length; index++) {
+        iconsShow[index].addEventListener("click",toggleHide);
+        iconsShow[index].style.cursor="pointer";
+    }
+}
+
+function toggleHide() {
+    //case currently visible -> hide
+    if(this.classList[1] == "fa-eye"){
+        this.classList.remove("fa-eye");
+        this.classList.add("fa-eye-slash");
+        
+        let parent = this.parentNode.parentNode;
+        parent.querySelector(".content").style.display="none";
+    }else if(this.classList[1] == "fa-eye-slash"){
+        this.classList.remove("fa-eye-slash");
+        this.classList.add("fa-eye");
+        
+        let parent = this.parentNode.parentNode;
+        parent.querySelector(".content").style.display="block";
     }
 }
 
