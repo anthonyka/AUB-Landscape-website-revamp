@@ -171,7 +171,7 @@ body {
 
   #image_container{
     position: relative;
-    left:9%;
+    left:11%;
     display: flex; 
       width: 100%;
       flex-wrap: wrap;
@@ -242,7 +242,39 @@ body {
     color:white;
     margin-bottom:0;
   }
-
+  #leftnav {
+    width: 250px;
+    background-color: #444;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    position: fixed;
+    bottom: 100px;
+    left: 35px;
+  }
+  #leftnav>h5{
+    margin-left: 4px;
+    margin-top: 4px;
+    color:rgb(89, 156, 11);
+  }
+  #leftnav>ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 250px;
+    background-color: #555;
+  }
+  
+  #leftnav>ul>li a {
+    display: block;
+    color: whitesmoke;
+    padding: 8px 16px;
+    text-decoration: none;
+  }
+  
+  /* Change the link color on hover */
+  #leftnav>ul>li a:hover {
+    background-color: whitesmoke;
+    color: black;
+  }
 
 
 
