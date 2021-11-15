@@ -171,7 +171,7 @@ body {
 
   #image_container{
     position: relative;
-    left:9%;
+    left:11%;
     display: flex; 
       width: 100%;
       flex-wrap: wrap;
