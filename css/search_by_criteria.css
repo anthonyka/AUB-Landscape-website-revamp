@@ -156,3 +156,44 @@ table{
 .checksMainContent > div{
     margin-left: 15px;
 }
+
+/* size section */
+.treeImg{
+    padding-left: 8px;
+    height: 80px;
+}
+.growthImg{
+    padding-left: 8px;
+    height: 60px;
+}
+
+/* color boxes */
+
+.colorBoxWithImageText{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 75px;
+    width: 75px;
+    padding: 5px;
+    margin: 10px;
+    opacity: 0.5;
+}
+
+.colorBoxWithImageText:hover{
+    opacity: 0.9;
+    border: 2px solid var(--passive-border);
+}
+
+.colorBoxWithImageTextSelected{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 75px;
+    width: 75px;
+    margin: 10px;
+    padding: 5px;
+    border: 2px solid var(--primary-active-border);
+}

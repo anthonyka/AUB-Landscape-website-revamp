@@ -1,6 +1,7 @@
 //------------------map creation start-----------------//
 
 const domainImages = "https://landscapeplants.aub.edu.lb/images/search/plant/";
+const domainColorImages = "https://landscapeplants.aub.edu.lb/images/search/";
 const plantTypeMap = new Map();
 plantTypeMap.set("Cactus/Succulent", domainImages + "CactusSucculent.png");
 plantTypeMap.set("Ground Cover", domainImages + "GroundCover.png");
@@ -25,6 +26,35 @@ waterMap.set("High", domainImages + "water-high.png");
 waterMap.set("Moderate", domainImages + "moderate.png");
 waterMap.set("Low", domainImages + "water-low.png");
 
+const canopyShapeMap = new Map();
+canopyShapeMap.set("Weeping", domainImages + "Weeping.png");
+canopyShapeMap.set("Upright/Erect", domainImages + "Upright.png");
+canopyShapeMap.set("Vase", domainImages + "Vase.png");
+canopyShapeMap.set("Pyramidal", domainImages + "Pyramidal.png");
+canopyShapeMap.set("Rounded", domainImages + "Rounded.png");
+canopyShapeMap.set("Columnar", domainImages + "Columnar.png");
+canopyShapeMap.set("Oval", domainImages + "Oval.png");
+canopyShapeMap.set("Palm", domainImages + "Palm.png");
+canopyShapeMap.set("Spreading", domainImages + "Spreading.png");
+
+const colorGrowMap = new Map();
+colorGrowMap.set("Green", domainColorImages + "green.png");
+colorGrowMap.set("Purple", domainColorImages + "purple.png");
+colorGrowMap.set("Red", domainColorImages + "red.png");
+colorGrowMap.set("Yellow", domainColorImages + "yellow.png");
+colorGrowMap.set("Blue/Blue-green", domainColorImages + "blue.png");
+colorGrowMap.set("Silver", domainColorImages + "silver.png");
+colorGrowMap.set("Variegtaed", domainColorImages + "variegat.png");
+
+const colorChangeMap = new Map();
+colorChangeMap.set("Green", domainColorImages + "green.png");
+colorChangeMap.set("Purple", domainColorImages + "purple.png");
+colorChangeMap.set("Red", domainColorImages + "red.png");
+colorChangeMap.set("Yellow", domainColorImages + "yellow.png");
+colorChangeMap.set("Orange", domainColorImages + "orange.png");
+colorChangeMap.set("Brown", domainColorImages + "brown.png");
+colorChangeMap.set("Copper", domainColorImages + "copper.png");
+
 //-------------------map creation end---------------------//
 window.onload = function () {
     getCountries();
@@ -33,7 +63,11 @@ window.onload = function () {
     createLight();
     createSoil();
     createWater();
+    createCanopyShape();
+    createColorGrow();
+    createColorChange();
     hideAndUnhide();
+
 }
 
 //----------other functions--------//
@@ -146,18 +180,30 @@ function temperatureColor(temp) {
 //create filter box
 function selectFilter() {
     if (this.getAttribute("selected") == "true") {
-        this.classList.add("boxWithImageText");
-        this.classList.remove("boxWithImageTextSelected")
-        if(this == getID("light") || this == getID("soil")|| this == getID("water")){
-            div.classList.add("boxWithImageTextSmall");
+        if (this == getID("plantColorGrow") || this == getID("plantColorChange")) {
+            div.classList.add("colorBoxWithImageText");
+            div.classList.remove("colorBoxWithImageTextSelected")
+        } else {
+            this.classList.add("boxWithImageText");
+            this.classList.remove("boxWithImageTextSelected")
+            if (this == getID("light") || this == getID("soil") || this == getID("water")) {
+                div.classList.add("boxWithImageTextSmall");
+            }
         }
+
         this.setAttribute("selected", "false");
     } else {
-        this.classList.remove("boxWithImageText")
-        this.classList.add("boxWithImageTextSelected");
-        if(this == getID("light") || this == getID("soil") || this == getID("water")){
-            div.classList.add("boxWithImageTextSmall");
+        if (this == getID("plantColorGrow") || this == getID("plantColorChange")) {
+            div.classList.add("colorBoxWithImageTextSelected");
+            div.classList.remove("colorBoxWithImageText")
+        } else {
+            this.classList.remove("boxWithImageText")
+            this.classList.add("boxWithImageTextSelected");
+            if (this == getID("light") || this == getID("soil") || this == getID("water")) {
+                div.classList.add("boxWithImageTextSmall");
+            }
         }
+
         this.setAttribute("selected", "true");
     }
 }
@@ -186,6 +232,24 @@ function createWater() {
     createFilterBoxes(water, waterMap);
 }
 
+// populate canopy shape
+function createCanopyShape() {
+    let canopyShape = getID("canopyShape");
+    createFilterBoxes(canopyShape, canopyShapeMap);
+}
+
+//populate color grow type
+function createColorGrow() {
+    let colorGrow = getID("plantColorGrow");
+    createFilterBoxes(colorGrow, colorGrowMap);
+}
+
+//populate color change type
+function createColorChange() {
+    let colorChange = getID("plantColorChange");
+    createFilterBoxes(colorChange, colorChangeMap);
+}
+
 //other
 function initializeTooltips() {
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
@@ -194,21 +258,27 @@ function initializeTooltips() {
     })
 }
 
-function createFilterBoxes(parentDiv, usedMap){
+function createFilterBoxes(parentDiv, usedMap) {
     for (let [key, value] of usedMap) {
         let div = document.createElement("div");
-        div.classList.add("boxWithImageText");
-        if(usedMap == lightMap || usedMap == soilMap || usedMap == waterMap){
-            div.classList.add("boxWithImageTextSmall");
+        if (usedMap == colorChangeMap || usedMap == colorGrowMap) {
+            div.classList.add("colorBoxWithImageText");
+        } else {
+            div.classList.add("boxWithImageText");
+            if (usedMap == lightMap || usedMap == soilMap || usedMap == waterMap) {
+                div.classList.add("boxWithImageTextSmall");
+            }
         }
+
+
         let image = document.createElement("img");
         image.src = value;
         let text = document.createElement("p");
-        text.innerHTML=key;
+        text.innerHTML = key;
         div.appendChild(image);
         div.appendChild(text);
         div.style.cursor = "pointer";
-        div.addEventListener("click",selectFilter)
+        div.addEventListener("click", selectFilter)
         parentDiv.appendChild(div);
     }
 }
@@ -217,25 +287,25 @@ function createFilterBoxes(parentDiv, usedMap){
 function hideAndUnhide() {
     let iconsShow = document.querySelectorAll('.fa-eye');
     for (let index = 0; index < iconsShow.length; index++) {
-        iconsShow[index].addEventListener("click",toggleHide);
-        iconsShow[index].style.cursor="pointer";
+        iconsShow[index].addEventListener("click", toggleHide);
+        iconsShow[index].style.cursor = "pointer";
     }
 }
 
 function toggleHide() {
     //case currently visible -> hide
-    if(this.classList[1] == "fa-eye"){
+    if (this.classList[1] == "fa-eye") {
         this.classList.remove("fa-eye");
         this.classList.add("fa-eye-slash");
-        
+
         let parent = this.parentNode.parentNode;
-        parent.querySelector(".content").style.display="none";
-    }else if(this.classList[1] == "fa-eye-slash"){
+        parent.querySelector(".content").style.display = "none";
+    } else if (this.classList[1] == "fa-eye-slash") {
         this.classList.remove("fa-eye-slash");
         this.classList.add("fa-eye");
-        
+
         let parent = this.parentNode.parentNode;
-        parent.querySelector(".content").style.display="block";
+        parent.querySelector(".content").style.display = "block";
     }
 }
 
