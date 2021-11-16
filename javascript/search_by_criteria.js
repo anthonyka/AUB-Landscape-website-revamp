@@ -55,6 +55,30 @@ colorChangeMap.set("Orange", domainColorImages + "orange.png");
 colorChangeMap.set("Brown", domainColorImages + "brown.png");
 colorChangeMap.set("Copper", domainColorImages + "copper.png");
 
+const flowerColorMap = new Map();
+flowerColorMap.set("White/Creamy", domainColorImages + "f-white.png");
+flowerColorMap.set("Pink", domainColorImages + "f-pink.png");
+flowerColorMap.set("Purple", domainColorImages + "f-purple.png");
+flowerColorMap.set("Blue", domainColorImages + "f-blue.png");
+flowerColorMap.set("Red", domainColorImages + "f-red.png");
+flowerColorMap.set("Green", domainColorImages + "f-green.png");
+flowerColorMap.set("Yellow", domainColorImages + "f-yellow.png");
+flowerColorMap.set("Orange", domainColorImages + "f-orange.png");
+flowerColorMap.set("Brown", domainColorImages + "f-brown.png");
+
+const fruitColorMap = new Map();
+fruitColorMap.set("White", domainColorImages + "fruit-white.png");
+fruitColorMap.set("Pink", domainColorImages + "fruit-pink.png");
+fruitColorMap.set("Purple", domainColorImages + "fruit-purple.png");
+fruitColorMap.set("Blue", domainColorImages + "fruit-blue.png");
+fruitColorMap.set("Red", domainColorImages + "fruit-red.png");
+fruitColorMap.set("Green", domainColorImages + "fruit-green.png");
+fruitColorMap.set("Yellow", domainColorImages + "fruit-yellow.png");
+fruitColorMap.set("Orange", domainColorImages + "fruit-orange.png");
+fruitColorMap.set("Brown", domainColorImages + "fruit-brown.png");
+fruitColorMap.set("Gray", domainColorImages + "fruit-gray.png");
+fruitColorMap.set("Black", domainColorImages + "fruit-black.png");
+
 //-------------------map creation end---------------------//
 window.onload = function () {
     getCountries();
@@ -66,6 +90,8 @@ window.onload = function () {
     createCanopyShape();
     createColorGrow();
     createColorChange();
+    createFlowerColor();
+    createFruitColor();
     hideAndUnhide();
 
 }
@@ -248,6 +274,18 @@ function createColorGrow() {
 function createColorChange() {
     let colorChange = getID("plantColorChange");
     createFilterBoxes(colorChange, colorChangeMap);
+}
+
+// populate flower color
+function createFlowerColor() {
+    let flowerColor = getID("plantFlowerColor");
+    createFilterBoxes(flowerColor, flowerColorMap);
+}
+
+// populate fruit color
+function createFruitColor() {
+    let fruitColor = getID("fruitColor");
+    createFilterBoxes(fruitColor, fruitColorMap);
 }
 
 //other

@@ -197,3 +197,12 @@ table{
     padding: 5px;
     border: 2px solid var(--primary-active-border);
 }
+
+/* persistence scent */
+
+#persistenceSection{
+    flex: 0 0 50%;
+}
+#scentSection{
+    flex: 0 0 50%;
+}
