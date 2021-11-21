@@ -24,7 +24,7 @@
 
         <div>
             <h2>Criteria</h2>
-            <form action="">
+            <form action="" id="criteriaForm">
                 <!-- Country and Climate -->
                 <fieldset>
                     <legend>Country and Climate <i class="fas fa-eye"></i></legend>
@@ -544,7 +544,7 @@
 
                         <!-- building section -->
                         <div id="buildingSection" class="filterSections">
-                            <h5>Human Use</h5>
+                            <h5>Building</h5>
                             <div id="building" class="filterSubSection checksMainContent">
                                 <table width="100%">
                                     <tr>
@@ -1127,7 +1127,7 @@
                 <fieldset>
                     <legend data-bs-toggle="tooltip" title="Use the options below to search for plants based on a combination of characteristics.
                     If in doubt about any characteristic, don't hesitate to leave a field blank.
-                    For a definition of each search term, refer to the glossary for help.">Flower <i
+                    For a definition of each search term, refer to the glossary for help.">Fruit <i
                             class="fas fa-eye"></i>
                     </legend>
                     <div class="content">
@@ -1618,6 +1618,10 @@
                     </div>
                 </fieldset>
 
+                <div id="floatButtons">
+                    <button type="button" class="btn btn-primary" id="submitButton">Submit</button>
+                    <button type="button" class="btn btn-light" id="resetButton">Reset</button>
+                </div>
             </form>
 
         </div>

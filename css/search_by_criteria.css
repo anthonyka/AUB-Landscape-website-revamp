@@ -206,3 +206,21 @@ table{
 #scentSection{
     flex: 0 0 50%;
 }
+
+/* float buttons */
+#floatButtons{
+    width: 30%;
+    height: 50px;
+    text-align: center;
+    background-color: var(--passive-button);
+    opacity: 0.95;
+    position: fixed;
+    bottom: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 5%;
+}

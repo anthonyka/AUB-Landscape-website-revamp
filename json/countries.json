@@ -19,6 +19,46 @@
         "name": "Egypt",
         "temperatures": ["29.5", "26.5","23.5","21","18.5","15.5"],
         "altitude":[]
+      },
+      {
+        "name": "Iraq",
+        "temperatures": ["34", "26.5","23.5","21","18.5","15.5"],
+        "altitude":[]
+      },
+      {
+        "name": "Jordan",
+        "temperatures": ["31", "26.5","20","21","18.5","10"],
+        "altitude":[]
+      },
+      {
+        "name": "Kuwait",
+        "temperatures": ["40", "30","23.5","22","18.5","15.5"],
+        "altitude":[]
+      },
+      {
+        "name": "Libya",
+        "temperatures": ["40", "26.5","23.5","21","18.5","15.5"],
+        "altitude":[]
+      },
+      {
+        "name": "Mauritania",
+        "temperatures": ["20", "18","17","15","10","5"],
+        "altitude":[]
+      },
+      {
+        "name": "Morroco",
+        "temperatures": ["29.5", "26.5","23.5","21","18.5","15.5"],
+        "altitude":[]
+      },
+      {
+        "name": "Oman",
+        "temperatures": ["29.5", "26.5","23.5","21","18.5","15.5"],
+        "altitude":[]
+      },
+      {
+        "name": "Palestine",
+        "temperatures": ["29.5", "26.5","23.5","21","18.5","15.5"],
+        "altitude":[]
       }
       ]
   }

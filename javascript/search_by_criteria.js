@@ -1,5 +1,5 @@
 //------------------map creation start-----------------//
-
+const backendDomain = "http://localhost:3000";
 const domainImages = "https://landscapeplants.aub.edu.lb/images/search/plant/";
 const domainColorImages = "https://landscapeplants.aub.edu.lb/images/search/";
 const plantTypeMap = new Map();
@@ -79,6 +79,27 @@ fruitColorMap.set("Brown", domainColorImages + "fruit-brown.png");
 fruitColorMap.set("Gray", domainColorImages + "fruit-gray.png");
 fruitColorMap.set("Black", domainColorImages + "fruit-black.png");
 
+//JS object to send
+function filters(country, temperatures, plantType, light, soil, water, soilPH,
+    tolerance, lifeCycle, outdoor, specialized, nativeEnvironment,
+    humanUse, building, canopyShape, plantHeight, plantSpread,
+    timeToHeight, growthRate, colorPlantGrow, colorPlantChange, persistence,
+    PlantScent, colorFlower, flowerSeason, flowerScent, flowerShowiness,
+    fruitColor, fruitShowiness, fruitSeason, fruitSize, trunkEsthetic, crownshaft,
+    edible, litter, rooting, toxicity, invasivePotential, diseases, pruning, lifeSpan ) {
+    this.country = country;this.temperatures = temperatures;this.plantType = plantType;
+    this.light = light;this.soil = soil;this.water = water;this.tolerance = tolerance;this.lifeCycle = lifeCycle;this.outdoor = outdoor;this.specialized = specialized;
+    this.nativeEnvironment = nativeEnvironment;this.humanUse = humanUse;this.building = building;this.canopyShape = canopyShape;this.plantHeight = plantHeight;this.plantSpread = plantSpread;
+    this.timeToHeight = timeToHeight;this.growthRate = growthRate;this.colorPlantGrow = colorPlantGrow; this.colorPlantChange = colorPlantChange;
+    this.persistence = persistence;this.PlantScent = PlantScent;this.colorFlower = colorFlower;this.flowerSeason = flowerSeason;this.flowerScent = flowerScent;
+    this.flowerShowiness = flowerShowiness;this.fruitColor = fruitColor;this.fruitShowiness = fruitShowiness;
+    this.fruitSeason = fruitSeason;this.fruitSize = fruitSize;this.trunkEsthetic = trunkEsthetic;
+    this.crownshaft = crownshaft;this.edible = edible;this.litter = litter;this.rooting = rooting;this.toxicity = toxicity;this.invasivePotential = invasivePotential;
+    this.diseases = diseases;this.pruning = pruning;this.lifeSpan = lifeSpan; this.soilPH = this.soilPH
+}
+
+let filter = new filters();
+
 //-------------------map creation end---------------------//
 window.onload = function () {
     getCountries();
@@ -94,27 +115,18 @@ window.onload = function () {
     createFruitColor();
     hideAndUnhide();
 
+    let submitButton = getID("submitButton");
+    submitButton.addEventListener("click",sendFilters);
+
+    let resetButton = getID("resetButton");
+    resetButton.addEventListener("click",function () {
+        window.location.reload();
+    });
 }
 
-//----------other functions--------//
-function getID(id) {
-    try {
-        return document.getElementById(id);
-    } catch (error) {
-        return error;
-    }
-}
 
-//-------------API calls----------//
-function getCountries() {
-    fetch('../json/countries.json')
-        .then(response => response.json())
-        .then(function (json) {
-            let countries = json.countries;
-            console.log(countries);
-            genCountriesDropDown(countries);
-        })
-}
+
+
 
 //-----------DOM mod functions----------//
 
@@ -137,6 +149,7 @@ function createDDItemCountry(country) {
 
     item.addEventListener("click", function () {
         getID("countryDropDownButton").innerHTML = this.text;
+        filter.country = this.text;
         showImage(this);
         genTemperatureDD(country);
     })
@@ -206,27 +219,27 @@ function temperatureColor(temp) {
 //create filter box
 function selectFilter() {
     if (this.getAttribute("selected") == "true") {
-        if (this == getID("plantColorGrow") || this == getID("plantColorChange")) {
-            div.classList.add("colorBoxWithImageText");
-            div.classList.remove("colorBoxWithImageTextSelected")
+        if (this.parentNode == getID("plantColorGrow") || this.parentNode == getID("plantColorChange")) {
+            this.classList.add("colorBoxWithImageText");
+            this.classList.remove("colorBoxWithImageTextSelected")
         } else {
             this.classList.add("boxWithImageText");
             this.classList.remove("boxWithImageTextSelected")
             if (this == getID("light") || this == getID("soil") || this == getID("water")) {
-                div.classList.add("boxWithImageTextSmall");
+                this.classList.add("boxWithImageTextSmall");
             }
         }
 
         this.setAttribute("selected", "false");
     } else {
-        if (this == getID("plantColorGrow") || this == getID("plantColorChange")) {
-            div.classList.add("colorBoxWithImageTextSelected");
-            div.classList.remove("colorBoxWithImageText")
+        if (this.parentNode == getID("plantColorGrow") || this.parentNode == getID("plantColorChange")) {
+            this.classList.add("colorBoxWithImageTextSelected");
+            this.classList.remove("colorBoxWithImageText")
         } else {
             this.classList.remove("boxWithImageText")
             this.classList.add("boxWithImageTextSelected");
             if (this == getID("light") || this == getID("soil") || this == getID("water")) {
-                div.classList.add("boxWithImageTextSmall");
+                this.classList.add("boxWithImageTextSmall");
             }
         }
 
@@ -348,8 +361,140 @@ function toggleHide() {
 }
 
 
+//-----------------API communication-------------//
+function getCountries() {
+    fetch(backendDomain+'/countries')
+        .then(response => response.json())
+        .then(function (json) {
+            console.log(json);
+            let countries = json;
+            console.log(countries);
+            genCountriesDropDown(countries);
+        })
+}
 
+function sendFilters() {
+    //get temperatures
+    let temperatures = [];
+    let temperaturesCheck = getID("temperature-dropdown").querySelectorAll('input[type=checkbox]:checked');
+    for (var i = 0; i < temperaturesCheck.length; i++) {
+        temperatures.push(temperaturesCheck[i].value)
+    }
+    filter.temperatures = temperatures;
 
+    //plant type
+    let plantType = [];
+    let plantTypeCheck = getID("plantType").querySelectorAll('[selected="true"]');
+    for (var i = 0; i < plantTypeCheck.length; i++) {
+        plantType.push(plantTypeCheck[i].querySelector("p").innerHTML)
+    }
+    filter.plantType = plantType;
 
+    //Light
+    let light = [];
+    let lightCheck = getID("light").querySelectorAll('[selected="true"]');
+    for (var i = 0; i < lightCheck.length; i++) {
+        light.push(lightCheck[i].querySelector("p").innerHTML)
+    }
+    filter.light = light;
+
+    //soil
+    let soil = [];
+    let soilCheck = getID("soil").querySelectorAll('[selected="true"]');
+    for (var i = 0; i < soilCheck.length; i++) {
+        soil.push(soilCheck[i].querySelector("p").innerHTML)
+    }
+    filter.soil = soil;
+    
+    //water
+    let water = [];
+    let waterCheck = getID("water").querySelectorAll('[selected="true"]');
+    for (var i = 0; i < waterCheck.length; i++) {
+        water.push(waterCheck[i].querySelector("p").innerHTML)
+    }
+    filter.water = water;
+
+    //soilPH
+    let soilPH = [];
+    let soilPHCheck = getID("soilPH").querySelectorAll('input[type="checkbox"]:checked');
+    for (var i = 0; i < soilPHCheck.length; i++) {
+        soilPH.push(soilPHCheck[i].value)
+    }
+    filter.soilPH = soilPH;
+
+    //tolerance
+    let tolerance = [];
+    let toleranceCheck = getID("tolerance").querySelectorAll('input[type="radio"]:checked');
+    for (var i = 0; i < toleranceCheck.length; i++) {
+        tolerance.push(toleranceCheck[i].id)
+    }
+    filter.tolerance = tolerance;
+
+    //lifeCycle
+    let lifeCycle = [];
+    let lifeCycleCheck = getID("lifeCycle").querySelectorAll('input[type="radio"]:checked');
+    for (var i = 0; i < lifeCycleCheck.length; i++) {
+        lifeCycle.push(lifeCycleCheck[i].id)
+    }
+    filter.lifeCycle = lifeCycle;
+
+    //outdoor
+    let outdoor = [];
+    let outdoorCheck = getID("outdoor").querySelectorAll('input[type="checkbox"]:checked');
+    for (var i = 0; i < outdoorCheck.length; i++) {
+        outdoor.push(outdoorCheck[i].value)
+    }
+    filter.outdoor = outdoor;
+
+    //specialized
+    let specialized = [];
+    let specializedCheck = getID("specialized").querySelectorAll('input[type="checkbox"]:checked');
+    for (var i = 0; i < specializedCheck.length; i++) {
+        specialized.push(specializedCheck[i].value)
+    }
+    filter.specialized = specialized;
+
+    //nativeEnvironment
+    let nativeEnvironment = [];
+    let nativeEnvironmentCheck = getID("nativeEnvironment").querySelectorAll('input[type="checkbox"]:checked');
+    for (var i = 0; i < nativeEnvironmentCheck.length; i++) {
+        nativeEnvironment.push(nativeEnvironmentCheck[i].value)
+    }
+    filter.nativeEnvironment = nativeEnvironment;
+
+    //humanUse
+    let humanUse = [];
+    let humanUseCheck = getID("humanUse").querySelectorAll('input[type="checkbox"]:checked');
+    for (var i = 0; i < humanUseCheck.length; i++) {
+        humanUse.push(humanUseCheck[i].value)
+    }
+    filter.humanUse = humanUse;
+
+    //building
+    let building = [];
+    let buildingCheck = getID("building").querySelectorAll('input[type="checkbox"]:checked');
+    for (var i = 0; i < buildingCheck.length; i++) {
+        building.push(buildingCheck[i].value)
+    }
+    filter.building = building;
+
+    //plant type
+    let canopy = [];
+    let canopyCheck = getID("canopyShape").querySelectorAll('[selected="true"]');
+    for (var i = 0; i < canopyCheck.length; i++) {
+        canopy.push(canopyCheck[i].querySelector("p").innerHTML)
+    }
+    filter.canopy = canopy;
+
+}
+
+//----------other functions--------//
+function getID(id) {
+    try {
+        return document.getElementById(id);
+    } catch (error) {
+        return error;
+    }
+}
 
 
