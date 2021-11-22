@@ -1,4 +1,4 @@
-    
+
     var allplants;
     var Index=0;
     window.onload= function(){
@@ -74,7 +74,7 @@ function createelement(json){
     // mycontainer.appendChild(Scientificname);
     mycontainer.appendChild(name);
     mycontainer.onclick= function() {
-        window.location.href="popular_plants.html?categoryName="+json.categoryName;
+        window.location.href="popular_plants2.html";
        };
     return mycontainer;
 }
