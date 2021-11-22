@@ -41,7 +41,8 @@
     function loadpage(){
         fetch('../json/categories.json')
         .then(function (response) {
-            console.log(response)
+            console.log("hey");
+            console.log(response);
             return response.json();
         })
         .then(function (json) {
@@ -72,6 +73,9 @@ function createelement(json){
     mycontainer.appendChild(myimage);
     // mycontainer.appendChild(Scientificname);
     mycontainer.appendChild(name);
+    mycontainer.onclick= function() {
+        window.location.href="popular_plants.html?categoryName="+json.categoryName;
+       };
     return mycontainer;
 }
 

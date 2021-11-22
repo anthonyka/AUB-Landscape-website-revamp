@@ -1,22 +1,28 @@
 {
     "Categories" : [{
         "name":"Fragrant Plants",
-        "src":"fragant.jpg"
+        "src":"fragant.jpg",
+        "categoryName":"Fragant"
     }, {
         "name":"Flowering Plants", 
-        "src":"Flowering.jpg"
+        "src":"Flowering.jpg",
+        "categoryName":"Flowering"
     },{
         "name":"Edible Plants",
-        "src":"Edible.jpg"
+        "src":"Edible.jpg",
+        "categoryName":"Edible"
     },{
         "name":"Plants for arid regions",
-        "src":"Arid.jpg"
+        "src":"Arid.jpg",
+        "categoryName":"Arid"
     },{
         "name":"Plants for shade",
-        "src":"Shade.jpg"
+        "src":"Shade.jpg",
+        "categoryName":"Shade"
     },{
         "name":"Ground covers",
-        "src":"Groundcover.jpg"
+        "src":"Groundcover.jpg",
+        "categoryName":"Groundcover"
     }]
     
 }
