@@ -17,7 +17,7 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(client => {
 
         let countriesCollection = client.db("landscapeAUB").collection("countries");
-        let palntsCollection = client.db("landscapeAUB").collection("plants");
+        let plantsCollection = client.db("landscapeAUB").collection("plants");
         console.log(countriesCollection);
         //---------------------routes------------------------//
 
@@ -33,13 +33,22 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
         //added by paul
         app.get("/plants", (req, res) => {
             console.log(">>>>>>>>>>>>>>>>>>in plants");
-            palntsCollection.find().toArray()
+            plantsCollection.find().toArray()
                 .then(results => {
                     res.send(results)
                 })
                 .catch(error => console.error(error))
         })
-        /////////////
+        
+        //route for plant filter by criteria
+        app.post("/searchByCriteria", (req, res) => {
+            console.log(">>>>>>>>>>>>>>>>>>in searchByCriteria");
+            let filters = req.body;
+            console.log(filters);
+            //TODO: use the filters to select plants that meet ALL the criteria
+            
+        })
+
         app.listen(port, () => {
             console.log(`listening at http://localhost:${port}`)
         })
