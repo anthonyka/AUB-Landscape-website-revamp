@@ -6,8 +6,9 @@ const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 //added by paul
 const path = require('path');
+app.use(express.static(__dirname+"/public"));
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../pages/image_gallery.html'));
+    res.sendFile(path.join(__dirname, 'public/image_gallery.html'));
 })
 /////////////////
 //---------------connecting to MongoDB------------//

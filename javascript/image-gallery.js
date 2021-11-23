@@ -1,5 +1,5 @@
     
-    var allplants;
+    var allplants="all";
     var Index=0;
     window.onload= function(){
 
@@ -25,6 +25,11 @@
                 .then(function (json) {
                     allplants = JSON.parse(json);
                     console.log(allplants);
+                    var prevIndex=Index;
+                    // while(Index<allplants.length && (Index-prevIndex<9)){
+                    //     document.getElementById("image_container").appendChild(createelement(allplants[Index]));
+                    //     Index++;
+                    // }
                     for(var i=0;i<allplants.length;i++){
                         document.getElementById("image_container").appendChild(createelement(allplants[i])) 
                     }
@@ -39,14 +44,19 @@
 
 
     function loadpage(){
-        fetch('../json/plants.json')
+        fetch('../json/extra.json')
         .then(function (response) {
             console.log(response)
             return response.json();
         })
         .then(function (json) {
             allplants = JSON.parse(json);
+            console.log("all plants")
             console.log(allplants);
+            // while(Index<allplants.length && (Index-prevIndex<9)){
+            //     document.getElementById("image_container").appendChild(createelement(allplants[Index]));
+            //     Index++;
+            // }
             for(var i=0;i<12;i++){
                 document.getElementById("image_container").appendChild(createelement(allplants[i])) 
             }

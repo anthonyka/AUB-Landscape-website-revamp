@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Anthony Kahwaji">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- <script src="../javascript/search_by_criteria.js" type="text/javascript"></script> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="image_gallery.css" type="text/css" rel="stylesheet" />
+    <script src="image-gallery.js"></script>
+</head>
+
+<body>
+    <header>
+        <div class="header">
+            <img src="https://landscapeplants.aub.edu.lb/images/logo.png" class="aub_logo">
+            <h6 id="landscape">Landscape desing & Ecosystem Management</h6>    
+            <h8 id="faculty">faculty of agriculture and food sciences</h8><br>
+            <h5 id="database"><strong>AUB Landscape and Plant Database</strong></h5>
+            <div id="searches_main">
+                <div class="searches">
+                    <img id="search_images1" src="https://landscapeplants.aub.edu.lb/images/tab_search_small.png">
+                    <p>Search by <br> name</p>
+                </div>
+                <div class="searches">
+                    <img id="search_images2" src="https://landscapeplants.aub.edu.lb/images/tab_criteria.png">
+                    <sapn>Search by <br> Criteria</span>
+                </div>
+                <div class="searches">
+                    <img id="search_images3" src="https://landscapeplants.aub.edu.lb/images/tab_identification.png">
+                    <sapn>Plant <br> Indentification</span>
+                </div>
+            </div>
+            <div class="nav">
+                <ul>
+                  <li class="home"><a href="home.html">Home</a></li>
+                  <li class="About_Us"><a href="#">About_Us</a></li>
+                  <li class="Useful_Links"><a href="#">Useful Links</a></li>
+                  <li class="Image_Gallery"><a  class="active" href="#">Image Gallery</a></li>
+                  <li class="Popular_plant_Categories"><a href="popular_plants.html">Popular plant Categories</a></li>
+                  <li class="Glossary"><a href="#">Glossary</a></li>
+                  <li class="Contanctus"><a href="#">Contanct us</a></li>
+                </ul>
+              </div>
+        </div>
+
+    </header>
+
+    <main>
+        <body class="news">
+            <header>
+            </header>
+            <div id="myModal" class="modal">
+                &#8594;
+                <span id="right">&#8594;</span>
+                <span id="left">&#8592;</span>
+                <span class="close">&times;</span>
+                <img class="modal-content" id="img01">
+                <div id="caption"></div>
+            </div>
+            <div id="image_container">
+
+                <!-- <div class="item"><img class="item_image" src="https://landscapeplants.aub.edu.lb/Plants/Photo/c40a3008-48f3-4cfc-873e-dbe46e7e947e/Plant"></div> -->
+                <!-- <div class="item"><img class="item_image" src="https://landscapeplants.aub.edu.lb/Plants/Photo/c40a3008-48f3-4cfc-873e-dbe46e7e947e/Plant"></div>
+                <div class="item"><img class="item_image" src="https://landscapeplants.aub.edu.lb/Plants/Photo/c40a3008-48f3-4cfc-873e-dbe46e7e947e/Plant"></div>
+                <div class="item"><img class="item_image" src="https://landscapeplants.aub.edu.lb/Plants/Photo/c40a3008-48f3-4cfc-873e-dbe46e7e947e/Plant"></div>
+                <div class="item"><img class="item_image" src="https://landscapeplants.aub.edu.lb/Plants/Photo/c40a3008-48f3-4cfc-873e-dbe46e7e947e/Plant"></div>
+                <div class="item"><img class="item_image" src="https://landscapeplants.aub.edu.lb/Plants/Photo/c40a3008-48f3-4cfc-873e-dbe46e7e947e/Plant"></div> -->
+            </div>
+            <div id="leftnav">
+                <h5>Select Plant Type</h5>
+                <ul>
+                    <li><a id="alltypes">All Types</a></li>
+                    <li><a id= "lawn">Lawn</a></li>
+                    <li><a id= "shrub">Shrub</a></li>
+                    <li><a>Groundcover</a></li>
+                    <li><a id="cactus">Cactus / Succulent</a></li>
+                    <li><a id= "palm">Palm</a></li>
+                    <li><a>Tree</a></li>
+                    <li><a>Vine</a></li>
+                  </ul>
+            </div>
+          </body>
+    </main>
+
+    <div class="footer-basic">
+        <footer>
+            <ul class="list-inline">
+                <li class="list-inline-item"><a href="#">Copyright</a></li>
+                <li class="list-inline-item"><a href="#">Citing the plant database</a></li>
+                <li class="list-inline-item"><a href="#">Acknowledgements </a></li>
+                <li class="list-inline-item"><a href="#">Contact Us</a></li>
+            </ul>
+            <p class="copyright">Company Name © 2018</p>
+        </footer>
+    </div>
+</body>
+
+</html>
