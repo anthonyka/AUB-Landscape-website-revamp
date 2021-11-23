@@ -374,6 +374,16 @@ function getCountries() {
 }
 
 function sendFilters() {
+    //country
+    let country;
+    let countryCheck = getID("countryDropDownButton").innerHTML;
+    if(countryCheck == "Choose a country"){
+        country = "";
+    }else{
+        country = countryCheck;
+    }
+    filter.country = country;
+
     //get temperatures
     let temperatures = [];
     let temperaturesCheck = getID("temperature-dropdown").querySelectorAll('input[type=checkbox]:checked');
