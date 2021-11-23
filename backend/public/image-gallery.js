@@ -36,7 +36,7 @@
             add_elements();
         });
         console.log("hey");
-        loadpage();
+        add_elements();
         window.onscroll = function()
         {
             
@@ -83,7 +83,7 @@
     }
 function add_elements(){
     console.log(myplants);
-    fetch('/plants')
+    fetch('/plants?type='+myplants)
     .then(function (response) {
         // console.log(response);
         return response.json();
@@ -91,75 +91,72 @@ function add_elements(){
     .then(function (json) {
         allplants = json;
         // console.log(allplants);
-        if (myplants=="all"){
             var prevIndex=Index;
             while(Index<allplants.length && (Index-prevIndex<6)){
-                
                 document.getElementById("image_container").appendChild(createelement(allplants[Index]));
                 Index++;
             }
-        }
-        else if(myplants=="cactus"){
-            console.log("in");
-            var prevIndex=Index;
-            while(Index<allplants.length && (Index-prevIndex<6)){
-                console.log("hello");
-                if(allplants[Index].type=='cactus'){
-                    console.log("hi");
-                    console.log(allplants[Index]);
-                    document.getElementById("image_container").appendChild(createelement(allplants[Index]));
+        // else if(myplants=="cactus"){
+        //     console.log("in");
+        //     var prevIndex=Index;
+        //     while(Index<allplants.length && (Index-prevIndex<6)){
+        //         console.log("hello");
+        //         if(allplants[Index].type=='cactus'){
+        //             console.log("hi");
+        //             console.log(allplants[Index]);
+        //             document.getElementById("image_container").appendChild(createelement(allplants[Index]));
             
-                }
-                Index++;
+        //         }
+        //         Index++;
 
-            }
-        }
-        else if(myplants=="palm"){
-            console.log("in");
-            var prevIndex=Index;
-            while(Index<allplants.length && (Index-prevIndex<6)){
-                console.log("hello");
-                if(allplants[Index].type=='palm'){
-                    console.log("hi");
-                    console.log(allplants[Index]);
-                    document.getElementById("image_container").appendChild(createelement(allplants[Index]));
+        //     }
+        // }
+        // else if(myplants=="palm"){
+        //     console.log("in");
+        //     var prevIndex=Index;
+        //     while(Index<allplants.length && (Index-prevIndex<6)){
+        //         console.log("hello");
+        //         if(allplants[Index].type=='palm'){
+        //             console.log("hi");
+        //             console.log(allplants[Index]);
+        //             document.getElementById("image_container").appendChild(createelement(allplants[Index]));
             
-                }
-                Index++;
+        //         }
+        //         Index++;
 
-            }
-        }
-        else if(myplants=="lawn"){
-            console.log("in");
-            var prevIndex=Index;
-            while(Index<allplants.length && (Index-prevIndex<6)){
-                console.log("hello");
-                if(allplants[Index].type=='lawn'){
-                    console.log("hi");
-                    console.log(allplants[Index]);
-                    document.getElementById("image_container").appendChild(createelement(allplants[Index]));
+        //     }
+        // }
+        // else if(myplants=="lawn"){
+        //     console.log("in");
+        //     var prevIndex=Index;
+        //     while(Index<allplants.length && (Index-prevIndex<6)){
+        //         console.log("hello");
+        //         if(allplants[Index].type=='lawn'){
+        //             console.log("hi");
+        //             console.log(allplants[Index]);
+        //             document.getElementById("image_container").appendChild(createelement(allplants[Index]));
             
-                }
-                Index++;
+        //         }
+        //         Index++;
 
-            }
-        }
-        else if(myplants=="shrub"){
-            console.log("in");
-            var prevIndex=Index;
-            while(Index<allplants.length && (Index-prevIndex<6)){
-                console.log("hello");
-                console.log(Index);
-                if(allplants[Index].type=='shrub'){
-                    console.log("hi");
-                    console.log(allplants[Index]);
-                    document.getElementById("image_container").appendChild(createelement(allplants[Index]));
+        //     }
+        // }
+        // else if(myplants=="shrub"){
+        //     console.log("in");
+        //     var prevIndex=Index;
+        //     while(Index<allplants.length && (Index-prevIndex<6)){
+        //         console.log("hello");
+        //         console.log(Index);
+        //         if(allplants[Index].type=='shrub'){
+        //             console.log("hi");
+        //             console.log(allplants[Index]);
+        //             document.getElementById("image_container").appendChild(createelement(allplants[Index]));
             
-                }
-                Index++;
+        //         }
+        //         Index++;
 
-            }
-        }
+        //     }
+        // }
     });
 }
 

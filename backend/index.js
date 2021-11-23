@@ -35,11 +35,23 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
         //added by paul
         app.get("/plants", (req, res) => {
             console.log(">>>>>>>>>>>>>>>>>>in plants");
-            plantsCollection.find().toArray()
+            console.log(req.query.type);
+            if (req.query.type=="all"){
+                plantsCollection.find().toArray()
                 .then(results => {
                     res.send(results)
                 })
                 .catch(error => console.error(error))
+            }
+            else {
+                plantsCollection.find({type: req.query.type}).toArray()
+                .then(results => {
+                    res.send(results)
+                })
+                .catch(error => console.error(error))
+                
+            }
+
         })
         
         //route for plant filter by criteria
