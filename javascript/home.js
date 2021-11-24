@@ -33,11 +33,15 @@ function createelement(json){
     var Scientificname=document.createElement("p");
     Scientificname.innerHTML=json.ScientificName;
     Scientificname.setAttribute("class", "Scientificname");
+    var ref=document.createElement("a");
+    ref.setAttribute("href","/Plants/PlantProfile?PlantId="+json.PlantId);
+    ref.innerHTML="more";
     name.innerHTML=json.CommonEnglishName;
     name.setAttribute("class", "englishname");
     mycontainer.appendChild(spot);
     mycontainer.appendChild(myimage);
     mycontainer.appendChild(Scientificname);
     mycontainer.appendChild(name);
+    mycontainer.appendChild(ref);
     return mycontainer;
 }

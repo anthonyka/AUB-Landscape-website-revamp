@@ -2,11 +2,6 @@
     var allplants;
     var Index=0;
     window.onload= function(){
-        const queryString = window.location.search;
-        console.log(queryString); 
-        const urlParams = new URLSearchParams(queryString);
-        const product = urlParams.get('filter');
-        console.log(product);
         // console.log("hey");
         loadpage();
         window.onscroll = function()
@@ -43,15 +38,21 @@
 
 
     function loadpage(){
-        fetch('/plants?type=all')
+        // ?filter='+product)
+        const queryString = window.location.search;
+        console.log(queryString); 
+        const urlParams = new URLSearchParams(queryString);
+        const product = urlParams.get('filter');
+        console.log(product);
+        fetch('/plantsfiltered?filter='+product)
         .then(function (response) {
-            // console.log("hey");
+            console.log("hey");
             // console.log(response);
             return response.json();
         })
         .then(function (json) {
             categories = json;
-            // console.log(categories);
+            console.log(categories);
             for(var i=0;i<categories.length;i++){
                 // console.log(categories[i]);
                 document.getElementById("image_container").appendChild(createelement(categories[i])) 

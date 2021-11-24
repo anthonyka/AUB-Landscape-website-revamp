@@ -71,6 +71,60 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
             }
 
         })
+        app.get("/plantsfiltered", (req, res) => {
+
+            console.log(">>>>>>>>>>>>>>>>>>in plantsfiltered");
+            console.log(req.query.filter);
+            if (req.query.filter=="fragrant"){
+                plantsCollection.find({fragrant:"yes"}).toArray()
+                .then(results => {
+                    res.send(results)
+                })
+                .catch(error => console.error(error))
+            }
+            else if(req.query.filter=="flowering"){
+                plantsCollection.find().toArray()
+                .then(results => {
+                    res.send(results)
+                })
+                .catch(error => console.error(error))
+                
+            }
+            else if(req.query.filter=="edible"){
+                plantsCollection.find({edible:"yes"}).toArray()
+                .then(results => {
+                    res.send(results)
+                })
+                .catch(error => console.error(error))
+            }
+            else if(req.query.filter=="arid"){
+                plantsCollection.find().toArray()
+                .then(results => {
+                    res.send(results)
+                })
+                .catch(error => console.error(error))
+            }
+            else if(req.query.filter=="shade"){
+                plantsCollection.find({shade:"yes"}).toArray()
+                .then(results => {
+                    res.send(results)
+                })
+                .catch(error => console.error(error))
+            }
+            else if(req.query.filter=="Ground cover"){
+                plantsCollection.find({shade:"yes"}).toArray()
+                .then(results => {
+                    res.send(results)
+                })
+                .catch(error => console.error(error))
+            }
+            else{
+                res.send({})
+
+            
+            }
+
+        })
         
         //route for plant filter by criteria
         app.post("/searchByCriteria", (req, res) => {

@@ -2,6 +2,7 @@
     var myplants="all";
     var Index=0;
     var myjson;
+    mylength=0;
     //   console.log("myJson");
     //   console.log(myJson); 
     window.onload= function(){
@@ -37,6 +38,17 @@
         });
         console.log("hey");
         add_elements();
+        // alert(document.getElementById("render").value);
+        document.getElementById("render").addEventListener("change",function() {
+            Index=0;
+            document.getElementById("image_container").innerHTML="";
+            add_elements();
+        });
+        document.getElementById("sort").addEventListener("change",function() {
+            Index=0;
+            document.getElementById("image_container").innerHTML="";
+            add_elements();
+        });
         window.onscroll = function()
         {
             
@@ -46,8 +58,8 @@
              var difference = document.documentElement.scrollHeight - window.innerHeight;
              var scrollposition = document.documentElement.scrollTop;
              
-             if (difference - scrollposition <= 2)
-             {  if (Index<allplants.length){
+             if (difference - scrollposition <= 1)
+             {  if (Index<mylength){
                 add_elements();
              }
              
@@ -69,7 +81,7 @@
             allplants = json;
             console.log(allplants);
             prevIndex=Index;
-            while(Index<allplants.length && ((Index-prevIndex)<6)){
+            while(Index<allplants.length && ((Index-prevIndex)<parseInt(document.getElementById("render").value))){
                 document.getElementById("image_container").appendChild(createelement(allplants[Index]));
                 Index=Index+1;
             }
@@ -90,9 +102,12 @@ function add_elements(){
     })
     .then(function (json) {
         allplants = json;
+        allplants.sort(GetSortOrder(document.getElementById("sort").value));
+        // alert("sorted");
         // console.log(allplants);
             var prevIndex=Index;
-            while(Index<allplants.length && (Index-prevIndex<6)){
+            mylength=allplants.length;
+            while(Index<allplants.length && (Index-prevIndex<parseInt(document.getElementById("render").value))){
                 document.getElementById("image_container").appendChild(createelement(allplants[Index]));
                 Index++;
             }
@@ -169,6 +184,7 @@ function createelement(json){
     mycontainer.imageIdex=0;
     mycontainer.setAttribute("class","polaroid");
     myimage=document.createElement("div");
+    myimage.object=json;
     myimage.style.backgroundImage="url(https://landscapeplants.aub.edu.lb"+key+")";
     myimage.setAttribute("class", "item_image");
     var name=document.createElement("p");
@@ -177,6 +193,8 @@ function createelement(json){
     Scientificname.setAttribute("class", "Scientificname");
     name.innerHTML=json.CommonEnglishName;
     name.setAttribute("class", "englishname");
+    Scientificname.onclick= function() {
+        window.location.href="/Plants/PlantProfile?PlantId="+json.PlantId;};
     mycontainer.appendChild(myimage);
     mycontainer.appendChild(Scientificname);
     mycontainer.appendChild(name);
@@ -187,7 +205,7 @@ function createelement(json){
     // Get the image and insert it inside the modal - use its "alt" text as a caption
     var modalImg = document.getElementById("img01");
     var captionText = document.getElementById("caption");
-    mycontainer.onclick = function(){
+    myimage.onclick = function(){
     modal.style.display = "block";
     modal.object=json;
     modal.index=0;
@@ -223,7 +241,16 @@ function createelement(json){
 }
 
 
-
+function GetSortOrder(prop) {    
+    return function(a, b) {    
+        if (a[prop] > b[prop]) {    
+            return 1;    
+        } else if (a[prop] < b[prop]) {    
+            return -1;    
+        }    
+        return 0;    
+    }    
+}    
 
 // allplants = JSON.parse(json);
 // console.log(allplants);

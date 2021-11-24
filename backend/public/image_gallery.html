@@ -15,7 +15,7 @@
 <body>
     <header>
         <div class="header">
-            <img src="https://landscapeplants.aub.edu.lb/images/logo.png" class="aub_logo">
+            <a href="/"><img src="https://landscapeplants.aub.edu.lb/images/logo.png"  class="aub_logo"></a>
             <h6 id="landscape">Landscape desing & Ecosystem Management</h6>    
             <h8 id="faculty">faculty of agriculture and food sciences</h8><br>
             <h5 id="database"><strong>AUB Landscape and Plant Database</strong></h5>
@@ -52,6 +52,21 @@
         <body class="news">
             <header>
             </header>
+            <div id="renderdiv">
+                <label for="render">number of images rendered every time</label>
+                <select id="render" name="render">
+                  <option value="3">3</option>
+                  <option value="6">6</option>
+                  <option value="9">9</option>
+                  <option value="12">12</option>
+                </select>
+                <label for="sort">sort by</label>
+                <select id="sort" name="sort">
+                  <option value="ScientificName">Scientific Name</option>
+                  <option value="CommonEnglishName">Common English Name</option>
+                </select>
+            </div>
+
             <div id="myModal" class="modal">
                 &#8594;
                 <span id="right">&#8594;</span>

@@ -72,9 +72,10 @@ function createelement(json){
     name.setAttribute("class", "englishname");
     mycontainer.appendChild(myimage);
     // mycontainer.appendChild(Scientificname);
+    mycontainer.filter=json.filter;
     mycontainer.appendChild(name);
     mycontainer.onclick= function() {
-        window.location.href="/popular_pants_page2?filter=test";
+        window.location.href="/popular_pants_page2?filter="+mycontainer.filter;
        };
     return mycontainer;
 }

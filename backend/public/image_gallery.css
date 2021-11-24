@@ -276,8 +276,15 @@ body {
     color: black;
   }
 
-
-
+  /* .ref{
+    position: absolute;
+    left:40%;
+    bottom: 2%;
+  } */
+#renderdiv{
+  position: relative;
+  left:40%;
+}
 
   .polaroid {
     width: 250px;
@@ -293,11 +300,13 @@ body {
   .Scientificname{
     text-align: center;
     color:rgb(20, 139, 20);
+    cursor: pointer;
     margin-bottom: 0;
   }
   .englishname{
     text-align: center;
     color: #4b4c4d;
+    margin-bottom: 0;
   }
 
   /* Image Modal ///////////////////////////////////////////*/
