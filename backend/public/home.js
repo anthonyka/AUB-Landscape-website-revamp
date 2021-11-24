@@ -33,6 +33,8 @@ function createelement(json){
     Scientificname.setAttribute("class", "Scientificname");
     name.innerHTML=json.CommonEnglishName;
     name.setAttribute("class", "englishname");
+    var more=document.createElement("a");
+    // more.setAttribute("href", "/Plants/PlantProfile?");
     mycontainer.appendChild(spot);
     mycontainer.appendChild(myimage);
     mycontainer.appendChild(Scientificname);
