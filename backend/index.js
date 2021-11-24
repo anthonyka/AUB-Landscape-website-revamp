@@ -12,8 +12,18 @@ app.use(express.static(__dirname + "/public"));
 
 //added by paul
 const path = require('path');
+app.use(express.static(__dirname+"/public"));
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../pages/image_gallery.html'));
+    res.sendFile(path.join(__dirname, 'public/home.html'));
+})
+app.get('/pants_page', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/image_gallery.html'));
+})
+app.get('/popular_pants_page', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/popular_plants.html'));
+})
+app.get('/popular_pants_page2', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/popular_plants2.html'));
 })
 /////////////////
 //---------------connecting to MongoDB------------//
@@ -23,6 +33,7 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(client => {
 
         let countriesCollection = client.db("landscapeAUB").collection("countries");
+        let categoriesCollection = client.db("landscapeAUB").collection("categories");
         let plantsCollection = client.db("landscapeAUB").collection("plants");
         let plantsAKColletion = client.db("landscapeAUB").collection("plants-AK");
         let allPlantsColletion = client.db("landscapeAUB").collection("allPlants");
@@ -38,14 +49,88 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
                 })
                 .catch(error => console.error(error))
         })
-        //added by paul
-        app.get("/plants", (req, res) => {
-            console.log(">>>>>>>>>>>>>>>>>>in plants");
-            plantsCollection.find().toArray()
+        app.get("/categories", (req, res) => {
+            console.log(">>>>>>>>>>>>>>>>>>in countries");
+            categoriesCollection.find().toArray()
                 .then(results => {
                     res.send(results)
                 })
                 .catch(error => console.error(error))
+        })
+        //added by paul
+        app.get("/plants", (req, res) => {
+            console.log(">>>>>>>>>>>>>>>>>>in plants");
+            console.log(req.query.type);
+            if (req.query.type=="all"){
+                plantsCollection.find().toArray()
+                .then(results => {
+                    res.send(results)
+                })
+                .catch(error => console.error(error))
+            }
+            else {
+                plantsCollection.find({type: req.query.type}).toArray()
+                .then(results => {
+                    res.send(results)
+                })
+                .catch(error => console.error(error))
+                
+            }
+
+        })
+        app.get("/plantsfiltered", (req, res) => {
+
+            console.log(">>>>>>>>>>>>>>>>>>in plantsfiltered");
+            console.log(req.query.filter);
+            if (req.query.filter=="fragrant"){
+                plantsCollection.find({fragrant:"yes"}).toArray()
+                .then(results => {
+                    res.send(results)
+                })
+                .catch(error => console.error(error))
+            }
+            else if(req.query.filter=="flowering"){
+                plantsCollection.find().toArray()
+                .then(results => {
+                    res.send(results)
+                })
+                .catch(error => console.error(error))
+                
+            }
+            else if(req.query.filter=="edible"){
+                plantsCollection.find({edible:"yes"}).toArray()
+                .then(results => {
+                    res.send(results)
+                })
+                .catch(error => console.error(error))
+            }
+            else if(req.query.filter=="arid"){
+                plantsCollection.find().toArray()
+                .then(results => {
+                    res.send(results)
+                })
+                .catch(error => console.error(error))
+            }
+            else if(req.query.filter=="shade"){
+                plantsCollection.find({shade:"yes"}).toArray()
+                .then(results => {
+                    res.send(results)
+                })
+                .catch(error => console.error(error))
+            }
+            else if(req.query.filter=="Ground cover"){
+                plantsCollection.find({shade:"yes"}).toArray()
+                .then(results => {
+                    res.send(results)
+                })
+                .catch(error => console.error(error))
+            }
+            else{
+                res.send({})
+
+            
+            }
+
         })
         
         //route for plant filter by criteria

@@ -2,9 +2,6 @@
     var allplants;
     var Index=0;
     window.onload= function(){
-        const queryString = window.location.search;
-        // console.log(queryString); 
-        // console.log(queryString);
         // console.log("hey");
         loadpage();
         window.onscroll = function()
@@ -41,15 +38,21 @@
 
 
     function loadpage(){
-        fetch('../json/plant_info.json')
+        // ?filter='+product)
+        const queryString = window.location.search;
+        console.log(queryString); 
+        const urlParams = new URLSearchParams(queryString);
+        const product = urlParams.get('filter');
+        console.log(product);
+        fetch('/plantsfiltered?filter='+product)
         .then(function (response) {
-            // console.log("hey");
+            console.log("hey");
             // console.log(response);
             return response.json();
         })
         .then(function (json) {
             categories = json;
-            // console.log(categories);
+            console.log(categories);
             for(var i=0;i<categories.length;i++){
                 // console.log(categories[i]);
                 document.getElementById("image_container").appendChild(createelement(categories[i])) 
@@ -62,7 +65,7 @@
 
 function createelement(json){
     var key="https://landscapeplants.aub.edu.lb"+json.Images[0].Key;
-    alert(key)
+    // alert(key)
     var mycontainer=document.createElement("div");
     mycontainer.setAttribute("class","section");
     myimage=document.createElement("img");
@@ -197,12 +200,4 @@ function createelement(json){
     return mycontainer;
 }
 
-// allplants = JSON.parse(json);
-// console.log(allplants);
-// var key=allplants[0].Images[0].Key
-// console.log(key);
-// myimage=document.createElement("div");
-// myimage.style.backgroundImage="url(https://landscapeplants.aub.edu.lb"+key+")";
-// myimage.setAttribute("class", "item_image");
-// document.getElementById("image_container").appendChild(myimage);
 

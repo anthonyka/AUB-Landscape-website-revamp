@@ -1,0 +1,429 @@
+
+/* ////////////////////// */
+body {
+    margin: 0;
+    padding: 0;
+    background: #ccc;
+  }
+
+  main{
+    min-height: 500px;
+    width: 70%;
+    margin: 0 auto;
+}
+
+.header{
+    background-color: rgb(89, 156, 11);
+    width: 100%;
+    height: 234px;
+    position: relative;
+}
+.aub_logo{
+    position: relative;
+    top: 20px;
+    left: 20px;
+    width:120px;
+}
+#landscape{
+    position: relative;
+    top:20px;
+    left:5px;
+}
+#faculty{
+    position: relative;
+    top:12px;
+    left:5px;
+}
+#database{
+    position: relative;
+    top:12px;
+    left:5px;
+    color:whitesmoke;
+}
+
+.titles{
+    color: rgb(20, 139, 20);
+    font-weight: bold;
+    font-size:2rem;
+}
+
+
+.bodyreferences{
+    color: rgb(20, 139, 20);
+    text-decoration: none;
+}
+.bodyreferences:hover{
+    color: rgb(177, 18, 142);
+}
+
+#letters>*{
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-right: 8px;
+  }
+  #letters>*:hover{
+    color: rgb(177, 18, 142);
+
+  }
+  #searches_main{
+      display: flex;
+      position: absolute;
+      right:100px;
+      top : 60px;
+  }
+  .searches {
+    border-radius: 25px;
+    border: 2px solid #73AD21;
+    padding: 20px; 
+    width: 200px;
+    height: 100px;  
+    background-color: #ccc;
+  }
+#search_images1{
+    float: left;
+    width:40px;
+}
+#search_images2{
+    width:60px;
+    float: left;
+}
+#search_images3{
+    width:40px;
+    float: left;
+    margin-right: 7px;
+}
+
+
+
+  .nav{
+      display: block;
+      width: 1520px;
+      position:relative;
+      top:20px;
+  }
+  .nav ul {
+    list-style: none;
+    background-color: #444;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+  }
+  .nav li {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.2em;
+    line-height: 40px;
+    height: 40px;
+    border-bottom: 1px solid #888;
+  }
+   
+  .nav a {
+    font-size: 0.8em;
+    text-decoration: none;
+    color: #fff;
+    display: block;
+    transition: .3s background-color;
+  }
+   
+  .nav a:hover {
+    background-color: #005f5f;
+  }
+   
+  .nav a.active {
+    background-color: #fff;
+    color: #444;
+    cursor: default;
+  }
+   
+  @media screen and (min-width: 600px) {
+    .nav li {
+      width: 217px;
+      border-bottom: none;
+      height: 50px;
+      line-height: 50px;
+      font-size: 1.4em;
+    }
+   
+    /* Option 1 - Display Inline */
+    .nav li {
+      display: inline-block;
+      margin-right: -4px;
+    }
+   
+    /* Options 2 - Float
+    .nav li {
+      float: left;
+    }
+    .nav ul {
+      overflow: auto;
+      width: 600px;
+      margin: 0 auto;
+    }
+    .nav {
+      background-color: #444;
+    }
+    */
+  }
+
+
+
+
+  #image_container{
+    position: relative;
+    left:11%;
+    display: flex; 
+      width: 100%;
+      flex-wrap: wrap;
+  }
+  .item_image{
+      background-size: cover;
+      width:250px;
+      height: 190px;
+      background-position: center;
+  }
+
+  .footer-basic {
+    padding:40px 0;
+    background-color:rgb(89, 156, 11);
+    color:#4b4c4d;
+  }
+  
+  .footer-basic ul {
+    padding:0;
+    list-style:none;
+    text-align:center;
+    font-size:18px;
+    line-height:1.6;
+    margin-bottom:0;
+  }
+  
+  .footer-basic li {
+    padding:0 10px;
+  }
+  
+  .footer-basic ul a {
+    color:whitesmoke;
+    text-decoration:none;
+    opacity:0.8;
+  }
+  
+  .footer-basic ul a:hover {
+    color:rgb(177, 18, 142);
+  }
+  
+  .footer-basic .social {
+    text-align:center;
+    padding-bottom:25px;
+  }
+  
+  .footer-basic .social > a {
+    font-size:24px;
+    width:40px;
+    height:40px;
+    line-height:40px;
+    display:inline-block;
+    text-align:center;
+    border-radius:50%;
+    border:1px solid #ccc;
+    margin:0 8px;
+    color:inherit;
+    color: whitesmoke;
+  }
+  
+  .footer-basic .social > a:hover {
+    opacity:0.9;
+  }
+  
+  .footer-basic .copyright {
+    margin-top:15px;
+    text-align:center;
+    font-size:13px;
+    color:white;
+    margin-bottom:0;
+  }
+  #leftnav {
+    width: 250px;
+    background-color: #444;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    position: fixed;
+    bottom: 100px;
+    left: 35px;
+  }
+  #leftnav>h5{
+    margin-left: 4px;
+    margin-top: 4px;
+    color:rgb(89, 156, 11);
+  }
+  #leftnav>ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 250px;
+    background-color: #555;
+  }
+  
+  #leftnav>ul>li a {
+    display: block;
+    color: whitesmoke;
+    padding: 8px 16px;
+    text-decoration: none;
+  }
+  
+  /* Change the link color on hover */
+  #leftnav>ul>li a:hover {
+    background-color: whitesmoke;
+    color: black;
+  }
+
+  /* .ref{
+    position: absolute;
+    left:40%;
+    bottom: 2%;
+  } */
+#renderdiv{
+  position: relative;
+  left:40%;
+}
+
+  .polaroid {
+    width: 250px;
+    height: 270px;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .Scientificname{
+    text-align: center;
+    color:rgb(20, 139, 20);
+    cursor: pointer;
+    margin-bottom: 0;
+  }
+  .englishname{
+    text-align: center;
+    color: #4b4c4d;
+    margin-bottom: 0;
+  }
+
+  /* Image Modal ///////////////////////////////////////////*/
+
+  #myImg {
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  #myImg:hover {opacity: 0.7;}
+  
+  /* The Modal (background) */
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+  }
+  
+  /* Modal Content (image) */
+  .modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 450px;
+  }
+  
+  /* Caption of Modal Image */
+  #caption {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    color: #ccc;
+    padding: 10px 0;
+    height: 150px;
+  }
+  
+  /* Add Animation */
+  .modal-content, #caption {  
+    -webkit-animation-name: zoom;
+    -webkit-animation-duration: 0.6s;
+    animation-name: zoom;
+    animation-duration: 0.6s;
+  }
+  
+  @-webkit-keyframes zoom {
+    from {-webkit-transform:scale(0)} 
+    to {-webkit-transform:scale(1)}
+  }
+  
+  @keyframes zoom {
+    from {transform:scale(0)} 
+    to {transform:scale(1)}
+  }
+  
+  /* The Close Button */
+  .close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  #right {
+    position: absolute;
+    top: 50%;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+  }
+  #right:hover,
+  #right:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  #left {
+    position: absolute;
+    top: 50%;
+    left: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+  }
+  #left:hover,
+  #left:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  /* 100% Image Width on Smaller Screens */
+  @media only screen and (max-width: 700px){
+    .modal-content {
+      width: 100%;
+    }
+  }
+
