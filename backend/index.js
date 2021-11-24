@@ -13,6 +13,12 @@ app.get('/', (req, res) => {
 app.get('/pants_page', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/image_gallery.html'));
 })
+app.get('/popular_pants_page', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/popular_plants.html'));
+})
+app.get('/popular_pants_page2', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/popular_plants2.html'));
+})
 /////////////////
 //---------------connecting to MongoDB------------//
 var MongoClient = require('mongodb').MongoClient;
@@ -21,6 +27,7 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(client => {
 
         let countriesCollection = client.db("landscapeAUB").collection("countries");
+        let categoriesCollection = client.db("landscapeAUB").collection("categories");
         let plantsCollection = client.db("landscapeAUB").collection("plants");
         let allPlantsColletion = client.db("landscapeAUB").collection("plants-AK");
         console.log(countriesCollection);
@@ -30,6 +37,14 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
         app.get("/countries", (req, res) => {
             console.log(">>>>>>>>>>>>>>>>>>in countries");
             countriesCollection.find().toArray()
+                .then(results => {
+                    res.send(results)
+                })
+                .catch(error => console.error(error))
+        })
+        app.get("/categories", (req, res) => {
+            console.log(">>>>>>>>>>>>>>>>>>in countries");
+            categoriesCollection.find().toArray()
                 .then(results => {
                     res.send(results)
                 })

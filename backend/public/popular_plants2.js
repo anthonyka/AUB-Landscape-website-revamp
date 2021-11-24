@@ -39,7 +39,7 @@
 
 
     function loadpage(){
-        fetch('../json/plant_info.json')
+        fetch('/plants?type=all')
         .then(function (response) {
             console.log("hey");
             console.log(response);
@@ -60,7 +60,7 @@
 
 function createelement(json){
     var key="https://landscapeplants.aub.edu.lb"+json.Images[0].Key;
-    alert(key)
+    // alert(key)
     var mycontainer=document.createElement("div");
     mycontainer.setAttribute("class","section");
     myimage=document.createElement("img");
