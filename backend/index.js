@@ -8,6 +8,9 @@ app.use(bodyParser.json());
 const path = require('path');
 app.use(express.static(__dirname+"/public"));
 app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/home.html'));
+})
+app.get('/pants_page', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/image_gallery.html'));
 })
 /////////////////
