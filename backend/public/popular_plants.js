@@ -74,7 +74,7 @@ function createelement(json){
     // mycontainer.appendChild(Scientificname);
     mycontainer.appendChild(name);
     mycontainer.onclick= function() {
-        window.location.href="popular_plants2.html";
+        window.location.href="/popular_pants_page2?filter=test";
        };
     return mycontainer;
 }
