@@ -195,12 +195,4 @@ function createelement(json){
     return mycontainer;
 }
 
-// allplants = JSON.parse(json);
-// console.log(allplants);
-// var key=allplants[0].Images[0].Key
-// console.log(key);
-// myimage=document.createElement("div");
-// myimage.style.backgroundImage="url(https://landscapeplants.aub.edu.lb"+key+")";
-// myimage.setAttribute("class", "item_image");
-// document.getElementById("image_container").appendChild(myimage);
 
