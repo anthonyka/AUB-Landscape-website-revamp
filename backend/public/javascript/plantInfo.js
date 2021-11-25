@@ -18,6 +18,8 @@ window.onload = function () {
     divDesc[index].addEventListener("click", switchTab);
   }
 
+  let pdf = document.getElementById("downloadPDF");
+  pdf.addEventListener("click", generatePDF);
 }
 
 
@@ -54,13 +56,20 @@ function showSlides(n) {
 function switchTab() {
   let divDesc = document.getElementsByClassName("divDescription");
   for (let index = 0; index < divDesc.length; index++) {
-    divDesc[index].style.display="none";
+    divDesc[index].style.display = "none";
   }
-  if(this.innerHTML == "Landscape Information"){
+  if (this.innerHTML == "Landscape Information") {
     divDesc[0].style.removeProperty("display");
-  }else if(this.innerHTML == "Botanical Description"){
+  } else if (this.innerHTML == "Botanical Description") {
     divDesc[1].style.removeProperty("display");
-  }else if(this.innerHTML == "Horticulture Management"){
+  } else if (this.innerHTML == "Horticulture Management") {
     divDesc[2].style.removeProperty("display");
   }
+}
+
+function generatePDF() {
+  // Choose the element that our invoice is rendered in.
+  const element = document.getElementById('allContent');
+  // Choose the element and save the PDF for our user.
+  html2pdf().from(element).save();
 }

@@ -1,6 +1,3 @@
-@import './colors.css';
-@import '../fonts/fonts.css';
-
 .gallery {
     position: relative;
   }
@@ -8,6 +5,11 @@
   /* Hide the images by default */
   .mySlides {
     display: none;
+  }
+
+  .mySlides img{
+    max-height: 500px;
+    width: 100%;
   }
 
   
@@ -108,10 +110,19 @@
     color: rgb(104, 104, 104);
   }
 
-  #allContent{
-      border: 2px, solid, var(--primary-active-border);
+  main{
+    /* margin-top: 10px; */
+    border: 2px, solid, rgb(5, 139, 0);
   }
-  
+
+  .promptLinks{
+    font-size: 1.2rem;
+    display: block;
+  }
+
+  .promptLinks i{
+    padding-right: 5px;
+  }
 
 /* ////////////////////// */
 body {
