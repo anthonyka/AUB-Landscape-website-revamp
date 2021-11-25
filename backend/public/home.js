@@ -1,5 +1,5 @@
 window.onload=function(){
-    fetch("/plants")
+    fetch("/allplants?type=all")
     .then(function (response) {
         console.log(response);
         return response.json();
@@ -16,6 +16,7 @@ window.onload=function(){
 }
 
 function createelement(json){
+    console.log(json);
     var spot=document.createElement("p");
     spot.setAttribute("id","spot");
     spot.innerHTML="Spotlight";
@@ -34,7 +35,7 @@ function createelement(json){
     name.innerHTML=json.CommonEnglishName;
     name.setAttribute("class", "englishname");
     var ref=document.createElement("a");
-    ref.setAttribute("href","/Plants/PlantProfile?PlantId="+json.PlantId);
+    ref.setAttribute("href","/Plants/PlantProfile?PlantId="+json._id);
     ref.setAttribute("class","ref");
     ref.innerHTML="more";
     mycontainer.appendChild(spot);
