@@ -4,6 +4,12 @@ const port = 3000;
 let url = require('url');
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
+
+app.set('views', './public');
+app.set('view engine', 'ejs');
+app.use(express.static(__dirname + "/public"));
+
+
 //added by paul
 const path = require('path');
 app.use(express.static(__dirname+"/public"));
@@ -29,7 +35,8 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
         let countriesCollection = client.db("landscapeAUB").collection("countries");
         let categoriesCollection = client.db("landscapeAUB").collection("categories");
         let plantsCollection = client.db("landscapeAUB").collection("plants");
-        let allPlantsColletion = client.db("landscapeAUB").collection("plants-AK");
+        let plantsAKColletion = client.db("landscapeAUB").collection("plants-AK");
+        let allPlantsColletion = client.db("landscapeAUB").collection("allPlants");
         console.log(countriesCollection);
         //---------------------routes------------------------//
 
@@ -189,9 +196,26 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
             console.log(query);
             //TODO: this now works, just need to send the info to a view engine or frontend for rendering
             //finding all that match
-            allPlantsColletion.find(query).toArray()
+            plantsAKColletion.find(query).toArray()
                 .then(results => console.log(results));
             
+            //TODO: find partial matches
+
+        })
+
+        app.get("/plant", (req,res) => {
+            let q = url.parse(req.url, true).query;
+            let id = new require("mongodb").ObjectID(q.id);
+            console.log(id);
+            allPlantsColletion.find({"_id" : id}).toArray()
+                .then(results => {
+                    console.log(results);
+                    if(results==""){
+                        res.send("no results");
+                    }else{
+                        res.render("plantInfo", {plant: results[0]});
+                    }
+                });
         })
 
         app.listen(port, () => {
