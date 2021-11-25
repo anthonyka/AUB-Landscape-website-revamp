@@ -194,7 +194,7 @@ function createelement(json){
     name.innerHTML=json.CommonEnglishName;
     name.setAttribute("class", "englishname");
     Scientificname.onclick= function() {
-        alert("/plant?id="+json._id);
+        // alert("/plant?id="+json._id);
         window.location.href="/plant?id="+json._id;};
     mycontainer.appendChild(myimage);
     mycontainer.appendChild(Scientificname);

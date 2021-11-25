@@ -35,7 +35,7 @@ function createelement(json){
     name.innerHTML=json.CommonEnglishName;
     name.setAttribute("class", "englishname");
     var ref=document.createElement("a");
-    ref.setAttribute("href","/Plants/PlantProfile?PlantId="+json._id);
+    ref.setAttribute("href","/plant?id="+json._id);
     ref.setAttribute("class","ref");
     ref.innerHTML="more";
     mycontainer.appendChild(spot);
