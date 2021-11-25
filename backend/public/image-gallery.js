@@ -95,7 +95,7 @@
     }
 function add_elements(){
     console.log(myplants);
-    fetch('/plants?type='+myplants)
+    fetch('/allplants?type='+myplants)
     .then(function (response) {
         // console.log(response);
         return response.json();
@@ -194,7 +194,8 @@ function createelement(json){
     name.innerHTML=json.CommonEnglishName;
     name.setAttribute("class", "englishname");
     Scientificname.onclick= function() {
-        window.location.href="/Plants/PlantProfile?PlantId="+json.PlantId;};
+        alert("/plant?id="+json._id);
+        window.location.href="/plant?id="+json._id;};
     mycontainer.appendChild(myimage);
     mycontainer.appendChild(Scientificname);
     mycontainer.appendChild(name);
