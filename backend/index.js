@@ -42,7 +42,7 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
         let categoriesCollection = client.db("landscapeAUB").collection("categories");
         let plantsCollection = client.db("landscapeAUB").collection("plants");
         // let plantsAKColletion = client.db("landscapeAUB").collection("plants-AK");
-        let allPlantsColletion = client.db("landscapeAUB").collection("allPlants");
+        let allPlantsCollection = client.db("landscapeAUB").collection("allPlants");
         console.log(countriesCollection);
         //---------------------routes------------------------//
 
@@ -88,14 +88,14 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
             console.log(">>>>>>>>>>>>>>>>>>in plants");
             console.log(req.query.type);
             if (req.query.type=="all"){
-                allPlantsColletion.find().toArray()
+                allPlantsCollection.find().toArray()
                 .then(results => {
                     res.send(results)
                 })
                 .catch(error => console.error(error))
             }
             else {
-                allPlantsColletion.find({plantType: req.query.type}).toArray()
+                allPlantsCollection.find({plantType: req.query.type}).toArray()
                 .then(results => {
                     res.send(results)
                 })
@@ -110,45 +110,45 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
             console.log(">>>>>>>>>>>>>>>>>>in plantsfiltered");
             console.log(req.query.filter);
             if (req.query.filter=="fragrant"){
-                plantsCollection.find({fragrant:"yes"}).toArray()
+                allPlantsCollection.find({fragrant:{$in: ["scentFlowerPleasant", "scentFlowerUnpleasant"]}}).toArray()
                 .then(results => {
-                    res.send(results)
+                    res.render("searchResults",{plants:results});
                 })
                 .catch(error => console.error(error))
             }
             else if(req.query.filter=="flowering"){
-                plantsCollection.find().toArray()
+                allPlantsCollection.find({colorFlower: { $exists: true, $ne: [] }}).toArray()
                 .then(results => {
-                    res.send(results)
+                    res.render("searchResults",{plants:results});
                 })
                 .catch(error => console.error(error))
                 
             }
             else if(req.query.filter=="edible"){
-                plantsCollection.find({edible:"yes"}).toArray()
+                allPlantsCollection.find({edible:"yes"}).toArray()
                 .then(results => {
-                    res.send(results)
+                    res.render("searchResults",{plants:results});
                 })
                 .catch(error => console.error(error))
             }
             else if(req.query.filter=="arid"){
-                plantsCollection.find().toArray()
+                allPlantsCollection.find().toArray()
                 .then(results => {
-                    res.send(results)
+                    res.render("searchResults",{plants:results});
                 })
                 .catch(error => console.error(error))
             }
             else if(req.query.filter=="shade"){
-                plantsCollection.find({shade:"yes"}).toArray()
+                allPlantsCollection.find({light:"Shade"}).toArray()
                 .then(results => {
-                    res.send(results)
+                    res.render("searchResults",{plants:results});
                 })
                 .catch(error => console.error(error))
             }
             else if(req.query.filter=="Ground cover"){
-                plantsCollection.find({shade:"yes"}).toArray()
+                allPlantsCollection.find({plantType:"Ground Cover"}).toArray()
                 .then(results => {
-                    res.send(results)
+                    res.render("searchResults",{plants:results});
                 })
                 .catch(error => console.error(error))
             }
@@ -224,7 +224,7 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
             console.log(query);
             //TODO: this now works, just need to send the info to a view engine or frontend for rendering
             //finding all that match
-            allPlantsColletion.find(query).toArray()
+            allPlantsCollection.find(query).toArray()
                 .then(results => {
                     console.log(results);
                     return res.render("searchResults",{plants:results});
@@ -237,7 +237,7 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
             let q = url.parse(req.url, true).query;
             let id = new require("mongodb").ObjectID(q.id);
             console.log(id);
-            allPlantsColletion.find({"_id" : id}).toArray()
+            allPlantsCollection.find({"_id" : id}).toArray()
                 .then(results => {
                     console.log(results);
                     if(results==""){
