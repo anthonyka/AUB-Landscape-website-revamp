@@ -712,11 +712,26 @@ function sendFilters() {
     }
     filter.lifeSpan = managementLifeSpan;
 
-    fetch(backendDomain + '/searchByCriteria', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(filter)
-    }).catch(err => console.error(err));
+    // fetch('/searchByCriteria', {
+    //     method: 'POST',
+    //     headers: {'Content-Type': 'application/json'},
+    //     body: JSON.stringify(filter)
+    // }).catch(err => console.error(err));
+
+    let form = document.createElement("form");
+    form.id = "hiddenForm";
+    form.action = "/searchByCriteria";
+    form.method = "POST";
+    let input = document.createElement("textarea");
+    input.id = "hiddentInput";
+    input.type="text";
+    input.name = "sentFilters";
+    input.value = JSON.stringify(filter);
+    
+    form.appendChild(input);
+    document.body.appendChild(form);
+    form.submit();
+
 }
 
 //----------other functions--------//

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Anthony Kahwaji">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- <script src="../javascript/search_by_criteria.js" type="text/javascript"></script> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="/popular_plants2.css" type="text/css" rel="stylesheet" />
+    <script src="/javascript/searchResults.js"></script>
+</head>
+
+<body>
+    <header>
+        <div class="header">
+            <img src="https://landscapeplants.aub.edu.lb/images/logo.png" class="aub_logo">
+            <h6 id="landscape">Landscape desing & Ecosystem Management</h6>    
+            <h8 id="faculty">faculty of agriculture and food sciences</h8><br>
+            <h5 id="database"><strong>AUB Landscape and Plant Database</strong></h5>
+            <div id="searches_main">
+                <div class="searches">
+                    <img id="search_images1" src="https://landscapeplants.aub.edu.lb/images/tab_search_small.png">
+                    <p>Search by <br> name</p>
+                </div>
+                <div class="searches">
+                    <img id="search_images2" src="https://landscapeplants.aub.edu.lb/images/tab_criteria.png">
+                    <sapn>Search by <br> Criteria</span>
+                </div>
+                <div class="searches">
+                    <img id="search_images3" src="https://landscapeplants.aub.edu.lb/images/tab_identification.png">
+                    <sapn>Plant <br> Indentification</span>
+                </div>
+            </div>
+            <div class="nav">
+                <ul>
+                    <li class="home"><a href="/">Home</a></li>
+                    <li class="About_Us"><a href="#">About_Us</a></li>
+                    <li class="Useful_Links"><a href="#">Useful Links</a></li>
+                    <li class="Image_Gallery"><a href="/pants_page">Image Gallery</a></li>
+                    <li class="Popular_plant_Categories"><a class="active" href="/popular_pants_page">Popular plant Categories</a></li>
+                    <li class="Glossary"><a href="#">Glossary</a></li>
+                    <li class="Contanctus"><a href="#">Contanct us</a></li>
+                  </ul>
+              </div>
+        </div>
+
+    </header>
+
+    <main>
+        <body class="news">
+            <header>
+            </header>
+            <div id="image_container">
+                <%= console.log("in ejs") %> 
+                <% if(plants=="") { %>
+                    <p>No results found</p>
+                <%}else{ %>
+                    <% plants.forEach(element => { %>
+                        <div class="section">
+                            <img class="item_image" src='<%= "https://landscapeplants.aub.edu.lb"+ element.Images[0].Key%>' alt="">
+                            <div class="contentOfSection">
+                                <p class="Scientificname">
+                                    <%=element.ScientificName%>
+                                    <span class="englishname">
+                                        <%=element.CommonEnglishName%>
+                                    </span>
+                                </p>
+                                <span class="imagesFilters">
+                                <img id="plantTypeImg" src="" class="category_image" alt=<%= element.plantType %> data-bs-toggle="tooltip">
+                                <img id="plantHeightImg" src="https://landscapeplants.aub.edu.lb/images/iconHeight.png" class="category_image" alt=<%= element.plantHeight %>  data-bs-toggle="tooltip" title=<%= element.plantHeight %>>
+                                <img id="plantSpreadImg" src="https://landscapeplants.aub.edu.lb/images/iconSpread.png" class="category_image" alt=<%= element.plantSpread %> data-bs-toggle="tooltip" title=<%= element.plantSpread %> >
+                                <img id="canopyShapeImg" src="" class="category_image" alt=<%= element.canopyShape %> data-bs-toggle="tooltip">
+                                <img id="growthRateImg" src="https://landscapeplants.aub.edu.lb/images/iconGrowth.png" class="category_image" alt=<%= element.growthRate %> data-bs-toggle="tooltip" title=<%= element.growthRate %>>
+                                <% element.colorFlower.forEach(color => { %>
+                                    <img  src="" class="category_image colorFlowerImg" alt=<%= color %> data-bs-toggle="tooltip">
+                                <% }); %>
+                                <% element.fruitColor.forEach(color => { %>
+                                    <img  src="" class="category_image fruitColorImg" alt=<%= color %> data-bs-toggle="tooltip">
+                                <% }); %>
+                                <img id="flowerScentImg" src="" class="category_image" alt='<%= element.flowerScent %>' data-bs-toggle="tooltip" title='<%= element.flowerScent %>'>
+                                <img id="edibleImg" src="" class="category_image" alt=<%= element.edible %> data-bs-toggle="tooltip" title=<%= element.edible %>>
+                                <% element.light.forEach(lightElement => { %>
+                                    <img src="" class="category_image lightImg" alt=<%= lightElement %> data-bs-toggle="tooltip">
+                                <% }); %>
+                                <img id="waterImg" src="" class="category_image" alt=<%= element.water %> data-bs-toggle="tooltip" title=<%= element.water %>>
+                                </span>
+                            </div>
+                            
+                            
+                        </div>
+                    <% }); %>
+                <%}%>
+                
+            </div>
+          </body>
+    </main>
+
+    <div class="footer-basic">
+        <footer>
+            <ul class="list-inline">
+                <li class="list-inline-item"><a href="#">Copyright</a></li>
+                <li class="list-inline-item"><a href="#">Citing the plant database</a></li>
+                <li class="list-inline-item"><a href="#">Acknowledgements </a></li>
+                <li class="list-inline-item"><a href="#">Contact Us</a></li>
+            </ul>
+            <p class="copyright">Company Name © 2018</p>
+        </footer>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
