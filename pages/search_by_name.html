@@ -47,29 +47,25 @@
         </header>
 
 
-        <div class="main">
-            <!--Browsing tabs-->
-            <div class="tabs">
-
-            </div>
+        <div class="main">            
             <!--Search by Scientific and Common name Section-->
             <div class="SearchByName">
                 <div class="title">Search By Name</div>
                 <div class="inner content">
                     <div class="CommonNameSection">
                         <label>Common Name</label>
-                        <input type="text" id="CommonName"> <br> <br>
+                        <input type="text" class="input" id="CommonName"> <br> <br>
                     </div>
-                    <div class="Common-results">
+                    <ul id="Common-results">
 
-                    </div>
-                    <div class="ScientificNameSection">
+                    </ul>
+                    <div id="ScientificNameSection">
                         <label>Scientific Name</label>
-                        <input type="text" id="ScientificName">
+                        <input type="text" class="input" id="ScientificName">
                     </div>
-                    <div class="Scientic-results">
+                    <ul id="Scientific-results">
                         
-                    </div>
+                    </ul>
                     <input type="button" id="submit-name" value="Submit">
                 </div>
             </div>
@@ -114,6 +110,9 @@
                 </div>
             </div>
         </div>
+        <div class="result">
+
+        </div>
         <div class="footer-basic">
             <footer>
                 <ul class="list-inline">
@@ -125,5 +124,6 @@
                 <p class="copyright">Company Name © 2018</p>
             </footer>
         </div>
+        
     </body>
 </html>
