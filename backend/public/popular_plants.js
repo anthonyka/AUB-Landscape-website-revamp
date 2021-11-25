@@ -75,7 +75,7 @@ function createelement(json){
     mycontainer.filter=json.filter;
     mycontainer.appendChild(name);
     mycontainer.onclick= function() {
-        window.location.href="/popular_pants_page2?filter="+mycontainer.filter;
+        window.location.href="/plantsfiltered?filter="+mycontainer.filter;
        };
     return mycontainer;
 }

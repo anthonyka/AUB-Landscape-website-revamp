@@ -12,6 +12,11 @@ body {
     margin: 0 auto;
 }
 
+.imagesFilters{
+  display: flex;
+  flex-wrap: nowrap;
+}
+
 .header{
     background-color: rgb(89, 156, 11);
     width: 100%;
@@ -170,7 +175,8 @@ body {
     height:150px;
     background-color:whitesmoke;
     margin-bottom: 2px;
-    position: relative;
+    display: flex;
+    align-items: flex-start;
 }
 
 
@@ -182,7 +188,7 @@ body {
       flex-wrap: wrap;
   }
   .item_image{
-      background-size: cover;
+      background-size: contain;
       width:200px;
       height: 150px;
       background-position: center;
@@ -290,9 +296,6 @@ body {
     color: black;
   }
 
-
-
-
   .polaroid {
     width: 250px;
     height: 270px;
@@ -305,14 +308,16 @@ body {
     cursor: pointer;
   }
 
+  .contentOfSection{
+    display: inline-block;
+  }
+
   .Scientificname{
-    position: absolute;
-    left: 21%;
-    top: 18%;
     font-size:x-large;
     font-weight: 600;
     color:rgb(20, 139, 20);
     margin-bottom: 0;
+    /* margin-top: 10px; */
   }
   .englishname{
     font-size:medium;
