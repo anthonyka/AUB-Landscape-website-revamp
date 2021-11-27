@@ -3,7 +3,7 @@ header{
 }
 .main{
     margin-top: 2%;
-    margin-left: 45%;
+    margin-left: 35%;
     margin-bottom: 5%;
 }
 .title{
@@ -16,9 +16,8 @@ header{
     color:  lightslategray;
 }
 #submit-name{
-  margin-top: 2%;
-  margin-left: 240px;
-
+  margin-top: 4%;
+  margin-left: 44%;
 }
 body {
     margin: 0;
@@ -410,4 +409,21 @@ body {
       width: 100%;
     }
   }
-
+  #Scientific-results, #Common-results{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  #CommonName, #ScientificName{
+    width: 40%;
+  }
+  .commonResult, .scientificResult{
+    margin-left: 12%;
+    width: 40%;
+    height: 20%;
+    border: gray solid 0.5px;
+    background-color: white;
+  }
+  .result{
+   
+  }
