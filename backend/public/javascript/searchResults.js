@@ -119,6 +119,12 @@ window.onload = function () {
     addImg(water, waterMap);
 
     initializeTooltips();
+    document.getElementById("zoomed_image").style.display="none";
+    var images=document.getElementsByClassName("item_image");
+for (var i=0; i<images.length; i++) {
+    images[i].onmouseout = unzoom
+    images[i].onmouseover = zoom;
+}
 }
 
 function addImg(parentDiv, usedMap) {
@@ -131,4 +137,13 @@ function initializeTooltips() {
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl)
     })
+}
+
+function zoom(){
+    document.getElementById("zoomed_image").src=this.src;
+    document.getElementById("zoomed_image").style.removeProperty("display");
+}
+function unzoom(){
+    // alert("unzoom");
+    document.getElementById("zoomed_image").style.display="none";
 }
