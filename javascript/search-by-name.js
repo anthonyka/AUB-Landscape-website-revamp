@@ -31,17 +31,22 @@ function FilterCommonResults(json){
     .then(data => {
         var foundCommon=[];
         var typed=($("CommonName").value);
+        
         typed= typed.toLowerCase()
-        console.log(typed);
+        //console.log(typed);
         let narrowedData = data.plants.forEach(name => {
             let common = name["Common-name"].toLowerCase()
-            console.log(common.substring(typed));
+            var common_nocomma=common.replace(",","");
+            var typed_fixedspacing=typed.replace("/\s/", '');
+            console.log(typed_fixedspacing);
+            //console.log(common_nocomma);
+            //console.log(common.substring(typed));
             let words = common.split(" ");
-            if (typed == "") {
+            if (typed == "" ||typed==" ") {
                 return null;
             }
             for (let i = 0; i < words.length; i++) {
-                if (words[i].startsWith(typed)) {
+                if (common.indexOf(typed)!==-1||common_nocomma.indexOf(typed)!==-1||common.indexOf(typed_fixedspacing)!==-1){
                     foundCommon.push(common);
                     break;
                 }
@@ -79,12 +84,14 @@ function FilterScientificResults(json){
         console.log(typed);
         let narrowedData = data.plants.forEach(name => {
             let scientific = name["Scientific-name"].toLowerCase()
+            var scientific_nocomma=scientific.replace(",","");
+            console.log(scientific_nocomma);
             let words = scientific.split(" ");
             if (typed == "") {
                 return null;
-            }
+            } 
             for (let i = 0; i < words.length; i++) {
-                if (words[i].startsWith(typed)) {
+                if (scientific.indexOf(typed)!==-1||scientific_nocomma.indexOf(typed)!==-1){
                     foundScientific.push(scientific);
                     break;
                 }
@@ -113,6 +120,7 @@ function DisplayScientificResults(foundScientific){
 function AllResults(){
     console.log("test");
     //document.getElementsByClassName("main").style.visibility = "hidden";
+    
     var result=document.getElementsByClassName("result");
     
 }
