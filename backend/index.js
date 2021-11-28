@@ -31,6 +31,10 @@ app.get('/popular_pants_page', (req, res) => {
 app.get('/popular_pants_page2', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/popular_plants2.html'));
 })
+//added by Jad
+app.get("/AboutUs", (req,res) =>{
+    res.sendFile(path.join(__dirname, 'public/about_us.html'));
+});
 /////////////////
 //---------------connecting to MongoDB------------//
 var MongoClient = require('mongodb').MongoClient;
@@ -248,9 +252,8 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
                 });
         })
         /*app.get("/SearchByName", (req,res) => {
-            
+            console.log(">>>>>>>>>>>>>>>>>>in searchByName");
         })*/
-
         app.listen(port, () => {
             console.log(`listening at http://localhost:${port}`)
         })
