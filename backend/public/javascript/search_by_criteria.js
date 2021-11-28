@@ -80,22 +80,17 @@ fruitColorMap.set("Gray", domainColorImages + "fruit-gray.png");
 fruitColorMap.set("Black", domainColorImages + "fruit-black.png");
 
 //JS object to send
-function filters(country, temperatures, plantType, light, soil, water, soilPH,
-    tolerance, lifeCycle, outdoor, specialized, nativeEnvironment,
-    humanUse, building, canopyShape, plantHeight, plantSpread,
-    timeToHeight, growthRate, plantColorGrow, plantColorChange, persistence,
-    plantScent, colorFlower, flowerSeason, flowerScent, flowerShowiness,
-    fruitColor, fruitShowiness, fruitSeason, fruitType, fruitSize, trunkEsthetic, trunkCrownshaft,
-    edible, litter, rooting, toxicity, invasivePotential, diseases, pruning, lifeSpan ) {
+function filters(country, temperatures, plantType, light, water,
+    lifeCycle, outdoor, canopyShape, plantHeight, plantSpread, plantColorGrow,
+    colorFlower, flowerScent, 
+    fruitColor, trunkCrownshaft,
+    edible, invasivePotential) {
     this.country = country;this.temperatures = temperatures;this.plantType = plantType;
-    this.light = light;this.soil = soil;this.water = water;this.tolerance = tolerance;this.lifeCycle = lifeCycle;this.outdoor = outdoor;this.specialized = specialized;
-    this.nativeEnvironment = nativeEnvironment;this.humanUse = humanUse;this.building = building;this.canopyShape = canopyShape;this.plantHeight = plantHeight;this.plantSpread = plantSpread;
-    this.timeToHeight = timeToHeight;this.growthRate = growthRate;this.plantColorGrow = plantColorGrow; this.plantColorChange = plantColorChange;
-    this.persistence = persistence;this.plantScent = plantScent;this.colorFlower = colorFlower;this.flowerSeason = flowerSeason;this.flowerScent = flowerScent;
-    this.flowerShowiness = flowerShowiness;this.fruitColor = fruitColor;this.fruitShowiness = fruitShowiness;
-    this.fruitSeason = fruitSeason;this.fruitSize = fruitSize;this.trunkEsthetic = trunkEsthetic;
-    this.trunkCrownshaft = trunkCrownshaft; this.fruitType = fruitType;this.edible = edible;this.litter = litter;this.rooting = rooting;this.toxicity = toxicity;this.invasivePotential = invasivePotential;
-    this.diseases = diseases;this.pruning = pruning;this.lifeSpan = lifeSpan; this.soilPH = soilPH;
+    this.light = light;this.water = water;this.outdoor = outdoor;this.canopyShape = canopyShape;this.plantHeight = plantHeight;this.plantSpread = plantSpread;
+    this.plantColorGrow = plantColorGrow; this.lifeCycle = lifeCycle;
+    this.colorFlower = colorFlower;this.flowerScent = flowerScent;
+    this.fruitColor = fruitColor;this.trunkCrownshaft = trunkCrownshaft; 
+    this.edible = edible;this.invasivePotential = invasivePotential;
 }
 
 let filter = new filters();
@@ -408,13 +403,13 @@ function sendFilters() {
     }
     filter.light = light;
 
-    //soil
-    let soil = [];
-    let soilCheck = getID("soil").querySelectorAll('[selected="true"]');
-    for (var i = 0; i < soilCheck.length; i++) {
-        soil.push(soilCheck[i].querySelector("p").innerHTML)
-    }
-    filter.soil = soil;
+    // //soil
+    // let soil = [];
+    // let soilCheck = getID("soil").querySelectorAll('[selected="true"]');
+    // for (var i = 0; i < soilCheck.length; i++) {
+    //     soil.push(soilCheck[i].querySelector("p").innerHTML)
+    // }
+    // filter.soil = soil;
     
     //water
     let water = [];
@@ -424,21 +419,21 @@ function sendFilters() {
     }
     filter.water = water;
 
-    //soilPH
-    let soilPH = [];
-    let soilPHCheck = getID("soilPH").querySelectorAll('input[type="checkbox"]:checked');
-    for (var i = 0; i < soilPHCheck.length; i++) {
-        soilPH.push(soilPHCheck[i].value)
-    }
-    filter.soilPH = soilPH;
+    // //soilPH
+    // let soilPH = [];
+    // let soilPHCheck = getID("soilPH").querySelectorAll('input[type="checkbox"]:checked');
+    // for (var i = 0; i < soilPHCheck.length; i++) {
+    //     soilPH.push(soilPHCheck[i].value)
+    // }
+    // filter.soilPH = soilPH;
 
-    //tolerance
-    let tolerance = [];
-    let toleranceCheck = getID("tolerance").querySelectorAll('input[type="radio"]:checked');
-    for (var i = 0; i < toleranceCheck.length; i++) {
-        tolerance.push(toleranceCheck[i].id)
-    }
-    filter.tolerance = tolerance;
+    // //tolerance
+    // let tolerance = [];
+    // let toleranceCheck = getID("tolerance").querySelectorAll('input[type="radio"]:checked');
+    // for (var i = 0; i < toleranceCheck.length; i++) {
+    //     tolerance.push(toleranceCheck[i].id)
+    // }
+    // filter.tolerance = tolerance;
 
     //lifeCycle
     let lifeCycle = [];
@@ -456,37 +451,37 @@ function sendFilters() {
     }
     filter.outdoor = outdoor;
 
-    //specialized
-    let specialized = [];
-    let specializedCheck = getID("specialized").querySelectorAll('input[type="checkbox"]:checked');
-    for (var i = 0; i < specializedCheck.length; i++) {
-        specialized.push(specializedCheck[i].value)
-    }
-    filter.specialized = specialized;
+    // //specialized
+    // let specialized = [];
+    // let specializedCheck = getID("specialized").querySelectorAll('input[type="checkbox"]:checked');
+    // for (var i = 0; i < specializedCheck.length; i++) {
+    //     specialized.push(specializedCheck[i].value)
+    // }
+    // filter.specialized = specialized;
 
-    //nativeEnvironment
-    let nativeEnvironment = [];
-    let nativeEnvironmentCheck = getID("nativeEnvironment").querySelectorAll('input[type="checkbox"]:checked');
-    for (var i = 0; i < nativeEnvironmentCheck.length; i++) {
-        nativeEnvironment.push(nativeEnvironmentCheck[i].value)
-    }
-    filter.nativeEnvironment = nativeEnvironment;
+    // //nativeEnvironment
+    // let nativeEnvironment = [];
+    // let nativeEnvironmentCheck = getID("nativeEnvironment").querySelectorAll('input[type="checkbox"]:checked');
+    // for (var i = 0; i < nativeEnvironmentCheck.length; i++) {
+    //     nativeEnvironment.push(nativeEnvironmentCheck[i].value)
+    // }
+    // filter.nativeEnvironment = nativeEnvironment;
 
-    //humanUse
-    let humanUse = [];
-    let humanUseCheck = getID("humanUse").querySelectorAll('input[type="checkbox"]:checked');
-    for (var i = 0; i < humanUseCheck.length; i++) {
-        humanUse.push(humanUseCheck[i].value)
-    }
-    filter.humanUse = humanUse;
+    // //humanUse
+    // let humanUse = [];
+    // let humanUseCheck = getID("humanUse").querySelectorAll('input[type="checkbox"]:checked');
+    // for (var i = 0; i < humanUseCheck.length; i++) {
+    //     humanUse.push(humanUseCheck[i].value)
+    // }
+    // filter.humanUse = humanUse;
 
-    //building
-    let building = [];
-    let buildingCheck = getID("building").querySelectorAll('input[type="checkbox"]:checked');
-    for (var i = 0; i < buildingCheck.length; i++) {
-        building.push(buildingCheck[i].value)
-    }
-    filter.building = building;
+    // //building
+    // let building = [];
+    // let buildingCheck = getID("building").querySelectorAll('input[type="checkbox"]:checked');
+    // for (var i = 0; i < buildingCheck.length; i++) {
+    //     building.push(buildingCheck[i].value)
+    // }
+    // filter.building = building;
 
     //canopyShape shape
     let canopyShape = [];
@@ -512,21 +507,21 @@ function sendFilters() {
     }
     filter.plantSpread = plantSpread;
 
-    //plantTime
-    let plantTime = [];
-    let plantTimeCheck = getID("plantTime").querySelectorAll('input[type="checkbox"]:checked');
-    for (var i = 0; i < plantTimeCheck.length; i++) {
-        plantTime.push(plantTimeCheck[i].value)
-    }
-    filter.timeToHeight = plantTime;
+    // //plantTime
+    // let plantTime = [];
+    // let plantTimeCheck = getID("plantTime").querySelectorAll('input[type="checkbox"]:checked');
+    // for (var i = 0; i < plantTimeCheck.length; i++) {
+    //     plantTime.push(plantTimeCheck[i].value)
+    // }
+    // filter.timeToHeight = plantTime;
 
-    //fruitSize
-    let fruitSize = [];
-    let fruitSizeCheck = getID("fruitSize").querySelectorAll('input[type="checkbox"]:checked');
-    for (var i = 0; i < fruitSizeCheck.length; i++) {
-        fruitSize.push(fruitSizeCheck[i].value)
-    }
-    filter.fruitSize = fruitSize;
+    // //fruitSize
+    // let fruitSize = [];
+    // let fruitSizeCheck = getID("fruitSize").querySelectorAll('input[type="checkbox"]:checked');
+    // for (var i = 0; i < fruitSizeCheck.length; i++) {
+    //     fruitSize.push(fruitSizeCheck[i].value)
+    // }
+    // filter.fruitSize = fruitSize;
 
     //plantColorGrow shape
     let plantColorGrow = [];
@@ -536,29 +531,29 @@ function sendFilters() {
     }
     filter.plantColorGrow = plantColorGrow;
 
-    //plantColorChange shape
-    let plantColorChange = [];
-    let plantColorChangeCheck = getID("plantColorChange").querySelectorAll('[selected="true"]');
-    for (var i = 0; i < plantColorChangeCheck.length; i++) {
-        plantColorChange.push(plantColorChangeCheck[i].querySelector("p").innerHTML)
-    }
-    filter.plantColorChange = plantColorChange;
+    // //plantColorChange shape
+    // let plantColorChange = [];
+    // let plantColorChangeCheck = getID("plantColorChange").querySelectorAll('[selected="true"]');
+    // for (var i = 0; i < plantColorChangeCheck.length; i++) {
+    //     plantColorChange.push(plantColorChangeCheck[i].querySelector("p").innerHTML)
+    // }
+    // filter.plantColorChange = plantColorChange;
 
-    //persistence
-    let persistence = [];
-    let persistenceCheck = getID("persistence").querySelectorAll('input[type="radio"]:checked');
-    for (var i = 0; i < persistenceCheck.length; i++) {
-        persistence.push(persistenceCheck[i].id)
-    }
-    filter.persistence = persistence;
+    // //persistence
+    // let persistence = [];
+    // let persistenceCheck = getID("persistence").querySelectorAll('input[type="radio"]:checked');
+    // for (var i = 0; i < persistenceCheck.length; i++) {
+    //     persistence.push(persistenceCheck[i].id)
+    // }
+    // filter.persistence = persistence;
 
-    //scent
-    let scent = [];
-    let scentCheck = getID("scent").querySelectorAll('input[type="radio"]:checked');
-    for (var i = 0; i < scentCheck.length; i++) {
-        scent.push(scentCheck[i].id)
-    }
-    filter.plantScent = scent;
+    // //scent
+    // let scent = [];
+    // let scentCheck = getID("scent").querySelectorAll('input[type="radio"]:checked');
+    // for (var i = 0; i < scentCheck.length; i++) {
+    //     scent.push(scentCheck[i].id)
+    // }
+    // filter.plantScent = scent;
 
     //plantFlowerColor shape
     let plantFlowerColor = [];
@@ -568,13 +563,13 @@ function sendFilters() {
     }
     filter.colorFlower = plantFlowerColor;
 
-    //season
-    let season = [];
-    let seasonCheck = getID("season").querySelectorAll('input[type="radio"]:checked');
-    for (var i = 0; i < seasonCheck.length; i++) {
-        season.push(seasonCheck[i].id)
-    }
-    filter.flowerSeason = season;
+    // //season
+    // let season = [];
+    // let seasonCheck = getID("season").querySelectorAll('input[type="radio"]:checked');
+    // for (var i = 0; i < seasonCheck.length; i++) {
+    //     season.push(seasonCheck[i].id)
+    // }
+    // filter.flowerSeason = season;
 
     //scentFlower
     let scentFlower = [];
@@ -584,13 +579,13 @@ function sendFilters() {
     }
     filter.flowerScent = scentFlower;
 
-    //showiness
-    let showiness = [];
-    let showinessCheck = getID("showiness").querySelectorAll('input[type="radio"]:checked');
-    for (var i = 0; i < showinessCheck.length; i++) {
-        showiness.push(showinessCheck[i].id)
-    }
-    filter.flowerShowiness = showiness;
+    // //showiness
+    // let showiness = [];
+    // let showinessCheck = getID("showiness").querySelectorAll('input[type="radio"]:checked');
+    // for (var i = 0; i < showinessCheck.length; i++) {
+    //     showiness.push(showinessCheck[i].id)
+    // }
+    // filter.flowerShowiness = showiness;
 
     //fruitColor shape
     let fruitColor = [];
@@ -600,45 +595,45 @@ function sendFilters() {
     }
     filter.fruitColor = fruitColor;
     
-    //fruitSeason
-    let fruitSeason = [];
-    let fruitSeasonCheck = getID("seasonFruit").querySelectorAll('input[type="radio"]:checked');
-    for (var i = 0; i < fruitSeasonCheck.length; i++) {
-        fruitSeason.push(fruitSeasonCheck[i].id)
-    }
-    filter.fruitSeason = fruitSeason;
+    // //fruitSeason
+    // let fruitSeason = [];
+    // let fruitSeasonCheck = getID("seasonFruit").querySelectorAll('input[type="radio"]:checked');
+    // for (var i = 0; i < fruitSeasonCheck.length; i++) {
+    //     fruitSeason.push(fruitSeasonCheck[i].id)
+    // }
+    // filter.fruitSeason = fruitSeason;
 
-    //fruitType
-    let fruitType = [];
-    let fruitTypeCheck = getID("fruitType").querySelectorAll('input[type="radio"]:checked');
-    for (var i = 0; i < fruitTypeCheck.length; i++) {
-        fruitType.push(fruitTypeCheck[i].id)
-    }
-    filter.fruitType = fruitType;
+    // //fruitType
+    // let fruitType = [];
+    // let fruitTypeCheck = getID("fruitType").querySelectorAll('input[type="radio"]:checked');
+    // for (var i = 0; i < fruitTypeCheck.length; i++) {
+    //     fruitType.push(fruitTypeCheck[i].id)
+    // }
+    // filter.fruitType = fruitType;
 
-    //fruitShowiness
-    let fruitShowiness = [];
-    let fruitShowinessCheck = getID("showinessfruit").querySelectorAll('input[type="radio"]:checked');
-    for (var i = 0; i < fruitShowinessCheck.length; i++) {
-        fruitShowiness.push(fruitShowinessCheck[i].id)
-    }
-    filter.fruitShowiness = fruitShowiness;
+    // //fruitShowiness
+    // let fruitShowiness = [];
+    // let fruitShowinessCheck = getID("showinessfruit").querySelectorAll('input[type="radio"]:checked');
+    // for (var i = 0; i < fruitShowinessCheck.length; i++) {
+    //     fruitShowiness.push(fruitShowinessCheck[i].id)
+    // }
+    // filter.fruitShowiness = fruitShowiness;
 
-    //plantRate
-    let plantRate = [];
-    let plantRateCheck = getID("plantRate").querySelectorAll('input[type="checkbox"]:checked');
-    for (var i = 0; i < plantRateCheck.length; i++) {
-        plantRate.push(plantRateCheck[i].value)
-    }
-    filter.growthRate = plantRate;
+    // //plantRate
+    // let plantRate = [];
+    // let plantRateCheck = getID("plantRate").querySelectorAll('input[type="checkbox"]:checked');
+    // for (var i = 0; i < plantRateCheck.length; i++) {
+    //     plantRate.push(plantRateCheck[i].value)
+    // }
+    // filter.growthRate = plantRate;
 
-    //trunkEsthetic
-    let trunkEsthetic = [];
-    let trunkEstheticCheck = getID("trunkEsthetic").querySelectorAll('input[type="checkbox"]:checked');
-    for (var i = 0; i < trunkEstheticCheck.length; i++) {
-        trunkEsthetic.push(trunkEstheticCheck[i].value)
-    }
-    filter.trunkEsthetic = trunkEsthetic;
+    // //trunkEsthetic
+    // let trunkEsthetic = [];
+    // let trunkEstheticCheck = getID("trunkEsthetic").querySelectorAll('input[type="checkbox"]:checked');
+    // for (var i = 0; i < trunkEstheticCheck.length; i++) {
+    //     trunkEsthetic.push(trunkEstheticCheck[i].value)
+    // }
+    // filter.trunkEsthetic = trunkEsthetic;
 
     //trunkCrownshaft
     let trunkCrownshaft = [];
@@ -656,29 +651,29 @@ function sendFilters() {
     }
     filter.edible = ediblePlants;
 
-    //managementLitter
-    let managementLitter = [];
-    let managementLitterCheck = getID("managementLitter").querySelectorAll('input[type="radio"]:checked');
-    for (var i = 0; i < managementLitterCheck.length; i++) {
-        managementLitter.push(managementLitterCheck[i].id)
-    }
-    filter.litter = managementLitter;
+    // //managementLitter
+    // let managementLitter = [];
+    // let managementLitterCheck = getID("managementLitter").querySelectorAll('input[type="radio"]:checked');
+    // for (var i = 0; i < managementLitterCheck.length; i++) {
+    //     managementLitter.push(managementLitterCheck[i].id)
+    // }
+    // filter.litter = managementLitter;
 
-    //managementRooting
-    let managementRooting = [];
-    let managementRootingCheck = getID("managementRooting").querySelectorAll('input[type="radio"]:checked');
-    for (var i = 0; i < managementRootingCheck.length; i++) {
-        managementRooting.push(managementRootingCheck[i].id)
-    }
-    filter.rooting = managementRooting;
+    // //managementRooting
+    // let managementRooting = [];
+    // let managementRootingCheck = getID("managementRooting").querySelectorAll('input[type="radio"]:checked');
+    // for (var i = 0; i < managementRootingCheck.length; i++) {
+    //     managementRooting.push(managementRootingCheck[i].id)
+    // }
+    // filter.rooting = managementRooting;
 
-    //managementToxicity
-    let managementToxicity = [];
-    let managementToxicityCheck = getID("managementToxicity").querySelectorAll('input[type="radio"]:checked');
-    for (var i = 0; i < managementToxicityCheck.length; i++) {
-        managementToxicity.push(managementToxicityCheck[i].id)
-    }
-    filter.toxicity = managementToxicity;
+    // //managementToxicity
+    // let managementToxicity = [];
+    // let managementToxicityCheck = getID("managementToxicity").querySelectorAll('input[type="radio"]:checked');
+    // for (var i = 0; i < managementToxicityCheck.length; i++) {
+    //     managementToxicity.push(managementToxicityCheck[i].id)
+    // }
+    // filter.toxicity = managementToxicity;
 
     //managementInvasive
     let managementInvasive = [];
@@ -688,37 +683,32 @@ function sendFilters() {
     }
     filter.invasivePotential = managementInvasive;
 
-    //managementDiseases
-    let managementDiseases = [];
-    let managementDiseasesCheck = getID("managementDiseases").querySelectorAll('input[type="radio"]:checked');
-    for (var i = 0; i < managementDiseasesCheck.length; i++) {
-        managementDiseases.push(managementDiseasesCheck[i].id)
-    }
-    filter.diseases = managementDiseases;
+    // //managementDiseases
+    // let managementDiseases = [];
+    // let managementDiseasesCheck = getID("managementDiseases").querySelectorAll('input[type="radio"]:checked');
+    // for (var i = 0; i < managementDiseasesCheck.length; i++) {
+    //     managementDiseases.push(managementDiseasesCheck[i].id)
+    // }
+    // filter.diseases = managementDiseases;
 
-    //managementPruning
-    let managementPruning = [];
-    let managementPruningCheck = getID("managementPruning").querySelectorAll('input[type="radio"]:checked');
-    for (var i = 0; i < managementPruningCheck.length; i++) {
-        managementPruning.push(managementPruningCheck[i].id)
-    }
-    filter.pruning = managementPruning;
+    // //managementPruning
+    // let managementPruning = [];
+    // let managementPruningCheck = getID("managementPruning").querySelectorAll('input[type="radio"]:checked');
+    // for (var i = 0; i < managementPruningCheck.length; i++) {
+    //     managementPruning.push(managementPruningCheck[i].id)
+    // }
+    // filter.pruning = managementPruning;
 
-    //managementLifeSpan
-    let managementLifeSpan = [];
-    let managementLifeSpanCheck = getID("managementLifeSpan").querySelectorAll('input[type="radio"]:checked');
-    for (var i = 0; i < managementLifeSpanCheck.length; i++) {
-        managementLifeSpan.push(managementLifeSpanCheck[i].id)
-    }
-    filter.lifeSpan = managementLifeSpan;
-
-    // fetch('/searchByCriteria', {
-    //     method: 'POST',
-    //     headers: {'Content-Type': 'application/json'},
-    //     body: JSON.stringify(filter)
-    // }).catch(err => console.error(err));
+    // //managementLifeSpan
+    // let managementLifeSpan = [];
+    // let managementLifeSpanCheck = getID("managementLifeSpan").querySelectorAll('input[type="radio"]:checked');
+    // for (var i = 0; i < managementLifeSpanCheck.length; i++) {
+    //     managementLifeSpan.push(managementLifeSpanCheck[i].id)
+    // }
+    // filter.lifeSpan = managementLifeSpan;
 
     let form = document.createElement("form");
+    form.style.display="hidden";
     form.id = "hiddenForm";
     form.action = "/searchByCriteria";
     form.method = "POST";

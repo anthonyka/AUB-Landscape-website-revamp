@@ -148,6 +148,13 @@ main{
     margin: 10px;
     opacity: 0.5;
 }
+.boxWithImageText img{
+    max-height: 70%;
+    max-width: fit-content;
+}
+.boxWithImageText p{
+    text-align: center;
+}
 
 .boxWithImageTextSmall{
     height: 115px !important;
@@ -168,6 +175,13 @@ main{
     margin: 10px;
     padding: 5px;
     border: 2px solid var(--primary-active-border);
+}
+.boxWithImageTextSelected img{
+    max-height: 70%;
+    max-width: fit-content;
+}
+.boxWithImageTextSelected p{
+    text-align: center;
 }
 
 .form-check-input, .form-check-label{
@@ -242,6 +256,13 @@ table{
     margin: 10px;
     opacity: 0.5;
 }
+.colorBoxWithImageText img{
+    max-height: 70%;
+    max-width: fit-content;
+}
+.colorBoxWithImageText p{
+    text-align: center;
+}
 
 .colorBoxWithImageText:hover{
     opacity: 0.9;
@@ -258,6 +279,13 @@ table{
     margin: 10px;
     padding: 5px;
     border: 2px solid var(--primary-active-border);
+}
+.colorBoxWithImageTextSelected img{
+    max-height: 70%;
+    max-width: fit-content;
+}
+.colorBoxWithImageTextSelected p{
+    text-align: center;
 }
 
 /* persistence scent */
