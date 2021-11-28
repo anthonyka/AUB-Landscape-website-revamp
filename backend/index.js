@@ -6,7 +6,7 @@ const bodyParser = require("body-parser");
 app.use(express.json());
 app.use(express.urlencoded({
     extended: true
-  }));
+}));
 
 app.set('views', './public');
 app.set('view engine', 'ejs');
@@ -15,7 +15,7 @@ app.use(express.static(__dirname + "/public"));
 
 //added by paul
 const path = require('path');
-app.use(express.static(__dirname+"/public"));
+app.use(express.static(__dirname + "/public"));
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/home.html'));
 })
@@ -24,6 +24,9 @@ app.get('/pants_page', (req, res) => {
 })
 app.get('/searchByCriteria', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/search_by_criteria.html'));
+})
+app.get('/plantIdentification', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/plant_identification.html'));
 })
 app.get('/popular_pants_page', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/popular_plants.html'));
@@ -80,27 +83,27 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
         //             res.send(results)
         //         })
         //         .catch(error => console.error(error))
-                
+
         //     }
 
         // })
         app.get("/allplants", (req, res) => {
             console.log(">>>>>>>>>>>>>>>>>>in plants");
             console.log(req.query.type);
-            if (req.query.type=="all"){
+            if (req.query.type == "all") {
                 allPlantsCollection.find().toArray()
-                .then(results => {
-                    res.send(results)
-                })
-                .catch(error => console.error(error))
+                    .then(results => {
+                        res.send(results)
+                    })
+                    .catch(error => console.error(error))
             }
             else {
-                allPlantsCollection.find({plantType: req.query.type}).toArray()
-                .then(results => {
-                    res.send(results)
-                })
-                .catch(error => console.error(error))
-                
+                allPlantsCollection.find({ plantType: req.query.type }).toArray()
+                    .then(results => {
+                        res.send(results)
+                    })
+                    .catch(error => console.error(error))
+
             }
 
         })
@@ -109,141 +112,330 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
 
             console.log(">>>>>>>>>>>>>>>>>>in plantsfiltered");
             console.log(req.query.filter);
-            if (req.query.filter=="fragrant"){
-                allPlantsCollection.find({fragrant:{$in: ["scentFlowerPleasant", "scentFlowerUnpleasant"]}}).toArray()
-                .then(results => {
-                    res.render("searchResults",{plants:results});
-                })
-                .catch(error => console.error(error))
+            if (req.query.filter == "fragrant") {
+                allPlantsCollection.find({ fragrant: { $in: ["scentFlowerPleasant", "scentFlowerUnpleasant"] } }).toArray()
+                    .then(results => {
+                        res.render("searchResults", { plants: results });
+                    })
+                    .catch(error => console.error(error))
             }
-            else if(req.query.filter=="flowering"){
-                allPlantsCollection.find({colorFlower: { $exists: true, $ne: [] }}).toArray()
-                .then(results => {
-                    res.render("searchResults",{plants:results});
-                })
-                .catch(error => console.error(error))
-                
+            else if (req.query.filter == "flowering") {
+                allPlantsCollection.find({ colorFlower: { $exists: true, $ne: [] } }).toArray()
+                    .then(results => {
+                        res.render("searchResults", { plants: results });
+                    })
+                    .catch(error => console.error(error))
+
             }
-            else if(req.query.filter=="edible"){
-                allPlantsCollection.find({edible:"yes"}).toArray()
-                .then(results => {
-                    res.render("searchResults",{plants:results});
-                })
-                .catch(error => console.error(error))
+            else if (req.query.filter == "edible") {
+                allPlantsCollection.find({ edible: "yes" }).toArray()
+                    .then(results => {
+                        res.render("searchResults", { plants: results });
+                    })
+                    .catch(error => console.error(error))
             }
-            else if(req.query.filter=="arid"){
+            else if (req.query.filter == "arid") {
                 allPlantsCollection.find().toArray()
-                .then(results => {
-                    res.render("searchResults",{plants:results});
-                })
-                .catch(error => console.error(error))
+                    .then(results => {
+                        res.render("searchResults", { plants: results });
+                    })
+                    .catch(error => console.error(error))
             }
-            else if(req.query.filter=="shade"){
-                allPlantsCollection.find({light:"Shade"}).toArray()
-                .then(results => {
-                    res.render("searchResults",{plants:results});
-                })
-                .catch(error => console.error(error))
+            else if (req.query.filter == "shade") {
+                allPlantsCollection.find({ light: "Shade" }).toArray()
+                    .then(results => {
+                        res.render("searchResults", { plants: results });
+                    })
+                    .catch(error => console.error(error))
             }
-            else if(req.query.filter=="Ground cover"){
-                allPlantsCollection.find({plantType:"Ground Cover"}).toArray()
-                .then(results => {
-                    res.render("searchResults",{plants:results});
-                })
-                .catch(error => console.error(error))
+            else if (req.query.filter == "Ground cover") {
+                allPlantsCollection.find({ plantType: "Ground Cover" }).toArray()
+                    .then(results => {
+                        res.render("searchResults", { plants: results });
+                    })
+                    .catch(error => console.error(error))
             }
-            else{
+            else {
                 res.send({})
 
-            
+
             }
 
         })
-        
+
         //route for plant filter by criteria
         app.post("/searchByCriteria", (req, res) => {
-            console.log(">>>>>>>>>>>>>>>>>>in searchByCriteria");
-            console.log(req.body)
             let filters = JSON.parse(req.body.sentFilters);
-            // console.log(filters);
+            console.log(">>>>>>>>>>>>>>>>>searchByCrit")
 
             let query = { $and: [] };
-
-            if(filters.country != ""){
-                query.$and.push({country: filters.country});
+            
+            if (filters.country != "") {
+                query.$and.push({ country: filters.country });
             }
-            if(filters.plantType.length!=0){
-                query.$and.push({plantType:{$in: filters.plantType}});
+            if (filters.plantType.length != 0) {
+                query.$and.push({ plantType: { $in: filters.plantType } });
             }
-            if(filters.temperatures.length!=0){
-                query.$and.push( {temperatures:{$in: filters.temperatures}});
+            if (filters.temperatures.length != 0) {
+                query.$and.push({ temperatures: { $in: filters.temperatures } });
             }
-            if(filters.light.length!=0){
-                query.$and.push( {light:{$in: filters.light}});
+            if (filters.light.length != 0) {
+                query.$and.push({ light: { $in: filters.light } });
             }
-            if(filters.soil.length!=0){
-                query.$and.push( {soil:{$in: filters.soil}});
+            if (filters.water.length != 0) {
+                query.$and.push({ water: { $in: filters.water } });
             }
-            if(filters.water.length!=0){
-                query.$and.push( {water:{$in: filters.water}});
+            if (filters.lifeCycle.length != 0) {
+                query.$and.push({ lifeCycle: { $in: filters.lifeCycle } });
             }
-            if(filters.lifeCycle.length!=0){
-                query.$and.push( {lifeCycle:{$in: filters.lifeCycle}});
+            if (filters.outdoor.length != 0) {
+                query.$and.push({ outdoor: { $in: filters.outdoor } });
             }
-            if(filters.outdoor.length!=0){
-                query.$and.push( {outdoor:{$in: filters.outdoor}});
+            if (filters.canopyShape.length != 0) {
+                query.$and.push({ canopyShape: { $in: filters.canopyShape } });
             }
-            if(filters.canopyShape.length!=0){
-                query.$and.push( {canopyShape:{$in: filters.canopyShape}});
+            if (filters.plantHeight.length != 0) {
+                query.$and.push({ plantHeight: { $in: filters.plantHeight } });
             }
-            if(filters.plantHeight.length!=0){
-                query.$and.push( {plantHeight:{$in: filters.plantHeight}});
+            if (filters.plantSpread.length != 0) {
+                query.$and.push({ plantSpread: { $in: filters.plantSpread } });
             }
-            if(filters.plantSpread.length!=0){
-                query.$and.push( {plantSpread:{$in: filters.plantSpread}});
+            if (filters.plantColorGrow.length != 0) {
+                query.$and.push({ plantColorGrow: { $in: filters.plantColorGrow } });
             }
-            if(filters.plantColorGrow.length!=0){
-                query.$and.push( {plantColorGrow:{$in: filters.plantColorGrow}});
+            if (filters.colorFlower.length != 0) {
+                query.$and.push({ colorFlower: { $in: filters.colorFlower } });
             }
-            if(filters.colorFlower.length!=0){
-                query.$and.push( {colorFlower:{$in: filters.colorFlower}});
+            if (filters.flowerScent.length != 0) {
+                query.$and.push({ flowerScent: { $in: filters.flowerScent } });
             }
-            if(filters.flowerScent.length!=0){
-                query.$and.push( {flowerScent:{$in: filters.flowerScent}});
+            if (filters.fruitColor.length != 0) {
+                query.$and.push({ fruitColor: { $in: filters.fruitColor } });
             }
-            if(filters.fruitColor.length!=0){
-                query.$and.push( {fruitColor:{$in: filters.fruitColor}});
+            if (filters.trunkCrownshaft.length != 0) {
+                query.$and.push({ trunkCrownshaft: { $in: filters.trunkCrownshaft } });
             }
-            if(filters.trunkCrownshaft.length!=0){
-                query.$and.push( {trunkCrownshaft:{$in: filters.trunkCrownshaft}});
-            }
-            if(filters.invasivePotential.length!=0){
-                query.$and.push( {invasivePotential:{$in: filters.invasivePotential}});
+            if (filters.invasivePotential.length != 0) {
+                query.$and.push({ invasivePotential: { $in: filters.invasivePotential } });
             }
             
-            console.log(query);
+
+            let queryOr = { $or: [] };
+
+            if (filters.country != "") {
+                queryOr.$or.push({ country: filters.country });
+            }
+            if (filters.plantType.length != 0) {
+                queryOr.$or.push({ plantType: { $in: filters.plantType } });
+            }
+            if (filters.temperatures.length != 0) {
+                queryOr.$or.push({ temperatures: { $in: filters.temperatures } });
+            }
+            if (filters.light.length != 0) {
+                queryOr.$or.push({ light: { $in: filters.light } });
+            }
+            if (filters.water.length != 0) {
+                queryOr.$or.push({ water: { $in: filters.water } });
+            }
+            if (filters.lifeCycle.length != 0) {
+                queryOr.$or.push({ lifeCycle: { $in: filters.lifeCycle } });
+            }
+            if (filters.outdoor.length != 0) {
+                queryOr.$or.push({ outdoor: { $in: filters.outdoor } });
+            }
+            if (filters.canopyShape.length != 0) {
+                queryOr.$or.push({ canopyShape: { $in: filters.canopyShape } });
+            }
+            if (filters.plantHeight.length != 0) {
+                queryOr.$or.push({ plantHeight: { $in: filters.plantHeight } });
+            }
+            if (filters.plantSpread.length != 0) {
+                queryOr.$or.push({ plantSpread: { $in: filters.plantSpread } });
+            }
+            if (filters.plantColorGrow.length != 0) {
+                queryOr.$or.push({ plantColorGrow: { $in: filters.plantColorGrow } });
+            }
+            if (filters.colorFlower.length != 0) {
+                queryOr.$or.push({ colorFlower: { $in: filters.colorFlower } });
+            }
+            if (filters.flowerScent.length != 0) {
+                queryOr.$or.push({ flowerScent: { $in: filters.flowerScent } });
+            }
+            if (filters.fruitColor.length != 0) {
+                queryOr.$or.push({ fruitColor: { $in: filters.fruitColor } });
+            }
+            if (filters.trunkCrownshaft.length != 0) {
+                queryOr.$or.push({ trunkCrownshaft: { $in: filters.trunkCrownshaft } });
+            }
+            if (filters.invasivePotential.length != 0) {
+                queryOr.$or.push({ invasivePotential: { $in: filters.invasivePotential } });
+            }
+
+            console.log(queryOr);
             //TODO: this now works, just need to send the info to a view engine or frontend for rendering
             //finding all that match
-            allPlantsCollection.find(query).toArray()
-                .then(results => {
-                    console.log(results);
-                    return res.render("searchResults",{plants:results});
-                });
-            //TODO: find partial matches
+            if (query.$and.length == 0 && queryOr.$or.length == 0) {
+                allPlantsCollection.find().toArray()
+                    .then(results => {
+                        console.log(results);
+                        return res.render("searchResults", { plants: results });
+                    });
+            }
+            else {
+                allPlantsCollection.find(query).toArray()
+                    .then(results => {
+                        allPlantsCollection.find(queryOr).toArray()
+                            .then(resultsOr => {
+                                // let commonElements = resultsOr.filter(v => results.includes(v));
+                                // console.log(">>>>>>>>>>common");
+                                // console.log(commonElements);
+                                if (results.length == 0) {
+                                    return res.render("searchResults", { plants: resultsOr });
+                                } else {
+                                    resultsOr = results.filter(ar => !results.find(rm => (rm._id === ar._id)));
+                                    console.log(">>>>>>>>>>or");
+                                    console.log(resultsOr);
+                                    let finalResult = results.concat(resultsOr);
+                                    console.log(">>>>>>>>>>final");
+                                    console.log(finalResult)
+                                    return res.render("searchResults", { plants: finalResult });
+                                }
+
+                            })
+                    });
+            }
 
         })
 
-        app.get("/plant", (req,res) => {
+        //route for plant filter by criteria
+        app.post("/plantIdentification", (req, res) => {
+            console.log(">>>>>>>>>>>>>>>>>plantId")
+            let filters = JSON.parse(req.body.sentFilters);
+
+            let query = { $and: [] };
+            
+            if (filters.plantType.length != 0) {
+                query.$and.push({ plantType: { $in: filters.plantType } });
+            }
+            
+            if (filters.canopyShape.length != 0) {
+                query.$and.push({ canopyShape: { $in: filters.canopyShape } });
+            }
+            if (filters.plantHeight.length != 0) {
+                query.$and.push({ plantHeight: { $in: filters.plantHeight } });
+            }
+            if (filters.plantSpread.length != 0) {
+                query.$and.push({ plantSpread: { $in: filters.plantSpread } });
+            }
+            if (filters.plantColorGrow.length != 0) {
+                query.$and.push({ plantColorGrow: { $in: filters.plantColorGrow } });
+            }
+            if (filters.colorFlower.length != 0) {
+                query.$and.push({ colorFlower: { $in: filters.colorFlower } });
+            }
+            if (filters.flowerScent.length != 0) {
+                query.$and.push({ flowerScent: { $in: filters.flowerScent } });
+            }
+            if (filters.fruitColor.length != 0) {
+                query.$and.push({ fruitColor: { $in: filters.fruitColor } });
+            }
+            if (filters.trunkCrownshaft.length != 0) {
+                query.$and.push({ trunkCrownshaft: { $in: filters.trunkCrownshaft } });
+            }
+            
+            if (filters.leafType.length != 0) {
+                query.$and.push({ leafType: { $in: filters.leafType } });
+            }
+            if (filters.leafArrangement.length != 0) {
+                query.$and.push({ leafArrangement: { $in: filters.leafArrangement } });
+            }
+
+            let queryOr = { $or: [] };
+
+            
+            if (filters.plantType.length != 0) {
+                queryOr.$or.push({ plantType: { $in: filters.plantType } });
+            }
+            if (filters.canopyShape.length != 0) {
+                queryOr.$or.push({ canopyShape: { $in: filters.canopyShape } });
+            }
+            if (filters.plantHeight.length != 0) {
+                queryOr.$or.push({ plantHeight: { $in: filters.plantHeight } });
+            }
+            if (filters.plantSpread.length != 0) {
+                queryOr.$or.push({ plantSpread: { $in: filters.plantSpread } });
+            }
+            if (filters.plantColorGrow.length != 0) {
+                queryOr.$or.push({ plantColorGrow: { $in: filters.plantColorGrow } });
+            }
+            if (filters.colorFlower.length != 0) {
+                queryOr.$or.push({ colorFlower: { $in: filters.colorFlower } });
+            }
+            if (filters.flowerScent.length != 0) {
+                queryOr.$or.push({ flowerScent: { $in: filters.flowerScent } });
+            }
+            if (filters.fruitColor.length != 0) {
+                queryOr.$or.push({ fruitColor: { $in: filters.fruitColor } });
+            }
+            if (filters.trunkCrownshaft.length != 0) {
+                queryOr.$or.push({ trunkCrownshaft: { $in: filters.trunkCrownshaft } });
+            }
+            if (filters.leafType.length != 0) {
+                queryOr.$or.push({ leafType: { $in: filters.leafType } });
+            }
+            if (filters.leafArrangement.length != 0) {
+                queryOr.$or.push({ leafArrangement: { $in: filters.leafArrangement } });
+            }
+
+            console.log(query);
+            console.log(queryOr);
+            //TODO: this now works, just need to send the info to a view engine or frontend for rendering
+            //finding all that match
+            if (query.$and.length == 0 && queryOr.$or.length == 0) {
+                console.log("both empty")
+                allPlantsCollection.find().toArray()
+                    .then(results => {
+                        console.log(results);
+                        return res.render("searchResults", { plants: results });
+                    });
+            }
+            else {
+                allPlantsCollection.find(query).toArray()
+                    .then(results => {
+                        allPlantsCollection.find(queryOr).toArray()
+                            .then(resultsOr => {
+                                // let commonElements = resultsOr.filter(v => results.includes(v));
+                                // console.log(">>>>>>>>>>common");
+                                // console.log(commonElements);
+                                if (results.length == 0) {
+                                    return res.render("searchResults", { plants: resultsOr });
+                                } else {
+                                    resultsOr = results.filter(ar => !results.find(rm => (rm._id === ar._id)));
+                                    console.log(">>>>>>>>>>or");
+                                    console.log(resultsOr);
+                                    let finalResult = results.concat(resultsOr);
+                                    console.log(">>>>>>>>>>final");
+                                    console.log(finalResult)
+                                    return res.render("searchResults", { plants: finalResult });
+                                }
+
+                            })
+                    });
+            }
+
+        })
+
+        app.get("/plant", (req, res) => {
             let q = url.parse(req.url, true).query;
             let id = new require("mongodb").ObjectID(q.id);
             console.log(id);
-            allPlantsCollection.find({"_id" : id}).toArray()
+            allPlantsCollection.find({ "_id": id }).toArray()
                 .then(results => {
                     console.log(results);
-                    if(results==""){
+                    if (results == "") {
                         return res.send("no results");
-                    }else{
-                        return res.render("plantInfo", {plant: results[0]});
+                    } else {
+                        return res.render("plantInfo", { plant: results[0] });
                     }
                 });
         })
