@@ -1,4 +1,3 @@
-const backendDomain = "http://localhost:3000";
 const domainImages = "https://landscapeplants.aub.edu.lb/images/search/plant/";
 const domainLeafImages = "https://landscapeplants.aub.edu.lb/images/search/leaf/"
 const domainShapeImages = "https://landscapeplants.aub.edu.lb/images/search/shape/"

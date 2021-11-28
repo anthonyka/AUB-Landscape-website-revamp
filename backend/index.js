@@ -34,6 +34,11 @@ app.get('/popular_pants_page', (req, res) => {
 app.get('/popular_pants_page2', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/popular_plants2.html'));
 })
+
+//admin
+app.get('/admin', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/admin.html'));
+})
 /////////////////
 //---------------connecting to MongoDB------------//
 var MongoClient = require('mongodb').MongoClient;
@@ -46,7 +51,6 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
         let plantsCollection = client.db("landscapeAUB").collection("plants");
         // let plantsAKColletion = client.db("landscapeAUB").collection("plants-AK");
         let allPlantsCollection = client.db("landscapeAUB").collection("allPlants");
-        console.log(countriesCollection);
         //---------------------routes------------------------//
 
         //route for countries
@@ -442,6 +446,64 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
         /*app.get("/SearchByName", (req,res) => {
             
         })*/
+
+        //-------------------admin----------------------//
+        app.get("/getFields",(req,res)=>{
+            console.log(req.query);
+            let q = req.query.collection;
+            console.log(q)
+            let collection = client.db("landscapeAUB").collection(q);
+            
+            collection.aggregate([
+                {"$project":{"arrayofkeyvalue":{"$objectToArray":"$$ROOT"}}},
+                {"$unwind":"$arrayofkeyvalue"},
+                {"$group":{"_id":null,"allkeys":{"$addToSet":"$arrayofkeyvalue.k"}}}
+              ]).toArray()
+              .then(results => {
+                  res.send(results[0].allkeys);
+              })
+              .catch(err => console.log(err));
+        })
+
+        app.get("/getCollections",(req,res)=>{
+            
+            client.db("landscapeAUB").listCollections().toArray()
+            .then(results => {
+                res.send(results)
+            })
+            .catch(error => console.error(error))
+        })
+
+        app.post("/changeFields", (req, res) => {
+            console.log(req.body);
+            let edits = req.body;
+            
+            console.log(">>>>>>>>>>>>>>>>>edit fields")
+            let collectionName = edits.collection;
+            console.log(collectionName)
+            delete edits.collection;
+            console.log(edits)
+            client.db("landscapeAUB").collection(collectionName).updateMany( {}, { $rename: edits } )
+            console.log(edits);
+            res.sendStatus(200);
+
+        })
+
+        app.post("/addField", (req, res) => {
+            console.log(req.body);
+            let field = req.body;
+            
+            console.log(">>>>>>>>>>>>>>>>>add fields")
+            let collectionName = field.collection;
+            console.log(collectionName)
+            delete field.collection;
+            console.log(field)
+            let newField = field.newField;
+            client.db("landscapeAUB").collection(collectionName).updateMany( {}, { $set: {newField: ""} } )
+            console.log(field);
+            res.sendStatus(200);
+
+        })
 
         app.listen(port, () => {
             console.log(`listening at http://localhost:${port}`)

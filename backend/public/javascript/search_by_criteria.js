@@ -1,5 +1,4 @@
 //------------------map creation start-----------------//
-const backendDomain = "http://localhost:3000";
 const domainImages = "https://landscapeplants.aub.edu.lb/images/search/plant/";
 const domainColorImages = "https://landscapeplants.aub.edu.lb/images/search/";
 const plantTypeMap = new Map();
@@ -358,7 +357,7 @@ function toggleHide() {
 
 //-----------------API communication-------------//
 function getCountries() {
-    fetch(backendDomain+'/countries')
+    fetch('/countries')
         .then(response => response.json())
         .then(function (json) {
             console.log(json);
