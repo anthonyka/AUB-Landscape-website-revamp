@@ -24,7 +24,8 @@
 
         <div>
             <fieldset>
-                <legend data-bs-toggle="tooltip" title="Choose the collection then add a new document field">Create
+                <legend data-bs-toggle="tooltip" title="Choose the collection then add a new document field">Create and
+                    Edit
                     field <i class="fas fa-eye"></i></legend>
 
                 <div class="content">
@@ -43,10 +44,10 @@
                                 </div>
                             </div>
                             <div id="table-buttons" style="display: none;">
-                                <table id="fields" class="table" caption-side: top >
-                                    <tr>
+                                <table id="fields" class="table" caption-side: top>
+                                    <tr id="headRow">
                                         <th scope="col">#</th>
-                                        <th scope="col">Field Name</th>
+                                        <th scope="col" colspan="2">Field Name</th>
                                     </tr>
                                     <tbody id="fieldsBody">
 
@@ -54,7 +55,7 @@
 
                                 </table>
                                 <button type="button" class="btn btn-primary" id="editField">Send Edits</button>
-                                
+
                                 <div class="input-group mb-3">
                                     <input type="text" id="addFieldText" class="form-control"
                                         placeholder="Add a new field" aria-label="Add a new field"
@@ -67,6 +68,52 @@
                         </div>
 
                     </div>
+
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend data-bs-toggle="tooltip" title="Choose the collection then add a new document field">Create a
+                    Plant <i class="fas fa-eye"></i></legend>
+                <div class="content">
+                    <div id="collections-fields2">
+                        <div id="collections2" class="dropdown">
+
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button"
+                                    id="collectionDropDownButton2" data-bs-toggle="dropdown"
+                                    aria-expanded="false">Choose a collection</button>
+
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2"
+                                    id="collection-dropdown2">
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="d-flex flex-row justify-content-between">
+                                <div id="documents">
+
+                                </div>
+                                <div id="documentDetail" style="display: none;">
+                                    <table id="doc" class="table" caption-side: top>
+                                        <tr id="docHeadRow">
+                                            <th scope="col">#</th>
+                                            <th scope="col" colspan="2">Field Name</th>
+                                        </tr>
+                                        <tbody id="docBody">
+
+                                        </tbody>
+
+                                    </table>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-primary" id="editDocument">Send Edits</button>
+
+                        </div>
+
+
+                    </div>
+
 
                 </div>
             </fieldset>

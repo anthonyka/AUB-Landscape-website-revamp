@@ -113,3 +113,9 @@ table{
    height:300px;
    display:block;
 }
+
+#headRow th{
+    position: sticky;
+  top: 0;
+  background: white;
+}
