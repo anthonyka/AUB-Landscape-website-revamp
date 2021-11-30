@@ -8,6 +8,9 @@ window.onload = function () {
 
     let addField = getID("addField");
     addField.addEventListener("click", sendAddedFields)
+
+    let editDocument = getID("editDocument");
+    editDocument.addEventListener("click", sendEditedDocument)
 }
 
 
@@ -127,6 +130,11 @@ function editField() {
 
 function showDocumentCards(documents) {
     let documentsDiv = getID("documents");
+    if (documentsDiv.children.length > 0) {
+        while (documentsDiv.firstChild) {
+            documentsDiv.removeChild(documentsDiv.firstChild);
+        }
+    }
     documents.forEach(element => {
         let divCard = document.createElement("div");
         
@@ -191,6 +199,8 @@ function showDocumentInfo(event) {
             td.addEventListener("click", editField);
             td.appendChild(editIcon);
             tr.appendChild(td);
+        } else if(key=="_id"){
+            td.id = "key";
         }
         getID("docBody").appendChild(tr);
     getID("documentDetail").style.display = "block";
@@ -226,7 +236,7 @@ function getFields(collection) {
 }
 
 function sendEditedFields() {
-    let changedFields = document.querySelectorAll("input:enabled");
+    let changedFields = getID("table-buttons").querySelectorAll("input:enabled");
     let editedFields = new Object();
     editedFields.collection = document.getElementById("collectionDropDownButton").innerText;
     for (let index = 0; index < changedFields.length; index++) {
@@ -261,6 +271,38 @@ function sendAddedFields() {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(newField)
+    })
+        .then(response => {
+            window.location.reload();
+        })
+        .catch(err => console.log(err));
+}
+
+function sendEditedDocument() {
+    let changedDocument = getID("documentDetail").querySelectorAll("input:enabled");
+    let editedDocument = new Object();
+    editedDocument.collection = document.getElementById("collectionDropDownButton2").innerText;
+    editedDocument._id = getID("key").querySelector("input").placeholder;
+    for (let index = 0; index < changedDocument.length; index++) {
+        if (changedDocument[index].placeholder != changedDocument[index].value && changedDocument[index].value != "") {
+            let name = changedDocument[index].parentNode.parentNode.querySelector("th").innerText;
+            let value = changedDocument[index].value;
+            let array;
+            if(value.includes(',')){
+                array = value.match(/(\w+)/gm);
+                editedDocument[name] = array;
+            }else{
+                editedDocument[name] = changedDocument[index].value;
+            }
+            
+        }
+    }
+    fetch("/changeDocument", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(editedDocument)
     })
         .then(response => {
             window.location.reload();

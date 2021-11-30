@@ -46,6 +46,7 @@ app.get("/AboutUs", (req,res) =>{
 /////////////////
 //---------------connecting to MongoDB------------//
 var MongoClient = require('mongodb').MongoClient;
+const { ObjectId } = require('bson');
 const uri = "mongodb+srv://admin:root@cluster0.usof1.mongodb.net/landscapeAUB?retryWrites=true&w=majority";
 MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(client => {
@@ -520,6 +521,21 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
                   res.send(results);
               })
               .catch(err => console.log(err));
+        })
+
+        app.post("/changeDocument", (req, res) => {
+            console.log(req.body);
+            let edits = req.body;
+            
+            console.log(">>>>>>>>>>>>>>>>>change document")
+            let collectionName = edits.collection;
+            let id = edits._id;
+            delete edits.collection;
+            delete edits._id;
+            console.log(edits)
+            client.db("landscapeAUB").collection(collectionName).updateOne( {_id: ObjectId(id)}, { $set: edits } )
+            res.sendStatus(200);
+
         })
 
         app.listen(port, () => {
