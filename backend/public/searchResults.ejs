@@ -73,23 +73,32 @@
                                     </span>
                                 </p>
                                 <span class="imagesFilters">
-                                <img id="plantTypeImg" src="" class="category_image" alt=<%= element.plantType %> data-bs-toggle="tooltip">
-                                <img id="plantHeightImg" src="https://landscapeplants.aub.edu.lb/images/iconHeight.png" class="category_image" alt=<%= element.plantHeight %>  data-bs-toggle="tooltip" title=<%= element.plantHeight %>>
-                                <img id="plantSpreadImg" src="https://landscapeplants.aub.edu.lb/images/iconSpread.png" class="category_image" alt=<%= element.plantSpread %> data-bs-toggle="tooltip" title=<%= element.plantSpread %> >
-                                <img id="canopyShapeImg" src="" class="category_image" alt=<%= element.canopyShape %> data-bs-toggle="tooltip">
-                                <img id="growthRateImg" src="https://landscapeplants.aub.edu.lb/images/iconGrowth.png" class="category_image" alt=<%= element.growthRate %> data-bs-toggle="tooltip" title=<%= element.growthRate %>>
-                                <% element.colorFlower.forEach(color => { %>
-                                    <img  src="" class="category_image colorFlowerImg" alt=<%= color %> data-bs-toggle="tooltip">
-                                <% }); %>
-                                <% element.fruitColor.forEach(color => { %>
-                                    <img  src="" class="category_image fruitColorImg" alt=<%= color %> data-bs-toggle="tooltip">
-                                <% }); %>
+                                <img id="plantTypeImg" src="" class="category_image" alt='<%= element.plantType %>'data-bs-toggle="tooltip">
+                                <img id="plantHeightImg" src="https://landscapeplants.aub.edu.lb/images/iconHeight.png" class="category_image" alt='<%= element.plantHeight %>'  data-bs-toggle="tooltip" title='<%= element.plantHeight %>'>
+                                <img id="plantSpreadImg" src="https://landscapeplants.aub.edu.lb/images/iconSpread.png" class="category_image" alt='<%= element.plantSpread %>' data-bs-toggle="tooltip" title='<%= element.plantSpread %>' >
+                                <img id="canopyShapeImg" src="" class="category_image" alt='<%= element.canopyShape %>' data-bs-toggle="tooltip">
+                                <img id="growthRateImg" src="https://landscapeplants.aub.edu.lb/images/iconGrowth.png" class="category_image" alt='<%= element.growthRate %>' data-bs-toggle="tooltip" title='<%= element.growthRate %>'>
+                                <% if(Array.isArray(element.colorFlower)){ %>
+                                    <% element.colorFlower.forEach(color => { %>
+                                    <img  src="" class="category_image colorFlowerImg" alt='<%= color %>' data-bs-toggle="tooltip">
+                                <% });} else{ %>
+                                    <img  src="" class="category_image colorFlowerImg" alt='<%= element.colorFlower %>' data-bs-toggle="tooltip">
+                                <%} %>
+                                <% if(Array.isArray(element.fruitColor)){ %>
+                                    <% element.fruitColor.forEach(color => { %>
+                                    <img  src="" class="category_image fruitColorImg" alt='<%= color %>'data-bs-toggle="tooltip">
+                                <% });} else{ %>
+                                    <img  src="" class="category_image fruitColorImg" alt='<%= element.fruitColor %>'data-bs-toggle="tooltip">
+                                <% } %>
                                 <img id="flowerScentImg" src="" class="category_image" alt='<%= element.flowerScent %>' data-bs-toggle="tooltip" title='<%= element.flowerScent %>'>
-                                <img id="edibleImg" src="" class="category_image" alt=<%= element.edible %> data-bs-toggle="tooltip" title=<%= element.edible %>>
-                                <% element.light.forEach(lightElement => { %>
-                                    <img src="" class="category_image lightImg" alt=<%= lightElement %> data-bs-toggle="tooltip">
-                                <% }); %>
-                                <img id="waterImg" src="" class="category_image" alt=<%= element.water %> data-bs-toggle="tooltip" title=<%= element.water %>>
+                                <img id="edibleImg" src="" class="category_image" alt='<%= element.edible %>' data-bs-toggle="tooltip" title='<%= element.edible %>'>
+                                <% if(Array.isArray(element.light)){ %>
+                                    <% element.light.forEach(lightElement => { %>
+                                    <img src="" class="category_image lightImg" alt='<%= lightElement %>' data-bs-toggle="tooltip">
+                                <% });} else{ %>
+                                    <img src="" class="category_image lightImg" alt='<%= element.light %>' data-bs-toggle="tooltip">
+                                <% } %>
+                                <img id="waterImg" src="" class="category_image" alt='<%= element.water %>' data-bs-toggle="tooltip" title='<%= element.water %>'>
                                 </span>
                             </div>
                             
