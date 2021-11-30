@@ -538,6 +538,20 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
 
         })
 
+        app.get("/deleteDocument",(req,res)=>{
+            console.log(req.query);
+            let q = req.query.collection;
+            let id = req.query.id;
+            console.log(id)
+            let collection = client.db("landscapeAUB").collection(q);
+            
+            collection.deleteOne({_id: ObjectId(id)})
+              .then(results => {
+                  res.send(results);
+              })
+              .catch(err => console.log(err));
+        })
+
         app.listen(port, () => {
             console.log(`listening at http://localhost:${port}`)
         })

@@ -143,6 +143,8 @@ function showDocumentCards(documents) {
         divCard.style.cursor = "pointer";
         divCard.classList.add("card");
         divCard.classList.add("w-100");
+        divCard.classList.add("m-2")
+        divCard.style.position = "relative";
 
         let divCardBody = document.createElement("div");
         divCardBody.classList.add("card-body");
@@ -151,12 +153,32 @@ function showDocumentCards(documents) {
         title.classList.add("card-title");
         title.innerText = element.ScientificName;
 
+        // let divTextTrash = document.createElement("div");
+        let trash = document.createElement("i");
+        trash.classList.add("fas");
+        trash.classList.add("fa-trash");
+        trash.style.color="red";
+        trash.title = "delete";
+        trash.addEventListener("click", function () {
+            if(confirm("This action is permanent and cannot be undone.\nDo you want to proceed?")){
+                
+                deleteDocument(element, getID("collectionDropDownButton2").innerHTML);
+            }else{
+
+            }
+        });
+        trash.style.position = "absolute";
+        trash.style.right = "5px";
+        trash.style.top = "5px";
+        
+
         let text = document.createElement("p");
         text.classList.add("card-text");
         text.innerText = element.CommonEnglishName;
 
         divCardBody.appendChild(title);
         divCardBody.appendChild(text);
+        divCardBody.appendChild(trash);
         divCard.appendChild(divCardBody);
         documentsDiv.appendChild(divCard);
     });
@@ -323,6 +345,16 @@ function getDocuments(collection) {
             //show bunch of plants in Cards with Scientific Name and Common Name only
             showDocumentCards(documents);
         })
+}
+
+function deleteDocument(doc, collection) {
+    fetch('/deleteDocument?' + new URLSearchParams({
+        collection: collection,
+        id: doc._id
+    }))
+        .then(response => 
+            {window.location.reload();}
+        )
 }
 
 //other
