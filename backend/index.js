@@ -398,8 +398,6 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
 
             console.log(query);
             console.log(queryOr);
-            //TODO: this now works, just need to send the info to a view engine or frontend for rendering
-            //finding all that match
             if (query.$and.length == 0 && queryOr.$or.length == 0) {
                 console.log("both empty")
                 allPlantsCollection.find().toArray()
@@ -550,6 +548,20 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
                   res.send(results);
               })
               .catch(err => console.log(err));
+        })
+
+        app.post("/addDocument", (req, res) => {
+            console.log(req.body);
+            let doc = req.body;
+            
+            console.log(">>>>>>>>>>>>>>>>>change document")
+            let collectionName = doc.collection;
+            delete doc.collection;
+            delete doc._id;
+            console.log(doc)
+            client.db("landscapeAUB").collection(collectionName).insertOne(doc)
+            res.sendStatus(200);
+
         })
 
         app.listen(port, () => {

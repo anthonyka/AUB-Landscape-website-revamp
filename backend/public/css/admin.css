@@ -75,7 +75,7 @@ fieldset legend{
     padding: 0 0.5rem;
     float: none;
 }
-#fieldsetin{
+.fieldsetFlex{
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
@@ -114,8 +114,8 @@ table{
    display:block;
 }
 
-#headRow th{
-    position: sticky;
+#headRow th, #docHeadRow th, #headRow3 th{
+  position: sticky;
   top: 0;
   background: white;
 }
