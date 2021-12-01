@@ -79,57 +79,74 @@ fruitColorMap.set("Black", domainColorImages + "fruit-black.png");
 
 
 window.onload = function () {
-    let plantType = document.getElementById("plantTypeImg");
-    addImg(plantType,plantTypeMap);
+    let plantType = document.getElementsByClassName("plantTypeImg");
+    for (let index = 0; index < plantType.length; index++) {
+        addImg(plantType[index], plantTypeMap);
 
-    let canopyShape = document.getElementById("canopyShapeImg");
-    addImg(canopyShape, canopyShapeMap);
+    }
+
+
+    let canopyShape = document.getElementsByClassName("canopyShapeImg");
+    for (let index = 0; index < canopyShape.length; index++) {
+        addImg(canopyShape[index], canopyShapeMap);
+    }
 
     let colorFlower = document.getElementsByClassName("colorFlowerImg");
     for (let index = 0; index < colorFlower.length; index++) {
         addImg(colorFlower[index], flowerColorMap);
     }
-    
+
 
     let fruitColor = document.getElementsByClassName("fruitColorImg");
     for (let index = 0; index < fruitColor.length; index++) {
         addImg(fruitColor[index], fruitColorMap);
     }
 
-    let flowerScent = document.getElementById("flowerScentImg");
-    if(flowerScent.alt == "scentFlowerNoFragrance"){
-        flowerScent.style.display = "none";
-    }else{
-        flowerScent.src = "https://landscapeplants.aub.edu.lb/images/iconFragant.png";
+    let flowerScent = document.getElementsByClassName("flowerScentImg");
+    for (let index = 0; index < flowerScent.length; index++) {
+        if (flowerScent[index].alt == "scentFlowerNoFragrance") {
+            flowerScent[index].style.display = "none";
+        } else {
+            flowerScent[index].src = "https://landscapeplants.aub.edu.lb/images/iconFragant.png";
+        }
     }
 
-    let edible = document.getElementById("edibleImg");
-    if(edible.alt == "no"){
-        edible.style.display = "none";
-    }else{
-        edible.src = "https://landscapeplants.aub.edu.lb/images/iconEdible.png";
+    let edible = document.getElementsByClassName("edibleImg");
+    for (let index = 0; index < edible.length; index++) {
+        if (edible[index].alt == "no") {
+            edible[index].style.display = "none";
+        } else {
+            edible[index].src = "https://landscapeplants.aub.edu.lb/images/iconEdible.png";
+        }
     }
+
 
     let light = document.getElementsByClassName("lightImg");
     for (let index = 0; index < light.length; index++) {
         addImg(light[index], lightMap);
     }
 
-    let water = document.getElementById("waterImg");
-    addImg(water, waterMap);
+    let water = document.getElementsByClassName("waterImg");
+    for (let index = 0; index < water.length; index++) {
+        addImg(water[index], waterMap);
+    }
+
 
     initializeTooltips();
-    document.getElementById("zoomed_image").style.display="none";
-    var images=document.getElementsByClassName("item_image");
-for (var i=0; i<images.length; i++) {
-    images[i].onmouseout = unzoom
-    images[i].onmouseover = zoom;
-}
+    document.getElementById("zoomed_image").style.display = "none";
+    var images = document.getElementsByClassName("item_image");
+    for (var i = 0; i < images.length; i++) {
+        images[i].onmouseout = unzoom
+        images[i].onmouseover = zoom;
+    }
 }
 
 function addImg(parentDiv, usedMap) {
+    if (parentDiv.src === undefined) {
+        parentDiv.style.display = "none"
+    }
     parentDiv.src = usedMap.get(parentDiv.alt);
-    parentDiv.title= parentDiv.alt;
+    parentDiv.title = parentDiv.alt;
 }
 
 function initializeTooltips() {
@@ -139,11 +156,11 @@ function initializeTooltips() {
     })
 }
 
-function zoom(){
-    document.getElementById("zoomed_image").src=this.src;
+function zoom() {
+    document.getElementById("zoomed_image").src = this.src;
     document.getElementById("zoomed_image").style.removeProperty("display");
 }
-function unzoom(){
+function unzoom() {
     // alert("unzoom");
-    document.getElementById("zoomed_image").style.display="none";
+    document.getElementById("zoomed_image").style.display = "none";
 }
