@@ -1,9 +1,13 @@
 const express = require('express');
 const app = express();
+const fs = require('fs');
+var nodemailer = require('nodemailer');
+const fileUpload = require('express-fileupload');
 const port = 3000;
 let url = require('url');
 const bodyParser = require("body-parser");
 app.use(express.json());
+app.use(fileUpload());
 app.use(express.urlencoded({
     extended: true
 }));
@@ -13,7 +17,6 @@ app.set('view engine', 'ejs');
 app.use(express.static(__dirname + "/public"));
 
 
-//added by paul
 const path = require('path');
 app.use(express.static(__dirname + "/public"));
 app.get('/', (req, res) => {
@@ -34,18 +37,25 @@ app.get('/popular_pants_page', (req, res) => {
 app.get('/popular_pants_page2', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/popular_plants2.html'));
 })
+app.get("/AboutUs", (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/about_us.html'));
+});
+app.get("/ContactUs", (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/contact_us.html'));
+});
 
 //admin
 app.get('/admin', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/admin.html'));
 })
-//added by Jad
-app.get("/AboutUs", (req,res) =>{
-    res.sendFile(path.join(__dirname, 'public/about_us.html'));
-});
+
+
 /////////////////
 //---------------connecting to MongoDB------------//
-var MongoClient = require('mongodb').MongoClient;
+var mongo = require('mongodb');
+var MongoClient = mongo.MongoClient;
+var Binary = mongo.Binary;
+
 const { ObjectId } = require('bson');
 const uri = "mongodb+srv://admin:root@cluster0.usof1.mongodb.net/landscapeAUB?retryWrites=true&w=majority";
 MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -56,6 +66,16 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
         let plantsCollection = client.db("landscapeAUB").collection("plants");
         // let plantsAKColletion = client.db("landscapeAUB").collection("plants-AK");
         let allPlantsCollection = client.db("landscapeAUB").collection("allPlants");
+        let messages = client.db("landscapeAUB").collection("messages");
+
+        //mail client -- just for testing
+        var transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: 'landscapetest278@gmail.com',
+                pass: 'CMPS278AUB'
+            }
+        });
         //---------------------routes------------------------//
 
         //route for countries
@@ -75,7 +95,6 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
                 })
                 .catch(error => console.error(error))
         })
-        //added by paul
         // app.get("/plants", (req, res) => {
         //     console.log(">>>>>>>>>>>>>>>>>>in plants");
         //     console.log(req.query.type);
@@ -178,7 +197,7 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
             console.log(">>>>>>>>>>>>>>>>>searchByCrit")
 
             let query = { $and: [] };
-            
+
             if (filters.country != "") {
                 query.$and.push({ country: filters.country });
             }
@@ -227,7 +246,7 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
             if (filters.invasivePotential.length != 0) {
                 query.$and.push({ invasivePotential: { $in: filters.invasivePotential } });
             }
-            
+
 
             let queryOr = { $or: [] };
 
@@ -322,11 +341,11 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
             let filters = JSON.parse(req.body.sentFilters);
 
             let query = { $and: [] };
-            
+
             if (filters.plantType.length != 0) {
                 query.$and.push({ plantType: { $in: filters.plantType } });
             }
-            
+
             if (filters.canopyShape.length != 0) {
                 query.$and.push({ canopyShape: { $in: filters.canopyShape } });
             }
@@ -351,7 +370,7 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
             if (filters.trunkCrownshaft.length != 0) {
                 query.$and.push({ trunkCrownshaft: { $in: filters.trunkCrownshaft } });
             }
-            
+
             if (filters.leafType.length != 0) {
                 query.$and.push({ leafType: { $in: filters.leafType } });
             }
@@ -361,7 +380,7 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
 
             let queryOr = { $or: [] };
 
-            
+
             if (filters.plantType.length != 0) {
                 queryOr.$or.push({ plantType: { $in: filters.plantType } });
             }
@@ -450,43 +469,76 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
             console.log(">>>>>>>>>>>>>>>>>>in searchByName");
         })*/
 
+        app.post("/sendMessage", (req, res) => {
+            let document;
+            if(req.files!=null){
+                document = req.files.upload.data;
+                messages.insertOne({
+                    name: req.body.name,
+                    company: req.body.companyName,
+                    email: req.body.email,
+                    phone: req.body.phone,
+                    country: req.body.country,
+                    subject: req.body.subject,
+                    comments: req.body.comments,
+                    answered: "",
+                    file: Binary(document),
+                });
+            }else{
+                messages.insertOne({
+                    name: req.body.name,
+                    company: req.body.companyName,
+                    email: req.body.email,
+                    phone: req.body.phone,
+                    country: req.body.country,
+                    subject: req.body.subject,
+                    comments: req.body.comments,
+                    answered: "",
+                    file: ""
+                });
+            }
+            
+            res.end();
+        })
+
         //-------------------admin----------------------//
-        app.get("/getFields",(req,res)=>{
+        app.get("/getFields", (req, res) => {
             console.log(req.query);
             let q = req.query.collection;
             console.log(q)
             let collection = client.db("landscapeAUB").collection(q);
-            
+
             collection.aggregate([
-                {"$project":{"arrayofkeyvalue":{"$objectToArray":"$$ROOT"}}},
-                {"$unwind":"$arrayofkeyvalue"},
-                {"$group":{"_id":null,"allkeys":{"$addToSet":"$arrayofkeyvalue.k"}}}
-              ]).toArray()
-              .then(results => {
-                  res.send(results[0].allkeys);
-              })
-              .catch(err => console.log(err));
+                { "$project": { "arrayofkeyvalue": { "$objectToArray": "$$ROOT" } } },
+                { "$unwind": "$arrayofkeyvalue" },
+                { "$group": { "_id": null, "allkeys": { "$addToSet": "$arrayofkeyvalue.k" } } }
+            ]).toArray()
+                .then(results => {
+                    res.send(results[0].allkeys);
+                })
+                .catch(err => console.log(err));
         })
 
-        app.get("/getCollections",(req,res)=>{
-            
+        app.get("/getCollections", (req, res) => {
+
             client.db("landscapeAUB").listCollections().toArray()
-            .then(results => {
-                res.send(results)
-            })
-            .catch(error => console.error(error))
+                .then(results => {
+                    results = results.filter(collection => collection.name != 'messages');
+                    res.send(results)
+                })
+                .catch(error => console.error(error))
         })
 
         app.post("/changeFields", (req, res) => {
             console.log(req.body);
             let edits = req.body;
-            
+
             console.log(">>>>>>>>>>>>>>>>>edit fields")
             let collectionName = edits.collection;
             console.log(collectionName)
             delete edits.collection;
             console.log(edits)
-            client.db("landscapeAUB").collection(collectionName).updateMany( {}, { $rename: edits } )
+            client.db("landscapeAUB").collection(collectionName).updateMany({}, { $rename: edits })
             console.log(edits);
             res.sendStatus(200);
 
@@ -495,65 +547,65 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
         app.post("/addField", (req, res) => {
             console.log(req.body);
             let field = req.body;
-            
+
             console.log(">>>>>>>>>>>>>>>>>add fields")
             let collectionName = field.collection;
             console.log(collectionName)
             delete field.collection;
             console.log(field)
             let newField = field.newField;
-            client.db("landscapeAUB").collection(collectionName).updateMany( {}, { $set: {newField: ""} } )
+            client.db("landscapeAUB").collection(collectionName).updateMany({}, { $set: { newField: "" } })
             console.log(field);
             res.sendStatus(200);
 
         })
 
-        app.get("/getDocuments",(req,res)=>{
+        app.get("/getDocuments", (req, res) => {
             console.log(req.query);
             let q = req.query.collection;
             console.log(q)
             let collection = client.db("landscapeAUB").collection(q);
-            
+
             collection.find().toArray()
-              .then(results => {
-                  res.send(results);
-              })
-              .catch(err => console.log(err));
+                .then(results => {
+                    res.send(results);
+                })
+                .catch(err => console.log(err));
         })
 
         app.post("/changeDocument", (req, res) => {
             console.log(req.body);
             let edits = req.body;
-            
+
             console.log(">>>>>>>>>>>>>>>>>change document")
             let collectionName = edits.collection;
             let id = edits._id;
             delete edits.collection;
             delete edits._id;
             console.log(edits)
-            client.db("landscapeAUB").collection(collectionName).updateOne( {_id: ObjectId(id)}, { $set: edits } )
+            client.db("landscapeAUB").collection(collectionName).updateOne({ _id: ObjectId(id) }, { $set: edits })
             res.sendStatus(200);
 
         })
 
-        app.get("/deleteDocument",(req,res)=>{
+        app.get("/deleteDocument", (req, res) => {
             console.log(req.query);
             let q = req.query.collection;
             let id = req.query.id;
             console.log(id)
             let collection = client.db("landscapeAUB").collection(q);
-            
-            collection.deleteOne({_id: ObjectId(id)})
-              .then(results => {
-                  res.send(results);
-              })
-              .catch(err => console.log(err));
+
+            collection.deleteOne({ _id: ObjectId(id) })
+                .then(results => {
+                    res.send(results);
+                })
+                .catch(err => console.log(err));
         })
 
         app.post("/addDocument", (req, res) => {
             console.log(req.body);
             let doc = req.body;
-            
+
             console.log(">>>>>>>>>>>>>>>>>change document")
             let collectionName = doc.collection;
             delete doc.collection;
@@ -561,6 +613,59 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
             console.log(doc)
             client.db("landscapeAUB").collection(collectionName).insertOne(doc)
             res.sendStatus(200);
+
+        })
+
+        app.get("/getMessages", (req, res) => {
+            console.log(req.query);
+            let filter = req.query.filter;
+
+            if (filter == "View Pending") {
+                messages.find({ answered: "" }).toArray()
+                    .then(results => {
+                        res.send(results);
+                    })
+                    .catch(err => console.log(err));
+            } else if (filter == "View Answered") {
+                messages.find({ answered: "true" }).toArray()
+                    .then(results => {
+                        res.send(results);
+                    })
+                    .catch(err => console.log(err));
+            } else {
+                messages.find().toArray()
+                    .then(results => {
+                        res.send(results);
+                    })
+                    .catch(err => console.log(err));
+            }
+
+        })
+
+        app.get("/sendResponse", (req, res) => {
+            console.log(req.query);
+            let id = req.query.id;
+            let response = req.query.response;
+            let subject = req.query.subject;
+            let to = req.query.to;
+            var mailOptions = {
+                from: 'landscapetest278@gmail.com',
+                to: to,
+                subject: "RE: " + subject,
+                text: response
+              };
+
+            messages.updateOne({ _id: ObjectId(id) }, { $set: { response: response, answered:"true" } })
+                .then(resp => {
+                    transporter.sendMail(mailOptions, function(error, info){
+                        if (error) {
+                          console.log(error);
+                        } else {
+                          console.log('Email sent: ' + info.response);
+                          res.sendStatus(200);
+                        }
+                      });
+                })
 
         })
 

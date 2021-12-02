@@ -14,6 +14,16 @@ window.onload = function () {
 
     let addDocument = getID("addDocument");
     addDocument.addEventListener("click", sendAddedDocument);
+
+    let viewDropDown = getID("view-dropdown");
+    let links = viewDropDown.getElementsByTagName("a");
+    for (let index = 0; index < links.length; index++) {
+        links[index].addEventListener("click", function () {
+            getID("viewButton").innerHTML = this.text;
+            //Get all documents in that collection
+            getMessages(this.text);
+        })
+    }
 }
 
 
@@ -190,8 +200,8 @@ function showDocumentCards(documents, collection) {
     }
     documents.forEach(element => {
         let divCard = document.createElement("div");
-        
-        divCard.addEventListener("click",showDocumentInfo);
+
+        divCard.addEventListener("click", showDocumentInfo);
         divCard.docc = element;
         divCard.style.cursor = "pointer";
         divCard.classList.add("card");
@@ -204,35 +214,35 @@ function showDocumentCards(documents, collection) {
 
         let title = document.createElement("h5");
         title.classList.add("card-title");
-        if(collection == "allPlants"){
+        if (collection == "allPlants") {
             title.innerText = element.ScientificName;
-        }else if(collection=="countries"){
+        } else if (collection == "countries") {
             title.innerText = element.name;
         }
-        
+
 
         // let divTextTrash = document.createElement("div");
         let trash = document.createElement("i");
         trash.classList.add("fas");
         trash.classList.add("fa-trash");
-        trash.style.color="red";
+        trash.style.color = "red";
         trash.title = "delete";
         trash.addEventListener("click", function () {
-            if(confirm("This action is permanent and cannot be undone.\nDo you want to proceed?")){
-                
+            if (confirm("This action is permanent and cannot be undone.\nDo you want to proceed?")) {
+
                 deleteDocument(element, getID("collectionDropDownButton2").innerHTML);
-            }else{
+            } else {
 
             }
         });
         trash.style.position = "absolute";
         trash.style.right = "5px";
         trash.style.top = "5px";
-        
+
 
         let text = document.createElement("p");
         text.classList.add("card-text");
-        if(collection == "allPlants"){
+        if (collection == "allPlants") {
             text.innerText = element.CommonEnglishName;
         }
 
@@ -281,13 +291,114 @@ function showDocumentInfo(event) {
             td.addEventListener("click", editField);
             td.appendChild(editIcon);
             tr.appendChild(td);
-        } else if(key=="_id"){
+        } else if (key == "_id") {
             td.id = "key";
         }
         getID("docBody").appendChild(tr);
-    getID("documentDetail").style.display = "block";
+        getID("documentDetail").style.display = "block";
     }
-        
+
+}
+
+//messages
+function showMessageCards(messages) {
+    let messagesDiv = getID("messages");
+    if (messagesDiv.children.length > 0) {
+        while (messagesDiv.firstChild) {
+            messagesDiv.removeChild(messagesDiv.firstChild);
+        }
+    }
+    messages.forEach(element => {
+        let divCard = document.createElement("div");
+
+        divCard.addEventListener("click", showMessageInfo);
+        divCard.docc = element;
+        divCard.style.cursor = "pointer";
+        divCard.classList.add("card");
+        divCard.classList.add("w-100");
+        divCard.classList.add("m-2")
+        divCard.style.position = "relative";
+
+        let divCardBody = document.createElement("div");
+        divCardBody.classList.add("card-body");
+
+        let title = document.createElement("h5");
+        title.classList.add("card-title");
+        title.innerText = element.subject;
+
+
+
+        // let divTextTrash = document.createElement("div");
+        let trash = document.createElement("i");
+        trash.classList.add("fas");
+        trash.classList.add("fa-trash");
+        trash.style.color = "red";
+        trash.title = "delete";
+        trash.addEventListener("click", function () {
+            if (confirm("This action is permanent and cannot be undone.\nDo you want to proceed?")) {
+
+                deleteDocument(element, "messages");
+            } else {
+
+            }
+        });
+        trash.style.position = "absolute";
+        trash.style.right = "5px";
+        trash.style.top = "5px";
+
+
+        let text = document.createElement("p");
+        text.classList.add("card-text");
+        text.innerText = element.name;
+
+        divCardBody.appendChild(title);
+        divCardBody.appendChild(text);
+        divCardBody.appendChild(trash);
+        divCard.appendChild(divCardBody);
+        messagesDiv.appendChild(divCard);
+    });
+
+}
+
+function showMessageInfo(event) {
+    let message = event.currentTarget.docc;
+    if (getID("messageDetail").querySelectorAll("input").length > 0) {
+        while (getID("messageDetail").firstChild) {
+            getID("messageDetail").removeChild(getID("messageDetail").firstChild);
+        }
+    }
+    console.log(message)
+    createLabelInput("name", "Name", message.name);
+    createLabelInput("company", "Company", message.company);
+    createLabelInput("email", "Email", message.email);
+    createLabelInput("phone", "Phone Number", message.phone);
+    createLabelInput("country", "Country", message.country);
+    createLabelInput("subject", "Subject", message.subject);
+    //NEED TO ADD FILES DISPLAY
+    createLabelTextArea("comments", "Comments", message.comments);
+
+    if(message.response==undefined){
+        //compose response
+    let label = document.createElement("label");
+    label.setAttribute("for", "response");
+    label.innerText = "Compose Response";
+    let textArea = document.createElement("textArea");
+    textArea.id = "response";
+    textArea.name = "response";
+    textArea.type = "text";
+    textArea.style.height = "200px";
+    getID("messageDetail").appendChild(label);
+    getID("messageDetail").appendChild(textArea);
+
+    let sendResponse = getID("sendResponse");
+    sendResponse.addEventListener("click", sendMessageResponse);
+    sendResponse.message = message;
+    }else{
+        createLabelTextArea("response", "Sent Response", message.response);
+    }
+    
+
+    getID("message-button").style.display = "";
 }
 
 //-------------------API-----------------------//
@@ -314,10 +425,10 @@ function getFields(collection, DropDownNumber) {
             console.log(json);
             let fields = json;
             console.log(fields);
-            if(DropDownNumber == "DD1"){
+            if (DropDownNumber == "DD1") {
                 genFields(fields);
 
-            }else{
+            } else {
                 genFieldsToAddDoc(fields);
             }
         })
@@ -376,13 +487,13 @@ function sendEditedDocument() {
             let name = changedDocument[index].parentNode.parentNode.querySelector("th").innerText;
             let value = changedDocument[index].value;
             let array;
-            if(value.includes(',')){
+            if (value.includes(',')) {
                 array = value.match(/(\w+)/gm);
                 editedDocument[name] = array;
-            }else{
+            } else {
                 editedDocument[name] = changedDocument[index].value;
             }
-            
+
         }
     }
     fetch("/changeDocument", {
@@ -413,13 +524,53 @@ function getDocuments(collection) {
         })
 }
 
+function getMessages(filter) {
+    fetch('/getMessages?' + new URLSearchParams({
+        filter: filter,
+    }))
+        .then(response => response.json())
+        .then(function (json) {
+            console.log(json);
+            let messages = json;
+            console.log(messages);
+            //show bunch of plants in Cards with Scientific Name and Common Name only
+            showMessageCards(messages);
+        })
+}
+
+function sendMessageResponse(event) {
+    let response = getID("response");
+    let message = event.currentTarget.message;
+    if(message.email == ""){
+        alert("There is no valid email address to send to");
+        return;
+    }
+
+    fetch('/sendResponse?' + new URLSearchParams({
+        response: response.value,
+        id: message._id,
+        subject: message.subject,
+        to: message.email
+    }))
+        .then(res => {
+            console.log(res)
+            if (res.status == 200) {
+                alert("mail sent successfully")
+                window.location.reload();
+
+            } else {
+                alert("there was an error sending the response")
+            }
+        }
+        )
+}
+
 function deleteDocument(doc, collection) {
     fetch('/deleteDocument?' + new URLSearchParams({
         collection: collection,
         id: doc._id
     }))
-        .then(response => 
-            {window.location.reload();}
+        .then(response => { window.location.reload(); }
         )
 }
 
@@ -430,19 +581,19 @@ function sendAddedDocument() {
     let addedDocument = new Object();
     addedDocument.collection = document.getElementById("collectionDropDownButton3").innerText;
     for (let index = 0; index < headers.length; index++) {
-        if(inputs[index].value!=" " && inputs[index].value!=null && inputs[index].value!=""){
+        if (inputs[index].value != " " && inputs[index].value != null && inputs[index].value != "") {
             empty = 1;
         }
-        if(inputs[index].value.includes(',')){
+        if (inputs[index].value.includes(',')) {
             array = inputs[index].value.match(/(\w+)/gm);
             addedDocument[headers[index].innerText] = array;
-        }else{
-            addedDocument[headers[index].innerText] = inputs[index].value != null?inputs[index].value:"";
+        } else {
+            addedDocument[headers[index].innerText] = inputs[index].value != null ? inputs[index].value : "";
         }
     }
-    
+
     console.log(addedDocument);
-    if(empty != 0){
+    if (empty != 0) {
         fetch("/addDocument", {
             method: 'POST',
             headers: {
@@ -454,10 +605,10 @@ function sendAddedDocument() {
                 window.location.reload();
             })
             .catch(err => console.log(err));
-    }else{
+    } else {
         alert("At least one field should be filled");
     }
-    
+
 
 }
 
@@ -471,4 +622,33 @@ function initializeTooltips() {
 
 function getID(id) {
     return document.getElementById(id);
+}
+
+function createLabelInput(id, labelTitle, value) {
+    let label = document.createElement("label");
+    label.setAttribute("for", id);
+    label.innerText = labelTitle;
+    let input = document.createElement("input");
+    input.id = id;
+    input.name = id;
+    input.type = "text";
+    input.readOnly = true;
+    input.value = value;
+    getID("messageDetail").appendChild(label);
+    getID("messageDetail").appendChild(input);
+}
+
+function createLabelTextArea(id, labelTitle, value) {
+    let label = document.createElement("label");
+    label.setAttribute("for", id);
+    label.innerText = labelTitle;
+    let textArea = document.createElement("textArea");
+    textArea.id = id;
+    textArea.name = id;
+    textArea.type = "text";
+    textArea.readOnly = true;
+    textArea.value = value;
+    textArea.style.height = "200px";
+    getID("messageDetail").appendChild(label);
+    getID("messageDetail").appendChild(textArea);
 }
