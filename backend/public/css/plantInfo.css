@@ -94,7 +94,7 @@
     display: flex;
   }
 
-  .divDescription{
+  .megaSectionDescriptionPrint{
       flex: 0 0 45%;
   }
 
@@ -544,7 +544,23 @@ body {
     .divDescription{
       display: block !important;
     }
-    .mainContentGalleryDesc{
-      flex-direction: column;
+    .megaSectionDescriptionPrint{
+      display: block !important;
+      flex: 0 0 60%;
+    }
+    .promptLinksDiv{
+      display: none !important;
+    }
+    .gallery{
+      display: none !important; 
+    }
+    .printImages{
+      display: block !important;
+    }
+    .slides{
+      height: 250px;
+      max-width: 250px;
+      margin-bottom: 25px;
+      margin-right: 10px;
     }
   }

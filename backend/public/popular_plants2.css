@@ -177,6 +177,7 @@ body {
     margin-bottom: 2px;
     display: flex;
     align-items: flex-start;
+    cursor: pointer;
 }
 
 
@@ -458,7 +459,5 @@ body {
     }
   }
 
-  #cursor{
-    cursor: pointer;
-  }
+
 

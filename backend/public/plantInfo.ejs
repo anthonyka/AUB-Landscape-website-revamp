@@ -95,7 +95,13 @@
                         
                     </div>
                 </div>
-                <div id="landscapeInfo" class="divDescription">
+                <div class="printImages" style="display: none;">
+                    <% plant.Images.forEach(function(element, index){ %>
+                            <img class="slides" src='<%= "https://landscapeplants.aub.edu.lb"+ element.Key%>'>
+                    <% }); %>
+                </div>
+                <div class="megaSectionDescriptionPrint">
+                    <div id="landscapeInfo" class="divDescription">
                     <%= console.log(plant.frenchName) %> 
                     <table class="table tableDesc">
                         <tr>
@@ -214,100 +220,100 @@
                         
                         
                     </table>
-                </div>
-                <div id="botanicalDesc" class="divDescription" style="display: none;">
-                    <table class="table tableDesc">
-                        <tr>
-                            <td class="separator" colspan="2">
-                                Foliage
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="title">
-                                Leaf Color(Growing Season): 
-                            </td>
-                            <td>
-                                <% if(plant.plantColorGrow != ""){ %>
-                                    <%= plant.plantColorGrow %>
-                                <%}else{%>
-                                    Not Available
-                                <% } %> 
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="title">
-                                Leaf Arrangement: 
-                            </td>
-                            <td>
-                                <% if(plant.leafArrangement != ""){ %>
-                                    <%= plant.leafArrangement %> 
-                                <%}else{%>
-                                    Not Available
-                                <% } %> 
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="title">
-                                Leaf Type: 
-                            </td>
-                            <td>
-                                <% if(plant.leafType != ""){ %>
-                                    <%= plant.leafType %> 
-                                <%}else{%>
-                                    Not Available
-                                <% } %> 
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="separator" colspan="2">
-                                Flower
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="title">
-                                Flower Color: 
-                            </td>
-                            <td>
-                                <% if(plant.colorFlower != ""){ %>
-                                    <%= plant.colorFlower %> 
-                                <%}else{%>
-                                    Not Available
-                                <% } %> 
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="title">
-                                Flower Color: 
-                            </td>
-                            <td>
-                                <% if(plant.colorFlower != ""){ %>
-                                    <%= plant.colorFlower %> 
-                                <%}else{%>
-                                    Not Available
-                                <% } %> 
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="separator" colspan="2">
-                                Fruit
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="title">
-                                Fruit Color: 
-                            </td>
-                            <td>
-                                <% if(plant.fruitColor != ""){ %>
-                                    <%= plant.fruitColor %>
-                                <%}else{%>
-                                    Not Available
-                                <% } %> 
-                            </td>
-                        </tr>
-                        
-                    </table>
-                </div>
-                <div id="horticultureMgmt" class="divDescription" style="display: none;">
+                    </div>
+                    <div id="botanicalDesc" class="divDescription" style="display: none;">
+                        <table class="table tableDesc">
+                            <tr>
+                                <td class="separator" colspan="2">
+                                    Foliage
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="title">
+                                    Leaf Color(Growing Season): 
+                                </td>
+                                <td>
+                                    <% if(plant.plantColorGrow != ""){ %>
+                                        <%= plant.plantColorGrow %>
+                                    <%}else{%>
+                                        Not Available
+                                    <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="title">
+                                    Leaf Arrangement: 
+                                </td>
+                                <td>
+                                    <% if(plant.leafArrangement != ""){ %>
+                                        <%= plant.leafArrangement %> 
+                                    <%}else{%>
+                                        Not Available
+                                    <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="title">
+                                    Leaf Type: 
+                                </td>
+                                <td>
+                                    <% if(plant.leafType != ""){ %>
+                                        <%= plant.leafType %> 
+                                    <%}else{%>
+                                        Not Available
+                                    <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="separator" colspan="2">
+                                    Flower
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="title">
+                                    Flower Color: 
+                                </td>
+                                <td>
+                                    <% if(plant.colorFlower != ""){ %>
+                                        <%= plant.colorFlower %> 
+                                    <%}else{%>
+                                        Not Available
+                                    <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="title">
+                                    Flower Color: 
+                                </td>
+                                <td>
+                                    <% if(plant.colorFlower != ""){ %>
+                                        <%= plant.colorFlower %> 
+                                    <%}else{%>
+                                        Not Available
+                                    <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="separator" colspan="2">
+                                    Fruit
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="title">
+                                    Fruit Color: 
+                                </td>
+                                <td>
+                                    <% if(plant.fruitColor != ""){ %>
+                                        <%= plant.fruitColor %>
+                                    <%}else{%>
+                                        Not Available
+                                    <% } %> 
+                                </td>
+                            </tr>
+                            
+                        </table>
+                    </div>
+                    <div id="horticultureMgmt" class="divDescription" style="display: none;">
                     <table class="table tableDesc">
                         <tr>
                             <td class="separator" colspan="2">
@@ -357,7 +363,10 @@
                         </tr>
                         
                     </table>
+                    </div>
                 </div>
+            </div>
+                
             </div>
             <div class="promptLinksDiv">
                 <a id="downloadPDF" class="promptLinks cursor"><i class="fas fa-file-pdf"></i>Download as pdf</a>

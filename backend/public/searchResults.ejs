@@ -64,7 +64,7 @@
                 <%}else{ %>
                     <% plants.forEach(element => { %>
                         <%= console.log(element) %> 
-                        <div class="section cursor" id='<%= element._id %>'>
+                        <div class="section" id='<%= element._id %>'>
                             <% if(element.Images.length!=0){ %>
                                 <img class="item_image" src='<%= "https://landscapeplants.aub.edu.lb"+ element.Images[0].Key%>' alt="">
                             <%}%>
