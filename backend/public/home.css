@@ -269,5 +269,55 @@ body {
     color:white;
     margin-bottom:0;
   }
+  /*added by Jad*/
+  .diverse-spacing{
+    margin: 3% 25%;
+  }
+  /*Useful Links*/
+  .links>h3{
+    color:#5faa45;
+  }
+  .links>nav{
+    margin:3% 0px;
+  }
+  .Useful_Links{
+    text-decoration: none;
+    color: black;
+  }
+  .Useful_Links:hover{
+    color:#5faa45;
+  }
+  /*Citing*/
+  #italic{
+    font-style: italic;
+  }
+  /*Glossary*/
+  .nav_definitions{
+    margin-top: 5%;
+    margin-left: 10%;
+    margin-bottom: 5%;
+  }
+  .nav_definitions>a{
+    margin-right: 1%;
+  }
+  .present{
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+  }
+  .present:hover{
+    color:#5faa45;
+  }
+  .Letter_Index{
+    color: #5faa45;
+    height: 90px;
+  }
+  .subdefinition{
+    vertical-align: middle;
+    height: 80px;
+    font-size:medium;
+    margin: 90px;
+    text-align: center;
+  }
   
   /* Credit to https://epicbootstrap.com/snippets/footer-basic */

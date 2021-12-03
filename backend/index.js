@@ -43,6 +43,18 @@ app.get('/admin', (req, res) => {
 app.get("/AboutUs", (req,res) =>{
     res.sendFile(path.join(__dirname, 'public/about_us.html'));
 });
+app.get("/Acknowledgments", (req,res) =>{
+    res.sendFile(path.join(__dirname, 'public/acknowledgments.html'));
+});
+app.get("/QuickLinks", (req,res) =>{
+    res.sendFile(path.join(__dirname, 'public/usefullinks.html'));
+});
+app.get("/Citing", (req,res) =>{
+    res.sendFile(path.join(__dirname, 'public/citing.html'));
+});
+app.get("/Glossary", (req,res) =>{
+    res.sendFile(path.join(__dirname, 'public/glossary.html'));
+});
 /////////////////
 //---------------connecting to MongoDB------------//
 var MongoClient = require('mongodb').MongoClient;

@@ -37,16 +37,16 @@ function FilterCommonResults(json){
         let narrowedData = data.plants.forEach(name => {
             let common = name["Common-name"].toLowerCase()
             var common_nocomma=common.replace(",","");
-            var typed_fixedspacing=typed.replace("/\s/", '');
-            console.log(typed_fixedspacing);
+            var fixed_typed=typed.replace("(\s)$","");
+            console.log(fixed_typed);
             //console.log(common_nocomma);
             //console.log(common.substring(typed));
             let words = common.split(" ");
-            if (typed == "" ||typed==" ") {
+            if (typed == "" ||typed=="^ ") {
                 return null;
             }
             for (let i = 0; i < words.length; i++) {
-                if (common.indexOf(typed)!==-1||common_nocomma.indexOf(typed)!==-1||common.indexOf(typed_fixedspacing)!==-1){
+                if (common.indexOf(typed)!==-1){
                     foundCommon.push(common);
                     break;
                 }
