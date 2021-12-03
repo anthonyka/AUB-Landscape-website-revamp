@@ -148,6 +148,8 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
             }
 
         })
+        
+
 
         app.get("/plantsfiltered", (req, res) => {
 
@@ -478,9 +480,22 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
                     }
                 });
         })
-        /*app.get("/SearchByName", (req,res) => {
+
+        app.get("/SearchByName", (req,res) => {
             console.log(">>>>>>>>>>>>>>>>>>in searchByName");
-        })*/
+            res.render(path.join(__dirname, 'public/search_by_name.ejs'));
+
+        })
+        
+        app.get('/SearchByLetter', (req, res) => {
+            var q = url.parse(req.url, true).query;
+            var letter=q.letter;
+            allPlantsCollection.find({ScientificName: { '$regex': "^"+letter.toString()}}).toArray()
+            .then(results=>{
+                res.render(path.join(__dirname, 'public/results_by_letter.ejs') , {items: results});
+            })
+            .catch(error=>console.error(error))
+        });
 
         app.post("/sendMessage", (req, res) => {
             let document;
