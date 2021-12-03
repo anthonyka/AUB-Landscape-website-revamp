@@ -43,15 +43,6 @@ app.get("/AboutUs", (req, res) => {
 app.get("/ContactUs", (req, res) => {
     res.sendFile(path.join(__dirname, 'public/contact_us.html'));
 });
-
-//admin
-app.get('/admin', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/admin.html'));
-})
-//added by Jad
-app.get("/AboutUs", (req,res) =>{
-    res.sendFile(path.join(__dirname, 'public/about_us.html'));
-});
 app.get("/Acknowledgments", (req,res) =>{
     res.sendFile(path.join(__dirname, 'public/acknowledgments.html'));
 });
@@ -64,6 +55,12 @@ app.get("/Citing", (req,res) =>{
 app.get("/Glossary", (req,res) =>{
     res.sendFile(path.join(__dirname, 'public/glossary.html'));
 });
+
+//admin
+app.get('/admin', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/admin.html'));
+})
+
 
 
 /////////////////
