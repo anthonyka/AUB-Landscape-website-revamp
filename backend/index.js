@@ -492,7 +492,8 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
             var letter=q.letter;
             allPlantsCollection.find({ScientificName: { '$regex': "^"+letter.toString()}}).toArray()
             .then(results=>{
-                res.render(path.join(__dirname, 'public/results_by_letter.ejs') , {items: results});
+                console.log(results);
+                res.render('searchResults', {plants: results});
             })
             .catch(error=>console.error(error))
         });
