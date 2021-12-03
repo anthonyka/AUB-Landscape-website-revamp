@@ -271,7 +271,10 @@ body {
   }
   /*added by Jad*/
   .diverse-spacing{
-    margin: 3% 25%;
+    margin-top: 3%;
+    margin-bottom: 3%;
+    margin-left: 25%;
+
   }
   /*Useful Links*/
   .links>h3{
@@ -318,4 +321,11 @@ body {
     font-size:medium;
     margin: 90px;
     text-align: center;
+  }
+  .SearchLink{
+    text-decoration: none;
+    color: black;
+  }
+  .SearchLink:hover{
+    color: black;
   }
