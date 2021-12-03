@@ -139,6 +139,13 @@ window.onload = function () {
         images[i].onmouseout = unzoom
         images[i].onmouseover = zoom;
     }
+
+    let cards = document.getElementsByClassName("section");
+    for (let index = 0; index < cards.length; index++) {
+        cards[index].addEventListener("click", function () {
+            window.location.href="/plant?id="+this.id;
+        })
+    }
 }
 
 function addImg(parentDiv, usedMap) {

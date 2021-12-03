@@ -596,7 +596,7 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
             delete edits.collection;
             delete edits._id;
             console.log(edits)
-            client.db("landscapeAUB").collection(collectionName).updateOne({ _id: ObjectId(id) }, { $set: edits })
+            client.db("landscapeAUB").collection(collectionName).updateOne({ _id: new require("mongodb").ObjectId(id) }, { $set: edits })
             res.sendStatus(200);
 
         })
@@ -608,7 +608,7 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
             console.log(id)
             let collection = client.db("landscapeAUB").collection(q);
 
-            collection.deleteOne({ _id: ObjectId(id) })
+            collection.deleteOne({ _id: new require("mongodb").ObjectId(id) })
                 .then(results => {
                     res.send(results);
                 })
@@ -668,7 +668,7 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
                 text: response
               };
 
-            messages.updateOne({ _id: ObjectId(id) }, { $set: { response: response, answered:"true" } })
+            messages.updateOne({ _id: new require("mongodb").ObjectId(id) }, { $set: { response: response, answered:"true" } })
                 .then(resp => {
                     transporter.sendMail(mailOptions, function(error, info){
                         if (error) {

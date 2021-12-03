@@ -63,9 +63,10 @@
                     <p>No results found</p>
                 <%}else{ %>
                     <% plants.forEach(element => { %>
-                        <div class="section">
+                        <%= console.log(element) %> 
+                        <div class="section cursor" id='<%= element._id %>'>
                             <% if(element.Images.length!=0){ %>
-                                <img class="item_image" src='<%= "https://landscapeplants.aub.edu.lb"+ element.Images[0].Key%>' alt="" style="display: none;">
+                                <img class="item_image" src='<%= "https://landscapeplants.aub.edu.lb"+ element.Images[0].Key%>' alt="">
                             <%}%>
                             <div class="contentOfSection">
                                 <p class="Scientificname">

@@ -76,32 +76,14 @@
                             <img src='<%= "https://landscapeplants.aub.edu.lb"+ element.Key%>'>
                         </div>
                     <% }); %>
-                    <!-- Full-width images with number text -->
-                    <!-- <div class="mySlides">
-                        <div class="numbertext">1 / 6</div>
-                        <img src="https://landscapeplants.aub.edu.lb/Plants/Photo/667baa25-5bba-4608-a71f-36f0fe3f29be/Plant" style="width:100%">
-                    </div>
 
-                    <div class="mySlides">
-                        <div class="numbertext">2 / 6</div>
-                        <img src="https://landscapeplants.aub.edu.lb/Plants/Photo/667baa25-5bba-4608-a71f-36f0fe3f29be/Plant" style="width:100%">
-                    </div>
-
-                    <div class="mySlides">
-                        <div class="numbertext">3 / 6</div>
-                        <img src="https://landscapeplants.aub.edu.lb/Plants/Photo/667baa25-5bba-4608-a71f-36f0fe3f29be/Plant" style="width:100%">
-                    </div> -->
-
-                    <!-- Next and previous buttons -->
                     <a class="prev" direction="-1">&#10094;</a>
                     <a class="next" direction="1">&#10095;</a>
 
-                    <!-- Image text -->
                     <div class="caption-gallery">
                         <p id="caption"></p>
                     </div>
 
-                    <!-- Thumbnail images -->
                     <div class="row">
                         <% plant.Images.forEach(function(element, index){ %>
                             <div class="column">
@@ -122,7 +104,7 @@
                             </td>
                             <td>
                                 <% if(plant.frenchName != ""){ %>
-                                    <%= plant.frenchName %>; 
+                                    <%= plant.frenchName %> 
                                 <%}else{%>
                                     Not Available
                                 <% } %> 
@@ -134,7 +116,96 @@
                             </td>
                             <td>
                                 <% if(plant.pronunciation != ""){ %>
-                                    <%= plant.pronunciation %>; 
+                                    <%= plant.pronunciation %> 
+                                <%}else{%>
+                                    Not Available
+                                <% } %> 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="title">
+                                Origin: 
+                            </td>
+                            <td>
+                                <% if(plant.origin != ""){ %>
+                                    <%= plant.origin %>
+                                <%}else{%>
+                                    Not Available
+                                <% } %> 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="title">
+                                Heat Zones: 
+                            </td>
+                            <td>
+                                <% if(plant.heatZones != ""){ %>
+                                    <%= plant.heatZones %>
+                                <%}else{%>
+                                    Not Available
+                                <% } %> 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="title">
+                                Hardiness Zones: 
+                            </td>
+                            <td>
+                                <% if(plant.hardinessZones != ""){ %>
+                                    <%= plant.hardinessZones %>
+                                <%}else{%>
+                                    Not Available
+                                <% } %> 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="title">
+                                Uses: 
+                            </td>
+                            <td>
+                                <% if(plant.uses != ""){ %>
+                                    <%= plant.uses %>
+                                <%}else{%>
+                                    Not Available
+                                <% } %> 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="separator" colspan="2">
+                                Size/Shape
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="title">
+                                Growth rate: 
+                            </td>
+                            <td>
+                                <% if(plant.growthRate != ""){ %>
+                                    <%= plant.growthRate %>
+                                <%}else{%>
+                                    Not Available
+                                <% } %> 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="title">
+                                Height at Maturiy: 
+                            </td>
+                            <td>
+                                <% if(plant.plantHeight != ""){ %>
+                                    <%= plant.plantHeight %>(m)
+                                <%}else{%>
+                                    Not Available
+                                <% } %> 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="title">
+                                Spread at Maturity: 
+                            </td>
+                            <td>
+                                <% if(plant.plantSpread != ""){ %>
+                                    <%= plant.plantSpread %>(m)
                                 <%}else{%>
                                     Not Available
                                 <% } %> 
@@ -147,12 +218,58 @@
                 <div id="botanicalDesc" class="divDescription" style="display: none;">
                     <table class="table tableDesc">
                         <tr>
+                            <td class="separator" colspan="2">
+                                Foliage
+                            </td>
+                        </tr>
+                        <tr>
                             <td class="title">
                                 Leaf Color(Growing Season): 
                             </td>
                             <td>
                                 <% if(plant.plantColorGrow != ""){ %>
-                                    <%= plant.plantColorGrow %>; 
+                                    <%= plant.plantColorGrow %>
+                                <%}else{%>
+                                    Not Available
+                                <% } %> 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="title">
+                                Leaf Arrangement: 
+                            </td>
+                            <td>
+                                <% if(plant.leafArrangement != ""){ %>
+                                    <%= plant.leafArrangement %> 
+                                <%}else{%>
+                                    Not Available
+                                <% } %> 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="title">
+                                Leaf Type: 
+                            </td>
+                            <td>
+                                <% if(plant.leafType != ""){ %>
+                                    <%= plant.leafType %> 
+                                <%}else{%>
+                                    Not Available
+                                <% } %> 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="separator" colspan="2">
+                                Flower
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="title">
+                                Flower Color: 
+                            </td>
+                            <td>
+                                <% if(plant.colorFlower != ""){ %>
+                                    <%= plant.colorFlower %> 
                                 <%}else{%>
                                     Not Available
                                 <% } %> 
@@ -164,25 +281,46 @@
                             </td>
                             <td>
                                 <% if(plant.colorFlower != ""){ %>
-                                    <%= plant.colorFlower %>; 
+                                    <%= plant.colorFlower %> 
                                 <%}else{%>
                                     Not Available
                                 <% } %> 
                             </td>
                         </tr>
-                        
+                        <tr>
+                            <td class="separator" colspan="2">
+                                Fruit
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="title">
+                                Fruit Color: 
+                            </td>
+                            <td>
+                                <% if(plant.fruitColor != ""){ %>
+                                    <%= plant.fruitColor %>
+                                <%}else{%>
+                                    Not Available
+                                <% } %> 
+                            </td>
+                        </tr>
                         
                     </table>
                 </div>
                 <div id="horticultureMgmt" class="divDescription" style="display: none;">
                     <table class="table tableDesc">
                         <tr>
+                            <td class="separator" colspan="2">
+                                Requirements
+                            </td>
+                        </tr>
+                        <tr>
                             <td class="title">
-                                French Name: 
+                                Water Requirements: 
                             </td>
                             <td>
-                                <% if(plant.frenchName != ""){ %>
-                                    <%= plant.frenchName %>; 
+                                <% if(plant.water != ""){ %>
+                                    <%= plant.water %> 
                                 <%}else{%>
                                     Not Available
                                 <% } %> 
@@ -190,17 +328,33 @@
                         </tr>
                         <tr>
                             <td class="title">
-                                Pronounciation: 
+                                Light Requirements: 
                             </td>
                             <td>
-                                <% if(plant.pronunciation != ""){ %>
-                                    <%= plant.pronunciation %>; 
+                                <% if(plant.light != ""){ %>
+                                    <%= plant.light %>
                                 <%}else{%>
                                     Not Available
                                 <% } %> 
                             </td>
                         </tr>
-                        
+                        <tr>
+                            <td class="separator" colspan="2">
+                                Management
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="title">
+                                Invasive Potential: 
+                            </td>
+                            <td>
+                                <% if(plant.invasivePotential != ""){ %>
+                                    <%= plant.invasivePotential %>;
+                                <%}else{%>
+                                    Not Available
+                                <% } %> 
+                            </td>
+                        </tr>
                         
                     </table>
                 </div>
