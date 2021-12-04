@@ -184,6 +184,7 @@ body {
       width:250px;
       height: 190px;
       background-position: center;
+      cursor: zoom-in;
   }
 
   .footer-basic {
