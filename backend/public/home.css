@@ -15,7 +15,7 @@ body {
 
 .header{
     background-color: rgb(89, 156, 11);
-    width: 1520px;
+    width: 100%;
     height: 234px;
     position: relative;
 }
@@ -100,7 +100,7 @@ body {
 
   .nav{
       display: block;
-      width: 1520px;
+      width: 100%;
       position:relative;
       top:20px;
   }
@@ -290,10 +290,6 @@ body {
   .Useful_Links:hover{
     color:#5faa45;
   }
-  /*Citing*/
-  #italic{
-    font-style: italic;
-  }
   /*Glossary*/
   .nav_definitions{
     margin-top: 5%;
@@ -322,6 +318,7 @@ body {
     margin: 90px;
     text-align: center;
   }
+  /*Search Button*/
   .SearchLink{
     text-decoration: none;
     color: black;
@@ -329,3 +326,12 @@ body {
   .SearchLink:hover{
     color: black;
   }
+  .activesearches {
+    border-radius: 25px;
+    border: 2px solid #73AD21;
+    padding: 20px; 
+    width: 200px;
+    height: 100px;  
+    background-color: grey;
+  }
+  
