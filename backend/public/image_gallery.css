@@ -167,7 +167,10 @@ body {
   }
 
 
-
+#categories{
+  margin: auto;
+  text-align: center;
+}
 
   #image_container{
     position: relative;

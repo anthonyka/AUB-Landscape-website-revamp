@@ -7,31 +7,50 @@
     //   console.log(myJson); 
     window.onload= function(){
         document.getElementById("alltypes").addEventListener("click",function() {
+            document.getElementById("categories").innerHTML="All types";
             myplants="all";
             Index=0;
             document.getElementById("image_container").innerHTML="";
             add_elements();
         });
         document.getElementById("cactus").addEventListener("click",function() {
-            myplants="cactus";
+            document.getElementById("categories").innerHTML="Cactus/Succulent";
+            myplants="Cactus/Succulent";
             Index=0;
             document.getElementById("image_container").innerHTML="";
             add_elements();
         });
         document.getElementById("palm").addEventListener("click",function() {
+            document.getElementById("categories").innerHTML="Palm";
             myplants="palm";
             Index=0;
             document.getElementById("image_container").innerHTML="";
             add_elements();
         });
         document.getElementById("lawn").addEventListener("click",function() {
-            myplants="lawn";
+            document.getElementById("categories").innerHTML="Lawn";
+            myplants="Lawn";
             Index=0;
             document.getElementById("image_container").innerHTML="";
             add_elements();
         });
         document.getElementById("shrub").addEventListener("click",function() {
-            myplants="shrub";
+            document.getElementById("categories").innerHTML="Shrub";
+            myplants="Shrub";
+            Index=0;
+            document.getElementById("image_container").innerHTML="";
+            add_elements();
+        });
+        document.getElementById("tree").addEventListener("click",function() {
+            document.getElementById("categories").innerHTML="Tree";
+            myplants="Tree";
+            Index=0;
+            document.getElementById("image_container").innerHTML="";
+            add_elements();
+        });
+        document.getElementById("groundcover").addEventListener("click",function() {
+            document.getElementById("categories").innerHTML="Ground Cover";
+            myplants="Ground Cover";
             Index=0;
             document.getElementById("image_container").innerHTML="";
             add_elements();

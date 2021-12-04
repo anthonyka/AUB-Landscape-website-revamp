@@ -172,7 +172,7 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
             console.log(">>>>>>>>>>>>>>>>>>in plantsfiltered");
             console.log(req.query.filter);
             if (req.query.filter == "fragrant") {
-                allPlantsCollection.find({ fragrant: { $in: ["scentFlowerPleasant", "scentFlowerUnpleasant"] } }).toArray()
+                allPlantsCollection.find({ flowerScent: { $in: ["scentFlowerPleasant", "scentFlowerUnpleasant"] } }).toArray()
                     .then(results => {
                         res.render("searchResults", { plants: results });
                     })
@@ -194,7 +194,7 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
                     .catch(error => console.error(error))
             }
             else if (req.query.filter == "arid") {
-                allPlantsCollection.find().toArray()
+                allPlantsCollection.find({ water: "Low" }).toArray()
                     .then(results => {
                         res.render("searchResults", { plants: results });
                     })
