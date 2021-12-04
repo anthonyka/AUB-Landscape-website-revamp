@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const fs = require('fs');
 var nodemailer = require('nodemailer');
+const multer = require("multer");
 const fileUpload = require('express-fileupload');
 const port = 3000;
 let url = require('url');
@@ -43,16 +44,16 @@ app.get("/AboutUs", (req, res) => {
 app.get("/ContactUs", (req, res) => {
     res.sendFile(path.join(__dirname, 'public/contact_us.html'));
 });
-app.get("/Acknowledgments", (req,res) =>{
+app.get("/Acknowledgments", (req, res) => {
     res.sendFile(path.join(__dirname, 'public/acknowledgments.html'));
 });
-app.get("/QuickLinks", (req,res) =>{
+app.get("/QuickLinks", (req, res) => {
     res.sendFile(path.join(__dirname, 'public/usefullinks.html'));
 });
-app.get("/Citing", (req,res) =>{
+app.get("/Citing", (req, res) => {
     res.sendFile(path.join(__dirname, 'public/citing.html'));
 });
-app.get("/Glossary", (req,res) =>{
+app.get("/Glossary", (req, res) => {
     res.sendFile(path.join(__dirname, 'public/glossary.html'));
 });
 
@@ -88,6 +89,21 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
                 user: 'landscapetest278@gmail.com',
                 pass: 'CMPS278AUB'
             }
+        });
+
+        //Configuration for Multer
+        const multerStorage = multer.diskStorage({
+            destination: (req, file, cb) => {
+                cb(null, "public/images");
+            },
+            filename: (req, file, cb) => {
+                cb(null, file.originalname);
+            },
+        });
+
+        //Calling the "multer" Function
+        const upload = multer({
+            storage: multerStorage,
         });
         //---------------------routes------------------------//
 
@@ -148,7 +164,7 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
             }
 
         })
-        
+
 
 
         app.get("/plantsfiltered", (req, res) => {
@@ -481,26 +497,26 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
                 });
         })
 
-        app.get("/SearchByName", (req,res) => {
+        app.get("/SearchByName", (req, res) => {
             console.log(">>>>>>>>>>>>>>>>>>in searchByName");
             res.render(path.join(__dirname, 'public/search_by_name.ejs'));
 
         })
-        
+
         app.get('/SearchByLetter', (req, res) => {
             var q = url.parse(req.url, true).query;
-            var letter=q.letter;
-            allPlantsCollection.find({ScientificName: { '$regex': "^"+letter.toString()}}).toArray()
-            .then(results=>{
-                console.log(results);
-                res.render('searchResults', {plants: results});
-            })
-            .catch(error=>console.error(error))
+            var letter = q.letter;
+            allPlantsCollection.find({ ScientificName: { '$regex': "^" + letter.toString() } }).toArray()
+                .then(results => {
+                    console.log(results);
+                    res.render('searchResults', { plants: results });
+                })
+                .catch(error => console.error(error))
         });
 
         app.post("/sendMessage", (req, res) => {
             let document;
-            if(req.files!=null){
+            if (req.files != null) {
                 document = req.files.upload.data;
                 messages.insertOne({
                     name: req.body.name,
@@ -513,7 +529,7 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
                     answered: "",
                     file: Binary(document),
                 });
-            }else{
+            } else {
                 messages.insertOne({
                     name: req.body.name,
                     company: req.body.companyName,
@@ -526,8 +542,8 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
                     file: ""
                 });
             }
-            
-            res.end();
+
+            res.redirect("/ContactUs");
         })
 
         //-------------------admin----------------------//
@@ -635,7 +651,7 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
             console.log(req.body);
             let doc = req.body;
 
-            console.log(">>>>>>>>>>>>>>>>>change document")
+            console.log(">>>>>>>>>>>>>>>>>add document")
             let collectionName = doc.collection;
             delete doc.collection;
             delete doc._id;
@@ -644,6 +660,12 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
             res.sendStatus(200);
 
         })
+
+        // app.post("/addDocumentImages", upload.fields([{ name: 'Image0', maxCount: 1 }, { name: 'Image1', maxCount: 1 }, { name: 'Image2', maxCount: 1 }, { name: 'Image3', maxCount: 1 }, { name: 'Image4', maxCount: 1 }]), (req, res) => {
+        //     console.log("addDocImages");
+        //     let doc = req.files;
+        //     console.log(doc);
+        // })
 
         app.get("/getMessages", (req, res) => {
             console.log(req.query);
@@ -682,23 +704,23 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
                 to: to,
                 subject: "RE: " + subject,
                 text: response
-              };
+            };
 
-            messages.updateOne({ _id: new require("mongodb").ObjectId(id) }, { $set: { response: response, answered:"true" } })
+            messages.updateOne({ _id: new require("mongodb").ObjectId(id) }, { $set: { response: response, answered: "true" } })
                 .then(resp => {
-                    transporter.sendMail(mailOptions, function(error, info){
+                    transporter.sendMail(mailOptions, function (error, info) {
                         if (error) {
-                          console.log(error);
+                            console.log(error);
                         } else {
-                          console.log('Email sent: ' + info.response);
-                          res.sendStatus(200);
+                            console.log('Email sent: ' + info.response);
+                            res.sendStatus(200);
                         }
-                      });
+                    });
                 })
 
         })
 
-        
+
 
         app.listen(port, () => {
             console.log(`listening at http://localhost:${port}`)

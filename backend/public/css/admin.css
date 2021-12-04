@@ -125,6 +125,10 @@ table{
   background: white;
 }
 
+#documents{
+    flex: 0 0 25%;
+}
+
 #messageDetail input[type=text], #messageDetail select, #messageDetail textarea{
     width: 100%; /* Full width */
     padding: 12px; /* Some padding */ 
