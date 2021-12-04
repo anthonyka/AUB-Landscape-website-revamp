@@ -207,7 +207,7 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
                     })
                     .catch(error => console.error(error))
             }
-            else if (req.query.filter == "Ground cover") {
+            else if (req.query.filter == "ground") {
                 allPlantsCollection.find({ plantType: "Ground Cover" }).toArray()
                     .then(results => {
                         res.render("searchResults", { plants: results });
