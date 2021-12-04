@@ -22,7 +22,7 @@
         });
         document.getElementById("palm").addEventListener("click",function() {
             document.getElementById("categories").innerHTML="Palm";
-            myplants="palm";
+            myplants="Palm";
             Index=0;
             document.getElementById("image_container").innerHTML="";
             add_elements();
@@ -51,6 +51,13 @@
         document.getElementById("groundcover").addEventListener("click",function() {
             document.getElementById("categories").innerHTML="Ground Cover";
             myplants="Ground Cover";
+            Index=0;
+            document.getElementById("image_container").innerHTML="";
+            add_elements();
+        });
+        document.getElementById("vine").addEventListener("click",function() {
+            document.getElementById("categories").innerHTML="Vine";
+            myplants="Vine";
             Index=0;
             document.getElementById("image_container").innerHTML="";
             add_elements();
