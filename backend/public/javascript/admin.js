@@ -24,6 +24,9 @@ window.onload = function () {
             getMessages(this.text);
         })
     }
+
+    let searchBar = getID("searchBar");
+    searchBar.addEventListener("keyup", filterCards);
 }
 
 
@@ -399,6 +402,22 @@ function showMessageInfo(event) {
     
 
     getID("message-button").style.display = "";
+}
+
+function filterCards() {
+    let searchTerm = getID("searchBar").getElementsByTagName("input")[0].value.toUpperCase();
+    let cards = document.getElementsByClassName("card-body");
+    for (let index = 0; index < cards.length; index++) {
+        let sciName = cards[index].getElementsByClassName("card-title")[0];
+        let commonName = cards[index].getElementsByClassName("card-text")[0];
+        let txtValueSci = sciName.textContent || sciName.innerText;
+        let txtValueCommon = commonName.textContent || commonName.innerText;
+        if (txtValueSci.toUpperCase().indexOf(searchTerm) > -1 || txtValueCommon.toUpperCase().indexOf(searchTerm) > -1) {
+            cards[index].parentNode.style.display = "";
+        } else {
+            cards[index].parentNode.style.display = "none";
+        }
+    }
 }
 
 //-------------------API-----------------------//

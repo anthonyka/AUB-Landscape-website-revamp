@@ -107,6 +107,11 @@ main{
     flex: 0 0 50%;
 }
 
+#collections2{
+    display: flex;
+}
+
+
 table{
     overflow-y:auto;
     width: 30%;
