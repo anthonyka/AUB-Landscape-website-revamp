@@ -52,6 +52,7 @@ body {
 .bodyreferences{
     color: rgb(20, 139, 20);
     text-decoration: none;
+    cursor: pointer;
 }
 .bodyreferences:hover{
     color: rgb(177, 18, 142);
