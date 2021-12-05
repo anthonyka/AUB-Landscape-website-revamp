@@ -63,23 +63,22 @@
         <h2 class="titles">Search By Name</h2>
         <div class="SearchByName">
             <div class="inner content">
+                <form method="get" action="/name">                
+                    <label>Common Name</label>
+                    <div id="CommonNameSection">
+                        <input type="text" class="input" id="CommonsearchBar" name="Common_Name"> 
+                        <div id="Common-results">
+                        
+                        </div>
+                    </div>
                 
-                <label>Common Name</label>
-                <div id="CommonNameSection">
-                    <input type="text" class="input" id="CommonsearchBar" name="Common_Name"> 
-                    <div id="Common-results">
-
+                    <label>Scientific Name</label>
+                    <div id="ScientificNameSection">
+                        <input type="text" class="input" id="ScientificsearchBar" name="Scientific_Name"> 
+                        <div id="Scientific-results">
+                        
+                        </div>
                     </div>
-                </div>
-
-                <label>Scientific Name</label>
-                <div id="ScientificNameSection">
-                    <input type="text" class="input" id="ScientificsearchBar" name="Scientific_Name"> 
-                    <div id="Scientific-results">
-
-                    </div>
-                </div>
-                <form method="get" action="/SearchByName">
                     <button type="submit">Submit</button>
                 </form>            
             </div>
