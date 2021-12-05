@@ -174,14 +174,14 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
             if (req.query.filter == "fragrant") {
                 allPlantsCollection.find({ flowerScent: { $in: ["scentFlowerPleasant", "scentFlowerUnpleasant"] } }).toArray()
                     .then(results => {
-                        res.render("searchResults", { plants: results });
+                        res.render("searchResults", { plants: results,  partial: 0 });
                     })
                     .catch(error => console.error(error))
             }
             else if (req.query.filter == "flowering") {
                 allPlantsCollection.find({ colorFlower: { $exists: true, $ne: [] } }).toArray()
                     .then(results => {
-                        res.render("searchResults", { plants: results });
+                        res.render("searchResults", { plants: results,  partial: 0 });
                     })
                     .catch(error => console.error(error))
 
@@ -189,28 +189,28 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
             else if (req.query.filter == "edible") {
                 allPlantsCollection.find({ edible: "yes" }).toArray()
                     .then(results => {
-                        res.render("searchResults", { plants: results });
+                        res.render("searchResults", { plants: results,  partial: 0 });
                     })
                     .catch(error => console.error(error))
             }
             else if (req.query.filter == "arid") {
                 allPlantsCollection.find({ water: "Low" }).toArray()
                     .then(results => {
-                        res.render("searchResults", { plants: results });
+                        res.render("searchResults", { plants: results,  partial: 0 });
                     })
                     .catch(error => console.error(error))
             }
             else if (req.query.filter == "shade") {
                 allPlantsCollection.find({ light: "Shade" }).toArray()
                     .then(results => {
-                        res.render("searchResults", { plants: results });
+                        res.render("searchResults", { plants: results,  partial: 0 });
                     })
                     .catch(error => console.error(error))
             }
             else if (req.query.filter == "ground") {
                 allPlantsCollection.find({ plantType: "Ground Cover" }).toArray()
                     .then(results => {
-                        res.render("searchResults", { plants: results });
+                        res.render("searchResults", { plants: results,  partial: 0 });
                     })
                     .catch(error => console.error(error))
             }
@@ -530,7 +530,7 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
             allPlantsCollection.find({ ScientificName: { '$regex': "^" + letter.toString() } }).toArray()
                 .then(results => {
                     console.log(results);
-                    res.render('searchResults', { plants: results });
+                    res.render('searchResults', { plants: results,  partial: 0 });
                 })
                 .catch(error => console.error(error))
         });
