@@ -77,8 +77,6 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
 
         let countriesCollection = client.db("landscapeAUB").collection("countries");
         let categoriesCollection = client.db("landscapeAUB").collection("categories");
-        let plantsCollection = client.db("landscapeAUB").collection("plants");
-        // let plantsAKColletion = client.db("landscapeAUB").collection("plants-AK");
         let allPlantsCollection = client.db("landscapeAUB").collection("allPlants");
         let messages = client.db("landscapeAUB").collection("messages");
 
@@ -590,6 +588,7 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
             client.db("landscapeAUB").listCollections().toArray()
                 .then(results => {
                     results = results.filter(collection => collection.name != 'messages');
+                    results = results.filter(collection => collection.name != 'categories');
                     res.send(results)
                 })
                 .catch(error => console.error(error))
