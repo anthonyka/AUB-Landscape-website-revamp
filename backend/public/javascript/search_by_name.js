@@ -1,7 +1,7 @@
 window.onload = function () {
     getCollections();
     let CommonsearchBar = getID("CommonsearchBar");
-    CommonsearchBar.addEventListener("keyup", ShowCommon);
+    CommonsearchBar.addEventListener("keyup", ShowCommon)
     let ScientificsearchBar = getID("ScientificsearchBar");
     ScientificsearchBar.addEventListener("keyup",ShowScientific)
 }
@@ -22,10 +22,18 @@ function PopulateCommon(collection){
         var CommonNamediv= document.createElement("div");
         CommonNamediv.className="answer";
         CommonNamediv.style.display="none";
-        var Commontxt=document.createElement("a");
-        Commontxt.innerText=plant.CommonEnglishName;
-        CommonNamediv.appendChild(Commontxt)
+        CommonNamediv.innerText=plant.CommonEnglishName;
+        CommonNamediv.style.cursor = "pointer";
         CommonSection.appendChild(CommonNamediv)
+        CommonNamediv.addEventListener("click",function(e){
+            let CommonsearchBar = getID("CommonsearchBar");
+            CommonsearchBar.value=e.target.innerText;
+            ShowCommon();
+            var answer=CommonSection.getElementsByClassName("answer");
+            for(var i=0;i<answer.length;i++){
+                answer[i].style.display="none"
+            }
+        })
     }
 }
 function ShowCommon(){
@@ -35,21 +43,22 @@ function ShowCommon(){
     for(var i=0;i<answer.length;i++){
         answer[i].style.display="none"
     }
-    if(CommonsearchBarValue==""){
-        return
-    }
+    
     var max_length=0;
         for(var i=0;i<answer.length;i++){
             //remove commas
-            var answerUpdated=(answer[i].innerText).replaceAll(",","") 
-            CommonsearchBarValue=CommonsearchBarValue.replaceAll(",","")
+            var answerUpdated=(answer[i].innerText).replaceAll(",","") ;
+            answerUpdated=answerUpdated.replaceAll("\'","");
+            CommonsearchBarValue=CommonsearchBarValue.replaceAll(",","");
+            CommonsearchBarValue=CommonsearchBarValue.replaceAll("\'","");
             //remove excess space at the begining and end
             CommonsearchBarValue=CommonsearchBarValue.trim();
             //remove excess whitespace in between words
             CommonsearchBarValue=CommonsearchBarValue.replaceAll(/\s+/g," ")
-            if(max_length==8){
+            if(max_length==8|| CommonsearchBarValue==""){
                 return;
             }
+            var commonarr=answerUpdated.split(" ");
             if ((answerUpdated.toLowerCase()).indexOf(CommonsearchBarValue.toLowerCase())!==-1){
                 answer[i].style.display="block";
                  max_length++;
@@ -65,10 +74,18 @@ function PopulateScientific(collection){
         var ScientificNamediv= document.createElement("div");
         ScientificNamediv.className="answer";
         ScientificNamediv.style.display="none";
-        var Scientifictxt=document.createElement("a");
-        Scientifictxt.innerText=plant.ScientificName;
-        ScientificNamediv.appendChild(Scientifictxt)
+        ScientificNamediv.innerText=plant.ScientificName;
+        ScientificNamediv.style.cursor = "pointer";
         ScientificSection.appendChild(ScientificNamediv)
+        ScientificNamediv.addEventListener("click",function(e){
+            let ScientificsearchBar = getID("ScientificsearchBar");
+            ScientificsearchBar.value=e.target.innerText;
+            ShowScientific();
+            var answer=ScientificNameSection.getElementsByClassName("answer");
+            for(var i=0;i<answer.length;i++){
+                answer[i].style.display="none"
+            }
+        })
     }
 }
 function ShowScientific(){
