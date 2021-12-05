@@ -533,6 +533,13 @@ body {
     cursor: pointer;
   }
   
+  .linkGlossary{
+    text-decoration: none;
+    color: inherit;
+  }
+  .linkGlossary:hover{
+    color: rgb(0, 182, 0);
+  }
 
   @media print{
     .nav{

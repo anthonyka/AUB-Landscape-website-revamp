@@ -116,6 +116,26 @@ window.onload = function () {
     resetButton.addEventListener("click",function () {
         window.location.reload();
     });
+
+    let resetSection = document.getElementsByClassName("reset");
+    for (let index = 0; index < resetSection.length; index++) {
+        resetSection[index].addEventListener("click", function () {
+            let fieldset = this.parentNode;
+            let checkbox = fieldset.querySelectorAll('input[type="checkbox"]:checked');
+            let radio = fieldset.querySelectorAll('input[type="radio"]:checked');
+            let boxes = fieldset.querySelectorAll('[selected="true"]');
+            for (let index = 0; index < checkbox.length; index++) {
+                checkbox[index].checked = false;
+            }
+            for (let index = 0; index < radio.length; index++) {
+                radio[index].checked = false;
+            }
+            for (let index = 0; index < boxes.length; index++) {
+                uncheckBox(boxes[index]);
+            }
+        })
+        
+    }
 }
 
 
@@ -301,6 +321,20 @@ function initializeTooltips() {
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl)
     })
+}
+
+function uncheckBox(box) {
+    if (box.parentNode == getID("plantColorGrow") || box.parentNode == getID("plantColorChange")) {
+        box.classList.add("colorBoxWithImageText");
+        box.classList.remove("colorBoxWithImageTextSelected")
+    } else {
+        box.classList.add("boxWithImageText");
+        box.classList.remove("boxWithImageTextSelected")
+        if (box == getID("light") || box == getID("soil") || box == getID("water")) {
+            box.classList.add("boxWithImageTextSmall");
+        }
+    }
+    box.setAttribute("selected", "false");
 }
 
 function createFilterBoxes(parentDiv, usedMap) {

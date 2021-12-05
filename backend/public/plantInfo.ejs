@@ -119,7 +119,7 @@
                     <table class="table tableDesc">
                         <tr>
                             <td class="title">
-                                French Name: 
+                               <a href="/Glossary#Letter-C-" class="linkGlossary">French Name:</a>  
                             </td>
                             <td>
                                 <% if(plant.frenchName != ""){ %>
@@ -131,7 +131,7 @@
                         </tr>
                         <tr>
                             <td class="title">
-                                Pronounciation: 
+                                <a href="/Glossary#Letter-P-" class="linkGlossary">Pronounciation:</a> 
                             </td>
                             <td>
                                 <% if(plant.pronunciation != ""){ %>
@@ -143,7 +143,7 @@
                         </tr>
                         <tr>
                             <td class="title">
-                                Origin: 
+                                <a href="/Glossary#Letter-N-" class="linkGlossary">Origin:</a> 
                             </td>
                             <td>
                                 <% if(plant.origin != ""){ %>
@@ -155,7 +155,7 @@
                         </tr>
                         <tr>
                             <td class="title">
-                                Heat Zones: 
+                                <a href="/Glossary#Letter-C-" class="linkGlossary">Heat Zones:</a> 
                             </td>
                             <td>
                                 <% if(plant.heatZones != ""){ %>
@@ -167,7 +167,7 @@
                         </tr>
                         <tr>
                             <td class="title">
-                                Hardiness Zones: 
+                                <a href="/Glossary#Letter-C-" class="linkGlossary">Hardiness Zones:</a> 
                             </td>
                             <td>
                                 <% if(plant.hardinessZones != ""){ %>
@@ -179,7 +179,7 @@
                         </tr>
                         <tr>
                             <td class="title">
-                                Uses: 
+                                <a href="/Glossary#Letter-U-" class="linkGlossary">Uses</a>: 
                             </td>
                             <td>
                                 <% if(plant.uses != ""){ %>
@@ -196,7 +196,7 @@
                         </tr>
                         <tr>
                             <td class="title">
-                                Growth rate: 
+                                <a href="/Glossary#Letter-G-" class="linkGlossary">Growth rate:</a> 
                             </td>
                             <td>
                                 <% if(plant.growthRate != ""){ %>
@@ -208,7 +208,7 @@
                         </tr>
                         <tr>
                             <td class="title">
-                                Height at Maturiy: 
+                                <a href="/Glossary#Letter-P-" class="linkGlossary">Height at Maturity: </a>
                             </td>
                             <td>
                                 <% if(plant.plantHeight != ""){ %>
@@ -220,7 +220,7 @@
                         </tr>
                         <tr>
                             <td class="title">
-                                Spread at Maturity: 
+                                <a href="/Glossary#Letter-P-" class="linkGlossary">Spread at Maturity:</a> 
                             </td>
                             <td>
                                 <% if(plant.plantSpread != ""){ %>
@@ -243,7 +243,7 @@
                             </tr>
                             <tr>
                                 <td class="title">
-                                    Leaf Color(Growing Season): 
+                                    <a href="/Glossary#Letter-L-" class="linkGlossary">Leaf Color(Growing Season): </a>
                                 </td>
                                 <td>
                                     <% if(plant.plantColorGrow != ""){ %>
@@ -255,7 +255,7 @@
                             </tr>
                             <tr>
                                 <td class="title">
-                                    Leaf Arrangement: 
+                                    <a href="/Glossary#Letter-L-" class="linkGlossary">Leaf Arrangement: </a>
                                 </td>
                                 <td>
                                     <% if(plant.leafArrangement != ""){ %>
@@ -267,7 +267,7 @@
                             </tr>
                             <tr>
                                 <td class="title">
-                                    Leaf Type: 
+                                    <a href="/Glossary#Letter-L-" class="linkGlossary">Leaf Type: </a>
                                 </td>
                                 <td>
                                     <% if(plant.leafType != ""){ %>
@@ -284,7 +284,7 @@
                             </tr>
                             <tr>
                                 <td class="title">
-                                    Flower Color: 
+                                    <a href="/Glossary#Letter-F-" class="linkGlossary">Flower Color: </a>
                                 </td>
                                 <td>
                                     <% if(plant.colorFlower != ""){ %>
@@ -296,12 +296,16 @@
                             </tr>
                             <tr>
                                 <td class="title">
-                                    Flower Color: 
+                                    <a href="/Glossary#Letter-F-" class="linkGlossary">Flower Scent: </a>
                                 </td>
                                 <td>
-                                    <% if(plant.colorFlower != ""){ %>
-                                        <%= plant.colorFlower %> 
-                                    <%}else{%>
+                                    <% if(plant.colorFlower == "scentFlowerPleasant"){ %>
+                                        Pleasant 
+                                    <%}else if(plant.colorFlower == "scentFlowerUnPleasant"){ %>
+                                        Unpleasant
+                                    <%}else if(plant.colorFlower == "scentFlowerNoFragrance"){%>
+                                        No Fragrance
+                                    <% }else{ %>
                                         Not Available
                                     <% } %> 
                                 </td>
@@ -313,7 +317,7 @@
                             </tr>
                             <tr>
                                 <td class="title">
-                                    Fruit Color: 
+                                    <a href="/Glossary#Letter-F-" class="linkGlossary">Fruit Color: </a>
                                 </td>
                                 <td>
                                     <% if(plant.fruitColor != ""){ %>
@@ -335,7 +339,7 @@
                         </tr>
                         <tr>
                             <td class="title">
-                                Water Requirements: 
+                                <a href="/Glossary#Letter-W-" class="linkGlossary">Water Requirements: </a>
                             </td>
                             <td>
                                 <% if(plant.water != ""){ %>
@@ -347,7 +351,7 @@
                         </tr>
                         <tr>
                             <td class="title">
-                                Light Requirements: 
+                                <a href="/Glossary#Letter-L-" class="linkGlossary">Light Requirements:</a> 
                             </td>
                             <td>
                                 <% if(plant.light != ""){ %>
@@ -364,7 +368,7 @@
                         </tr>
                         <tr>
                             <td class="title">
-                                Invasive Potential: 
+                                <a href="/Glossary#Letter-I-" class="linkGlossary">Invasive Potential:</a> 
                             </td>
                             <td>
                                 <% if(plant.invasivePotential != ""){ %>
