@@ -123,7 +123,8 @@ body{
 #renderdiv{
   width: fit-content;
   position: relative;
-  left:40%;
+  display: block;
+  margin: auto;
 }
 
   .polaroid {
@@ -144,6 +145,7 @@ body{
     margin-bottom: 0;
   }
   .englishname{
+    cursor: pointer;
     text-align: center;
     color: #4b4c4d;
     margin-bottom: 0;

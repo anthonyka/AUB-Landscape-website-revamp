@@ -76,6 +76,11 @@
             document.getElementById("image_container").innerHTML="";
             add_elements();
         });
+        document.getElementById("order").addEventListener("change",function() {
+            Index=0;
+            document.getElementById("image_container").innerHTML="";
+            add_elements();
+        });
         window.onscroll = function()
         {
             
@@ -134,7 +139,7 @@ function add_elements(){
     })
     .then(function (json) {
         allplants = json;
-        allplants.sort(GetSortOrder(document.getElementById("sort").value));
+        allplants.sort(GetSortOrder(document.getElementById("sort").value,document.getElementById("order").value));
         // alert("sorted");
         // console.log(allplants);
             var prevIndex=Index;
@@ -228,6 +233,9 @@ function createelement(json){
     Scientificname.onclick= function() {
         // alert("/plant?id="+json._id);
         window.location.href="/plant?id="+json._id;};
+        name.onclick= function() {
+        // alert("/plant?id="+json._id);
+        window.location.href="/plant?id="+json._id;};
     mycontainer.appendChild(myimage);
     mycontainer.appendChild(Scientificname);
     mycontainer.appendChild(name);
@@ -274,12 +282,23 @@ function createelement(json){
 }
 
 
-function GetSortOrder(prop) {    
+function GetSortOrder(prop,direction) {    
     return function(a, b) {    
-        if (a[prop] > b[prop]) {    
-            return 1;    
+
+        if (a[prop] > b[prop]) {
+            if (direction=="Acending"){
+                return 1;  
+            }    
+            else if(direction=="Decending"){
+                return -1;
+            }
         } else if (a[prop] < b[prop]) {    
-            return -1;    
+            if (direction=="Acending"){
+                return -1;  
+            }    
+            else if(direction=="Decending"){
+                return 1;
+            }
         }    
         return 0;    
     }    
