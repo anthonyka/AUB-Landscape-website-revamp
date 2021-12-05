@@ -133,7 +133,7 @@ window.onload = function () {
 
 
     initializeTooltips();
-    document.getElementById("zoomed_image").style.display = "none";
+    // document.getElementById("zoomed_image").style.display = "none";
     var images = document.getElementsByClassName("item_image");
     for (var i = 0; i < images.length; i++) {
         console.log(i);
@@ -174,14 +174,14 @@ function initializeTooltips() {
     })
 }
 
-function zoom() {
-    document.getElementById("zoomed_image").src = this.src;
-    document.getElementById("zoomed_image").style.removeProperty("display");
-}
-function unzoom() {
-    // alert("unzoom");
-    document.getElementById("zoomed_image").style.display = "none";
-}
+// function zoom() {
+//     document.getElementById("zoomed_image").src = this.src;
+//     document.getElementById("zoomed_image").style.removeProperty("display");
+// }
+// function unzoom() {
+//     // alert("unzoom");
+//     document.getElementById("zoomed_image").style.display = "none";
+// }
 
 function magnify(imgID) {
     // alert("hi");

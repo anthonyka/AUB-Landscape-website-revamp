@@ -331,8 +331,7 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
             }
 
             console.log(queryOr);
-            //TODO: this now works, just need to send the info to a view engine or frontend for rendering
-            //finding all that match
+            
             if (query.$and.length == 0 && queryOr.$or.length == 0) {
                 allPlantsCollection.find().toArray()
                     .then(results => {
@@ -345,19 +344,32 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
                     .then(results => {
                         allPlantsCollection.find(queryOr).toArray()
                             .then(resultsOr => {
-                                // let commonElements = resultsOr.filter(v => results.includes(v));
-                                // console.log(">>>>>>>>>>common");
-                                // console.log(commonElements);
+                                //Partial: 0 -> all OR
+                                //         -1 -> none
+                                //         positive integer -> starting this index
                                 if (results.length == 0) {
-                                    return res.render("searchResults", { plants: resultsOr });
+                                    return res.render("searchResults", { plants: resultsOr, partial: 0 });
                                 } else {
-                                    resultsOr = results.filter(ar => !results.find(rm => (rm._id === ar._id)));
-                                    console.log(">>>>>>>>>>or");
-                                    console.log(resultsOr);
+                                    console.log(results.length);
+                                    console.log("RESULTS OR before: >>>>>>");
+                                    console.log(resultsOr.length);
+                                    // resultsOr = resultsOr.filter(ar => !results.includes(ar));
+                                    // console.log(">>>>>>>>>>or");
+                                    // console.log(resultsOr.length);
+                                    let partial=0;
+                                    if(resultsOr.length==0){
+                                        partial = -1
+                                    }else{
+                                        partial = results.length;
+                                    }
+                                    console.log(`partial: ${partial}`)
                                     let finalResult = results.concat(resultsOr);
+                                    console.log(finalResult.length);
+                                    finalResult = finalResult.filter((v,i,a)=>a.findIndex(t=>(t.ScientificName===v.ScientificName))===i)
                                     console.log(">>>>>>>>>>final");
+                                    console.log(finalResult.length);
                                     console.log(finalResult)
-                                    return res.render("searchResults", { plants: finalResult });
+                                    return res.render("searchResults", { plants: finalResult, partial: partial });
                                 }
 
                             })
