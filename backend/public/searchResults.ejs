@@ -63,7 +63,7 @@
                     <h5>No results found</h5>
                 <%}else{ %>
                     <% plants.forEach((element,index) => { %>
-                        <% if(index==partial){ %>
+                        <% if(index==partial || partial == -1){ %>
                             <h5>The entries below are partial matches</h5>
                             <br>
                         <% } %> 

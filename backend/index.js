@@ -336,7 +336,7 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
                 allPlantsCollection.find().toArray()
                     .then(results => {
                         console.log(results);
-                        return res.render("searchResults", { plants: results });
+                        return res.render("searchResults", { plants: results, partial: 0 });
                     });
             }
             else {
@@ -465,7 +465,7 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
                 allPlantsCollection.find().toArray()
                     .then(results => {
                         console.log(results);
-                        return res.render("searchResults", { plants: results });
+                        return res.render("searchResults", { plants: results, partial: 0 });
                     });
             }
             else {
@@ -473,19 +473,28 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
                     .then(results => {
                         allPlantsCollection.find(queryOr).toArray()
                             .then(resultsOr => {
-                                // let commonElements = resultsOr.filter(v => results.includes(v));
-                                // console.log(">>>>>>>>>>common");
-                                // console.log(commonElements);
                                 if (results.length == 0) {
-                                    return res.render("searchResults", { plants: resultsOr });
+                                    return res.render("searchResults", { plants: resultsOr, partial: 0 });
                                 } else {
-                                    resultsOr = results.filter(ar => !results.find(rm => (rm._id === ar._id)));
-                                    console.log(">>>>>>>>>>or");
-                                    console.log(resultsOr);
+                                    console.log(results.length);
+                                    console.log("RESULTS OR before: >>>>>>");
+                                    console.log(resultsOr.length);
+                                    // resultsOr = resultsOr.filter(ar => !results.includes(ar));
+                                    // console.log(">>>>>>>>>>or");
+                                    // console.log(resultsOr.length);
+                                    let partial=0;
+                                    if(resultsOr.length==0){
+                                        partial = -1
+                                    }else{
+                                        partial = results.length;
+                                    }
+                                    console.log(`partial: ${partial}`)
                                     let finalResult = results.concat(resultsOr);
+                                    console.log(finalResult.length);
+                                    finalResult = finalResult.filter((v,i,a)=>a.findIndex(t=>(t.ScientificName===v.ScientificName))===i)
                                     console.log(">>>>>>>>>>final");
                                     console.log(finalResult)
-                                    return res.render("searchResults", { plants: finalResult });
+                                    return res.render("searchResults", { plants: finalResult, partial: partial });
                                 }
 
                             })
