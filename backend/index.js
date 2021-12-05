@@ -169,17 +169,19 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
 
             console.log(">>>>>>>>>>>>>>>>>>in plantsfiltered");
             console.log(req.query.filter);
+            let sentFilters = new Object();
+            sentFilters.category = req.query.filter;
             if (req.query.filter == "fragrant") {
                 allPlantsCollection.find({ flowerScent: { $in: ["scentFlowerPleasant", "scentFlowerUnpleasant"] } }).toArray()
                     .then(results => {
-                        res.render("searchResults", { plants: results,  partial: 0 });
+                        res.render("searchResults", { plants: results,  partial: 0, filters: sentFilters });
                     })
                     .catch(error => console.error(error))
             }
             else if (req.query.filter == "flowering") {
                 allPlantsCollection.find({ colorFlower: { $exists: true, $ne: [] } }).toArray()
                     .then(results => {
-                        res.render("searchResults", { plants: results,  partial: 0 });
+                        res.render("searchResults", { plants: results,  partial: 0, filters: sentFilters });
                     })
                     .catch(error => console.error(error))
 
@@ -187,28 +189,28 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
             else if (req.query.filter == "edible") {
                 allPlantsCollection.find({ edible: "yes" }).toArray()
                     .then(results => {
-                        res.render("searchResults", { plants: results,  partial: 0 });
+                        res.render("searchResults", { plants: results,  partial: 0, filters: sentFilters });
                     })
                     .catch(error => console.error(error))
             }
             else if (req.query.filter == "arid") {
                 allPlantsCollection.find({ water: "Low" }).toArray()
                     .then(results => {
-                        res.render("searchResults", { plants: results,  partial: 0 });
+                        res.render("searchResults", { plants: results,  partial: 0, filters: sentFilters });
                     })
                     .catch(error => console.error(error))
             }
             else if (req.query.filter == "shade") {
                 allPlantsCollection.find({ light: "Shade" }).toArray()
                     .then(results => {
-                        res.render("searchResults", { plants: results,  partial: 0 });
+                        res.render("searchResults", { plants: results,  partial: 0, filters: sentFilters });
                     })
                     .catch(error => console.error(error))
             }
             else if (req.query.filter == "ground") {
                 allPlantsCollection.find({ plantType: "Ground Cover" }).toArray()
                     .then(results => {
-                        res.render("searchResults", { plants: results,  partial: 0 });
+                        res.render("searchResults", { plants: results,  partial: 0, filters: sentFilters });
                     })
                     .catch(error => console.error(error))
             }
@@ -223,56 +225,73 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
         app.post("/searchByCriteria", (req, res) => {
             let filters = JSON.parse(req.body.sentFilters);
             console.log(">>>>>>>>>>>>>>>>>searchByCrit")
-
+            console.log(filters)
+            let sentFilters = new Object();
             let query = { $and: [] };
 
             if (filters.country != "") {
                 query.$and.push({ country: filters.country });
+                sentFilters.country = filters.country;
             }
             if (filters.plantType.length != 0) {
                 query.$and.push({ plantType: { $in: filters.plantType } });
+                sentFilters.plantType = filters.plantType;
             }
             if (filters.temperatures.length != 0) {
                 query.$and.push({ temperatures: { $in: filters.temperatures } });
+                sentFilters.temperatures = filters.temperatures;
             }
             if (filters.light.length != 0) {
                 query.$and.push({ light: { $in: filters.light } });
+                sentFilters.light = filters.light;
             }
             if (filters.water.length != 0) {
                 query.$and.push({ water: { $in: filters.water } });
+                sentFilters.water = filters.water;
             }
             if (filters.lifeCycle.length != 0) {
                 query.$and.push({ lifeCycle: { $in: filters.lifeCycle } });
+                sentFilters.lifeCycle = filters.lifeCycle;
             }
             if (filters.outdoor.length != 0) {
                 query.$and.push({ outdoor: { $in: filters.outdoor } });
+                sentFilters.outdoor = filters.outdoor;
             }
             if (filters.canopyShape.length != 0) {
                 query.$and.push({ canopyShape: { $in: filters.canopyShape } });
+                sentFilters.canopyShape = filters.canopyShape;
             }
             if (filters.plantHeight.length != 0) {
                 query.$and.push({ plantHeight: { $in: filters.plantHeight } });
+                sentFilters.plantHeight = filters.plantHeight;
             }
             if (filters.plantSpread.length != 0) {
                 query.$and.push({ plantSpread: { $in: filters.plantSpread } });
+                sentFilters.plantSpread = filters.plantSpread;
             }
             if (filters.plantColorGrow.length != 0) {
                 query.$and.push({ plantColorGrow: { $in: filters.plantColorGrow } });
+                sentFilters.plantColorGrow = filters.plantColorGrow;
             }
             if (filters.colorFlower.length != 0) {
                 query.$and.push({ colorFlower: { $in: filters.colorFlower } });
+                sentFilters.colorFlower = filters.colorFlower;
             }
             if (filters.flowerScent.length != 0) {
                 query.$and.push({ flowerScent: { $in: filters.flowerScent } });
+                sentFilters.flowerScent = filters.flowerScent;
             }
             if (filters.fruitColor.length != 0) {
                 query.$and.push({ fruitColor: { $in: filters.fruitColor } });
+                sentFilters.fruitColor = filters.fruitColor;
             }
             if (filters.trunkCrownshaft.length != 0) {
                 query.$and.push({ trunkCrownshaft: { $in: filters.trunkCrownshaft } });
+                sentFilters.trunkCrownshaft = filters.trunkCrownshaft;
             }
             if (filters.invasivePotential.length != 0) {
                 query.$and.push({ invasivePotential: { $in: filters.invasivePotential } });
+                sentFilters.invasivePotential = filters.invasivePotential;
             }
 
 
@@ -280,51 +299,67 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
 
             if (filters.country != "") {
                 queryOr.$or.push({ country: filters.country });
+                sentFilters.country = filters.country;
             }
             if (filters.plantType.length != 0) {
                 queryOr.$or.push({ plantType: { $in: filters.plantType } });
+                sentFilters.plantType = filters.plantType;
             }
             if (filters.temperatures.length != 0) {
                 queryOr.$or.push({ temperatures: { $in: filters.temperatures } });
+                sentFilters.temperatures = filters.temperatures;
             }
             if (filters.light.length != 0) {
                 queryOr.$or.push({ light: { $in: filters.light } });
+                sentFilters.light = filters.light;
             }
             if (filters.water.length != 0) {
                 queryOr.$or.push({ water: { $in: filters.water } });
+                sentFilters.water = filters.water;
             }
             if (filters.lifeCycle.length != 0) {
                 queryOr.$or.push({ lifeCycle: { $in: filters.lifeCycle } });
+                sentFilters.lifeCycle = filters.lifeCycle;
             }
             if (filters.outdoor.length != 0) {
                 queryOr.$or.push({ outdoor: { $in: filters.outdoor } });
+                sentFilters.outdoor = filters.outdoor;
             }
             if (filters.canopyShape.length != 0) {
                 queryOr.$or.push({ canopyShape: { $in: filters.canopyShape } });
+                sentFilters.canopyShape = filters.canopyShape;
             }
             if (filters.plantHeight.length != 0) {
                 queryOr.$or.push({ plantHeight: { $in: filters.plantHeight } });
+                sentFilters.plantHeight = filters.plantHeight;
             }
             if (filters.plantSpread.length != 0) {
                 queryOr.$or.push({ plantSpread: { $in: filters.plantSpread } });
+                sentFilters.plantSpread = filters.plantSpread;
             }
             if (filters.plantColorGrow.length != 0) {
                 queryOr.$or.push({ plantColorGrow: { $in: filters.plantColorGrow } });
+                sentFilters.plantColorGrow = filters.plantColorGrow;
             }
             if (filters.colorFlower.length != 0) {
                 queryOr.$or.push({ colorFlower: { $in: filters.colorFlower } });
+                sentFilters.colorFlower = filters.colorFlower;
             }
             if (filters.flowerScent.length != 0) {
                 queryOr.$or.push({ flowerScent: { $in: filters.flowerScent } });
+                sentFilters.flowerScent = filters.flowerScent;
             }
             if (filters.fruitColor.length != 0) {
                 queryOr.$or.push({ fruitColor: { $in: filters.fruitColor } });
+                sentFilters.fruitColor = filters.fruitColor;
             }
             if (filters.trunkCrownshaft.length != 0) {
                 queryOr.$or.push({ trunkCrownshaft: { $in: filters.trunkCrownshaft } });
+                sentFilters.trunkCrownshaft = filters.trunkCrownshaft;
             }
             if (filters.invasivePotential.length != 0) {
                 queryOr.$or.push({ invasivePotential: { $in: filters.invasivePotential } });
+                sentFilters.invasivePotential = filters.invasivePotential;
             }
 
             console.log(queryOr);
@@ -333,7 +368,7 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
                 allPlantsCollection.find().toArray()
                     .then(results => {
                         console.log(results);
-                        return res.render("searchResults", { plants: results, partial: 0 });
+                        return res.render("searchResults", { plants: results, partial: 0, filters: sentFilters });
                     });
             }
             else {
@@ -345,7 +380,7 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
                                 //         -1 -> none
                                 //         positive integer -> starting this index
                                 if (results.length == 0) {
-                                    return res.render("searchResults", { plants: resultsOr, partial: 0 });
+                                    return res.render("searchResults", { plants: resultsOr, partial: 0, filters: sentFilters });
                                 } else {
                                     console.log(results.length);
                                     console.log("RESULTS OR before: >>>>>>");
@@ -366,7 +401,7 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
                                     console.log(">>>>>>>>>>final");
                                     console.log(finalResult.length);
                                     console.log(finalResult)
-                                    return res.render("searchResults", { plants: finalResult, partial: partial });
+                                    return res.render("searchResults", { plants: finalResult, partial: partial, filters: sentFilters });
                                 }
 
                             })
@@ -379,43 +414,55 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
         app.post("/plantIdentification", (req, res) => {
             console.log(">>>>>>>>>>>>>>>>>plantId")
             let filters = JSON.parse(req.body.sentFilters);
+            let sentFilters = new Object();
 
             let query = { $and: [] };
 
             if (filters.plantType.length != 0) {
                 query.$and.push({ plantType: { $in: filters.plantType } });
+                sentFilters.plantType = filters.plantType;
             }
 
             if (filters.canopyShape.length != 0) {
                 query.$and.push({ canopyShape: { $in: filters.canopyShape } });
+                sentFilters.canopyShape = filters.canopyShape;
             }
             if (filters.plantHeight.length != 0) {
                 query.$and.push({ plantHeight: { $in: filters.plantHeight } });
+                sentFilters.plantHeight = filters.plantHeight;
             }
             if (filters.plantSpread.length != 0) {
                 query.$and.push({ plantSpread: { $in: filters.plantSpread } });
+                sentFilters.plantSpread = filters.plantSpread;
             }
             if (filters.plantColorGrow.length != 0) {
                 query.$and.push({ plantColorGrow: { $in: filters.plantColorGrow } });
+                sentFilters.plantColorGrow = filters.plantColorGrow;
             }
             if (filters.colorFlower.length != 0) {
                 query.$and.push({ colorFlower: { $in: filters.colorFlower } });
+                sentFilters.colorFlower = filters.colorFlower;
             }
             if (filters.flowerScent.length != 0) {
                 query.$and.push({ flowerScent: { $in: filters.flowerScent } });
+                sentFilters.flowerScent = filters.flowerScent;
             }
             if (filters.fruitColor.length != 0) {
                 query.$and.push({ fruitColor: { $in: filters.fruitColor } });
+                sentFilters.fruitColor = filters.fruitColor;
             }
             if (filters.trunkCrownshaft.length != 0) {
                 query.$and.push({ trunkCrownshaft: { $in: filters.trunkCrownshaft } });
+                sentFilters.trunkCrownshaft = filters.trunkCrownshaft;
             }
 
             if (filters.leafType.length != 0) {
                 query.$and.push({ leafType: { $in: filters.leafType } });
+                sentFilters.leafType = filters.leafType;
             }
             if (filters.leafArrangement.length != 0) {
                 query.$and.push({ leafArrangement: { $in: filters.leafArrangement } });
+                sentFilters.leafArrangement = filters.leafArrangement;
             }
 
             let queryOr = { $or: [] };
@@ -423,36 +470,49 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
 
             if (filters.plantType.length != 0) {
                 queryOr.$or.push({ plantType: { $in: filters.plantType } });
+                sentFilters.plantType = filters.plantType;
             }
+
             if (filters.canopyShape.length != 0) {
                 queryOr.$or.push({ canopyShape: { $in: filters.canopyShape } });
+                sentFilters.canopyShape = filters.canopyShape;
             }
             if (filters.plantHeight.length != 0) {
                 queryOr.$or.push({ plantHeight: { $in: filters.plantHeight } });
+                sentFilters.plantHeight = filters.plantHeight;
             }
             if (filters.plantSpread.length != 0) {
                 queryOr.$or.push({ plantSpread: { $in: filters.plantSpread } });
+                sentFilters.plantSpread = filters.plantSpread;
             }
             if (filters.plantColorGrow.length != 0) {
                 queryOr.$or.push({ plantColorGrow: { $in: filters.plantColorGrow } });
+                sentFilters.plantColorGrow = filters.plantColorGrow;
             }
             if (filters.colorFlower.length != 0) {
                 queryOr.$or.push({ colorFlower: { $in: filters.colorFlower } });
+                sentFilters.colorFlower = filters.colorFlower;
             }
             if (filters.flowerScent.length != 0) {
                 queryOr.$or.push({ flowerScent: { $in: filters.flowerScent } });
+                sentFilters.flowerScent = filters.flowerScent;
             }
             if (filters.fruitColor.length != 0) {
                 queryOr.$or.push({ fruitColor: { $in: filters.fruitColor } });
+                sentFilters.fruitColor = filters.fruitColor;
             }
             if (filters.trunkCrownshaft.length != 0) {
                 queryOr.$or.push({ trunkCrownshaft: { $in: filters.trunkCrownshaft } });
+                sentFilters.trunkCrownshaft = filters.trunkCrownshaft;
             }
+
             if (filters.leafType.length != 0) {
                 queryOr.$or.push({ leafType: { $in: filters.leafType } });
+                sentFilters.leafType = filters.leafType;
             }
             if (filters.leafArrangement.length != 0) {
                 queryOr.$or.push({ leafArrangement: { $in: filters.leafArrangement } });
+                sentFilters.leafArrangement = filters.leafArrangement;
             }
 
             console.log(query);
@@ -462,7 +522,7 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
                 allPlantsCollection.find().toArray()
                     .then(results => {
                         console.log(results);
-                        return res.render("searchResults", { plants: results, partial: 0 });
+                        return res.render("searchResults", { plants: results, partial: 0, filters: sentFilters });
                     });
             }
             else {
@@ -471,7 +531,7 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
                         allPlantsCollection.find(queryOr).toArray()
                             .then(resultsOr => {
                                 if (results.length == 0) {
-                                    return res.render("searchResults", { plants: resultsOr, partial: 0 });
+                                    return res.render("searchResults", { plants: resultsOr, partial: 0, filters: sentFilters });
                                 } else {
                                     console.log(results.length);
                                     console.log("RESULTS OR before: >>>>>>");
@@ -491,7 +551,7 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
                                     finalResult = finalResult.filter((v,i,a)=>a.findIndex(t=>(t.ScientificName===v.ScientificName))===i)
                                     console.log(">>>>>>>>>>final");
                                     console.log(finalResult)
-                                    return res.render("searchResults", { plants: finalResult, partial: partial });
+                                    return res.render("searchResults", { plants: finalResult, partial: partial, filters: sentFilters });
                                 }
 
                             })
@@ -527,7 +587,7 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
             allPlantsCollection.find({ ScientificName: { '$regex': "^" + letter.toString() } }).toArray()
                 .then(results => {
                     console.log(results);
-                    res.render('searchResults', { plants: results,  partial: 0 });
+                    res.render('searchResults', { plants: results,  partial: 0, filters: {letter: letter} });
                 })
                 .catch(error => console.error(error))
         });
