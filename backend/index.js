@@ -578,6 +578,24 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
             res.render(path.join(__dirname, 'public/search_by_name.ejs'));
 
         })
+        app.get("/names", (req, res) => {
+            console.log(req.query);
+            let Scientific_Name = req.query.Scientific_Name;
+            let Common_Name = req.query.Common_Name;
+            let queryOr = { $and: [] };
+            if (Scientific_Name!=""){
+                queryOr.$and.push({ScientificName: {$regex:Scientific_Name}});
+            }
+            if (Common_Name!=""){
+                queryOr.$and.push({CommonEnglishName : {$regex:Common_Name}});
+                }
+            allPlantsCollection.find(queryOr).toArray()
+            .then(results => {
+                console.log(results);
+                return res.render("searchResults", { plants: results, partial: 0 });
+            });
+        
+        })
 
         app.get('/SearchByLetter', (req, res) => {
             var q = url.parse(req.url, true).query;
