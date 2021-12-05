@@ -12,7 +12,7 @@ window.onload=function(){
         console.log(allplants[i]);
         document.getElementById("main_spot").appendChild(createelement(allplants[i]));
     });
-    
+    document.getElementById("add_more").onclick=add_info;
 }
 
 function createelement(json){
@@ -51,4 +51,14 @@ function createelement(json){
     name.appendChild(small_img);
     name.appendChild(ref);
     return mycontainer;
+}
+function add_info(){
+    document.getElementById("extra").style.display="block";
+    this.onclick=remove_info;
+    this.innerHTML="Show Less";
+}
+function remove_info(){
+    document.getElementById("extra").style.display="none";
+    this.onclick=add_info;
+    this.innerHTML="Show More";
 }

@@ -219,7 +219,6 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
             }
 
         })
-
         //route for plant filter by criteria
         app.post("/searchByCriteria", (req, res) => {
             let filters = JSON.parse(req.body.sentFilters);

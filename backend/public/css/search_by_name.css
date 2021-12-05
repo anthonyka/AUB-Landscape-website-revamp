@@ -1,0 +1,13 @@
+#CommonNameSection,#ScientificNameSection{
+    margin-bottom: 2%;
+}
+#CommonsearchBar,#ScientificsearchBar{
+    width: 70%;
+}
+
+.answer{
+    width: 70%;
+    height: min-content;
+    background-color: white;
+    border: 1px solid grey;
+}
