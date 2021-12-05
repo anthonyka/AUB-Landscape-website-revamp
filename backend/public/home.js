@@ -37,11 +37,18 @@ function createelement(json){
     var ref=document.createElement("a");
     ref.setAttribute("href","/plant?id="+json._id);
     ref.setAttribute("class","ref");
-    ref.innerHTML="more";
+    ref.innerHTML="More";
+    var small_img=document.createElement("img");
+    small_img.setAttribute("src","https://landscapeplants.aub.edu.lb/images/more.png");
+    ref.setAttribute("class","bodyreferences");
+    
     mycontainer.appendChild(spot);
     mycontainer.appendChild(myimage);
     mycontainer.appendChild(Scientificname);
     mycontainer.appendChild(name);
-    mycontainer.appendChild(ref);
+    var br=document.createElement("br");
+    name.appendChild(br);
+    name.appendChild(small_img);
+    name.appendChild(ref);
     return mycontainer;
 }

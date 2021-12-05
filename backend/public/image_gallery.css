@@ -6,9 +6,9 @@
 
   #image_container{
     position: relative;
-    left:11%;
+    left:22%;
     display: flex; 
-      width: 100%;
+      width: 70%;
       flex-wrap: wrap;
   }
   .item_image{

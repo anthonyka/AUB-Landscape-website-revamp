@@ -166,17 +166,17 @@ body {
     }
     */
   }
-  .ref{
+  /* .ref{
     position: absolute;
     left:40%;
     bottom: 2%;
-  }
+  } */
   .polaroid {
     position: absolute;
     top:270px;
     left:20px;
     width: 250px;
-    height: 300px;
+    min-height: 300px;
     background-color: white;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     margin-left: 20px;
