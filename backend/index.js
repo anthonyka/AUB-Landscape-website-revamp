@@ -592,7 +592,7 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
             allPlantsCollection.find(queryOr).toArray()
             .then(results => {
                 console.log(results);
-                return res.render("searchResults", { plants: results, partial: 0 });
+                return res.render("searchResults", { plants: results, partial: 0, filters:{ScientificName: Scientific_Name, CommonName: Common_Name} });
             });
         
         })
