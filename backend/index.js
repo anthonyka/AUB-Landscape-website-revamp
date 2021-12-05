@@ -3,12 +3,10 @@ const app = express();
 const fs = require('fs');
 var nodemailer = require('nodemailer');
 const multer = require("multer");
-const fileUpload = require('express-fileupload');
 const port = 3000;
 let url = require('url');
 const bodyParser = require("body-parser");
 app.use(express.json());
-app.use(fileUpload());
 app.use(express.urlencoded({
     extended: true
 }));
@@ -95,7 +93,7 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
                 cb(null, "public/images");
             },
             filename: (req, file, cb) => {
-                cb(null, file.originalname);
+                cb(null, file.originalname + '-' + Date.now());
             },
         });
 
@@ -593,10 +591,8 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
                 .catch(error => console.error(error))
         });
 
-        app.post("/sendMessage", (req, res) => {
-            let document;
-            if (req.files != null) {
-                document = req.files.upload.data;
+        app.post("/sendMessage", upload.single('upload'), (req, res) => {
+            if (req.file != null) {
                 messages.insertOne({
                     name: req.body.name,
                     company: req.body.companyName,
@@ -606,7 +602,7 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
                     subject: req.body.subject,
                     comments: req.body.comments,
                     answered: "",
-                    file: Binary(document),
+                    file: req.file.filename,
                 });
             } else {
                 messages.insertOne({
@@ -717,11 +713,18 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
             console.log(req.query);
             let q = req.query.collection;
             let id = req.query.id;
+            let file=0;
+            if(req.query.filePath){
+                file =req.query.filePath;
+            }
             console.log(id)
             let collection = client.db("landscapeAUB").collection(q);
-
+            
             collection.deleteOne({ _id: new require("mongodb").ObjectId(id) })
                 .then(results => {
+                    if(file){
+                        fs.unlinkSync("public/images/"+file);
+                    }
                     res.send(results);
                 })
                 .catch(err => console.log(err));

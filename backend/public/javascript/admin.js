@@ -501,8 +501,24 @@ function showMessageInfo(event) {
     createLabelInput("phone", "Phone Number", message.phone);
     createLabelInput("country", "Country", message.country);
     createLabelInput("subject", "Subject", message.subject);
-    //NEED TO ADD FILES DISPLAY
+    //NEED TO ADD FILE DISPLAY
+    if (message.file != "") {
+        let div = document.createElement("div");
+        div.classList.add("fileView");
+        let labelFile = document.createElement("label");
+        labelFile.setAttribute("for", "file");
+        labelFile.innerText = "File";
+        let img = document.createElement("img");
+        img.id = "file";
+        img.src = "./images/" + message.file;
+        img.style.height = "200px";
+        div.appendChild(labelFile);
+        div.appendChild(img);
+        getID("messageDetail").appendChild(div);
+    }
+
     createLabelTextArea("comments", "Comments", message.comments);
+
 
     if (message.response == undefined) {
         //compose response
@@ -754,12 +770,23 @@ function sendMessageResponse(event) {
 }
 
 function deleteDocument(doc, collection) {
-    fetch('/deleteDocument?' + new URLSearchParams({
+    if(collection == "messages"){
+        fetch('/deleteDocument?' + new URLSearchParams({
+            collection: collection,
+            id: doc._id,
+            filePath: doc.file
+        }))
+            .then(response => { window.location.reload(); }
+            )
+    }
+    else{
+        fetch('/deleteDocument?' + new URLSearchParams({
         collection: collection,
         id: doc._id
     }))
         .then(response => { window.location.reload(); }
         )
+}
 }
 
 function sendAddedDocument() {
