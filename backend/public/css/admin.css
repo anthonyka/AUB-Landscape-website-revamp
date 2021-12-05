@@ -62,6 +62,9 @@
     }
 }
 
+.fileView *{
+    display: block;
+}
 
 /* fieldsets */
 fieldset{
