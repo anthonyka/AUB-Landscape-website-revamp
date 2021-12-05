@@ -1,3 +1,6 @@
+body{
+  min-height: 115vh;
+}
 
 #categories{
   margin: auto;
@@ -118,6 +121,7 @@
     bottom: 2%;
   } */
 #renderdiv{
+  width: fit-content;
   position: relative;
   left:40%;
 }
