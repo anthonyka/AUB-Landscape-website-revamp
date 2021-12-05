@@ -1,0 +1,28 @@
+.nav_definitions{
+    margin-top: 5%;
+    margin-left: 10%;
+    margin-bottom: 5%;
+  }
+  .nav_definitions>a{
+    margin-right: 1%;
+  }
+  .present{
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+  }
+  .present:hover{
+    color:#5faa45;
+  }
+  .Letter_Index{
+    color: #5faa45;
+    height: 90px;
+  }
+  .subdefinition{
+    vertical-align: middle;
+    height: 80px;
+    font-size:medium;
+    margin: 90px;
+    text-align: center;
+    margin-bottom: 10px;
+  }
