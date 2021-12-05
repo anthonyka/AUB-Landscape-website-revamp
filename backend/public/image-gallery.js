@@ -3,6 +3,7 @@
     var Index=0;
     var myjson;
     mylength=0;
+    var render=true;
     //   console.log("myJson");
     //   console.log(myJson); 
     window.onload= function(){
@@ -84,9 +85,14 @@
              var difference = document.documentElement.scrollHeight - window.innerHeight;
              var scrollposition = document.documentElement.scrollTop;
              
-             if (difference - scrollposition <= 1)
+             if ((difference - scrollposition <= 2) &&(render==true))
              {  if (Index<mylength){
+                // console.log("in");
+                render=false;
+                console.log(render);
                 add_elements();
+                // sleep(1000);
+                setTimeout(() => {  render=true; }, 1000);
              }
              
              }
@@ -288,3 +294,10 @@ function GetSortOrder(prop) {
 // myimage.setAttribute("class", "item_image");
 // document.getElementById("image_container").appendChild(myimage);
 
+function sleep(milliseconds) {
+    const date = Date.now();
+    let currentDate = null;
+    do {
+      currentDate = Date.now();
+    } while (currentDate - date < milliseconds);
+  }
