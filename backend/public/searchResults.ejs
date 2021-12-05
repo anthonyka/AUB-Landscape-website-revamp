@@ -52,18 +52,21 @@
         <body class="news">
             <header>
             </header>
-            <div id="zoomed_image_container">
+            <!-- <div id="zoomed_image_container">
                 <p class="Scientificname" >zoomed image</p>
                 <img id="zoomed_image">
-            </div>
+            </div> -->
             
             <div id="image_container">
                 <%= console.log("in ejs") %> 
                 <% if(plants=="") { %>
-                    <p>No results found</p>
+                    <h5>No results found</h5>
                 <%}else{ %>
-                    <% plants.forEach(element => { %>
-                        <%= console.log(element) %> 
+                    <% plants.forEach((element,index) => { %>
+                        <% if(index==partial){ %>
+                            <h5>The entries below are partial matches</h5>
+                            <br>
+                        <% } %> 
                         <div class="section" id='<%= element._id %>'>
                             <% if(element.Images.length!=0){ %>
                                 <img class="item_image" src='<%= "https://landscapeplants.aub.edu.lb"+ element.Images[0].Key%>' alt="">
