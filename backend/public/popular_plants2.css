@@ -7,9 +7,8 @@ body {
   }
 
   main{
-    min-height: 500px;
-    width: 70%;
     margin: 0 auto;
+    min-height: 100vh;
 }
 
 .imagesFilters{
@@ -180,6 +179,21 @@ body {
     cursor: pointer;
 }
 
+#filters{
+  background-color: white;
+  width: fit-content;
+  padding: 2px 15px;
+  height: fit-content;
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 35%;
+}
+#filters-results{
+  width: 80%;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+}
 
 
   #image_container{

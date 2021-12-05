@@ -71,10 +71,12 @@
                 <!-- Container for the image gallery -->
                 <div class="gallery">
                     <% plant.Images.forEach(function(element, index){ %>
-                        <div class="mySlides">
-                            <div class="numbertext"><%=index%> / <%= element.length %> </div>
-                            <img src='<%= "https://landscapeplants.aub.edu.lb"+ element.Key%>'>
-                        </div>
+                        <% if(element.Key!=""){ %>
+                            <div class="mySlides">
+                                <div class="numbertext"><%=index%></div>
+                                <img src='<%= "https://landscapeplants.aub.edu.lb"+ element.Key%>'>
+                            </div>
+                        <% } %> 
                     <% }); %>
 
                     <a class="prev" direction="-1">&#10094;</a>
@@ -86,18 +88,22 @@
 
                     <div class="row">
                         <% plant.Images.forEach(function(element, index){ %>
-                            <div class="column">
+                            <% if(element.Key!=""){ %>
+                                <div class="column">
 
-                                <img class="demo cursor" src=' <%= "https://landscapeplants.aub.edu.lb" + element.Key%>' style="width:100%" index = '<%= index%>'
-                                alt="<%=element.Value%>">
-                            </div>
+                                    <img class="demo cursor" src=' <%= "https://landscapeplants.aub.edu.lb" + element.Key%>' style="width:100%" index = '<%= index%>'
+                                    alt="<%=element.Value%>">
+                                </div>
+                            <% } %> 
                         <% }); %>
                         
                     </div>
                 </div>
                 <div class="printImages" style="display: none;">
                     <% plant.Images.forEach(function(element, index){ %>
+                        <% if(element.Key!=""){ %>
                             <img class="slides" src='<%= "https://landscapeplants.aub.edu.lb"+ element.Key%>'>
+                        <% } %>     
                     <% }); %>
                 </div>
                 <div class="megaSectionDescriptionPrint">
