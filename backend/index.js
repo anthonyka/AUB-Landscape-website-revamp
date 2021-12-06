@@ -581,14 +581,27 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
         app.get("/names", (req, res) => {
             console.log(req.query);
             let Scientific_Name = req.query.Scientific_Name;
+            if(Scientific_Name!=""){
+                Scientific_Name=Scientific_Name.trim();
+                Scientific_Name=Scientific_Name.replaceAll(","," ");
+                Scientific_Name=Scientific_Name.replaceAll("\'","");
+                Scientific_Name=Scientific_Name.replaceAll(/\s+/g," ");
+            }
             let Common_Name = req.query.Common_Name;
+            if(Common_Name!=""){
+                Common_Name=Common_Name.trim();
+                Common_Name=Common_Name.replaceAll(","," ");
+                Common_Name=Common_Name.replaceAll("\'","");
+                Common_Name=Common_Name.replaceAll(/\s+/g," ");
+            }
             let queryOr = { $or: [] };
             if (Scientific_Name!=""){
                 queryOr.$or.push({ScientificName: {$regex:Scientific_Name}});
             }
             if (Common_Name!=""){
                 queryOr.$or.push({CommonEnglishName : {$regex:Common_Name}});
-                }
+            }
+            
             allPlantsCollection.find(queryOr).toArray()
             .then(results => {
                 console.log(results);

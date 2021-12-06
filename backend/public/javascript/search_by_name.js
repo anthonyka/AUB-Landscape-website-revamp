@@ -47,14 +47,15 @@ function ShowCommon(){
     var max_length=0;
         for(var i=0;i<answer.length;i++){
             //remove commas
-            var answerUpdated=(answer[i].innerText).replaceAll(",","") ;
+            var answerUpdated=(answer[i].innerText).replaceAll(","," ") ;
             answerUpdated=answerUpdated.replaceAll("\'","");
-            CommonsearchBarValue=CommonsearchBarValue.replaceAll(",","");
+            CommonsearchBarValue=CommonsearchBarValue.replaceAll(","," ");
             CommonsearchBarValue=CommonsearchBarValue.replaceAll("\'","");
             //remove excess space at the begining and end
             CommonsearchBarValue=CommonsearchBarValue.trim();
             //remove excess whitespace in between words
             CommonsearchBarValue=CommonsearchBarValue.replaceAll(/\s+/g," ")
+            answerUpdated=answerUpdated.replaceAll(/\s+/g," ")
 
             var answerUpdatedarr=answerUpdated.split(" ");
             var firstletter=new Array(answerUpdatedarr.length)
@@ -141,9 +142,9 @@ function ShowScientific(){
         var max_length=0;
         for(var i=0;i<answer.length;i++){
             //remove commas and ' 
-            var answerUpdated=(answer[i].innerText).replaceAll(",","") ;
+            var answerUpdated=(answer[i].innerText).replaceAll(","," ") ;
             answerUpdated=answerUpdated.replaceAll("\'","");
-            ScientificsearchBarValue=ScientificsearchBarValue.replaceAll(",","");
+            ScientificsearchBarValue=ScientificsearchBarValue.replaceAll(","," ");
             ScientificsearchBarValue=ScientificsearchBarValue.replaceAll("\'","");
 
             //remove excess space at the begining and end
