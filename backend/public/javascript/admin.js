@@ -343,7 +343,7 @@ function showDocumentInfo(event) {
             //         console.log(element);
             //     });
             // }
-            input.placeholder = doc[key];
+            input.value = doc[key];
             input.disabled = true;
             th.innerHTML = key;
             td.appendChild(input);
@@ -376,7 +376,7 @@ function showDocumentInfo(event) {
                 let inputLink = document.createElement("input");
                 inputLink.id = "inputLink" + index;
                 if (doc[key][index] != undefined) {
-                    inputLink.placeholder = doc[key][index].Key;
+                    inputLink.value = doc[key][index].Key;
                 }
 
                 inputLink.disabled = true;
@@ -385,7 +385,7 @@ function showDocumentInfo(event) {
                 let inputDesc = document.createElement("textarea");
                 inputDesc.id = "inputDesc" + index;
                 if (doc[key][index] != undefined) {
-                    inputDesc.placeholder = doc[key][index].Value;
+                    inputDesc.value = doc[key][index].Value;
                 }
                 inputDesc.disabled = true;
 
@@ -645,31 +645,16 @@ function sendEditedDocument() {
     let imagesArray = [];
 
     editedDocument.collection = document.getElementById("collectionDropDownButton2").innerText;
-    editedDocument._id = getID("key").querySelector("input").placeholder;
+    editedDocument._id = getID("key").querySelector("input").value;
     for (let index = 0; index < changedDocument.length; index++) {
         let node;
         let imageObj = new Object();
         if (changedDocument[index].parentNode.parentNode.querySelector("th") == null) {
-            if (changedDocument[index].value != "") {
-                imageObj.Key = changedDocument[index].value;
-                if (changedDocument[index].parentNode.querySelector("textarea").value != "") {
-                    imageObj.Value = changedDocument[index].parentNode.querySelector("textarea").value;
 
-                } else {
-                    imageObj.Value = changedDocument[index].parentNode.querySelector("textarea").placeholder;
-                }
-                imagesArray.push(imageObj);
-            } else {
-                imageObj.Key = changedDocument[index].placeholder;
-                if (changedDocument[index].parentNode.querySelector("textarea").value != "") {
-                    imageObj.Value = changedDocument[index].parentNode.querySelector("textarea").value;
+            imageObj.Key = changedDocument[index].value;
+            imageObj.Value = changedDocument[index].parentNode.querySelector("textarea").value;
+            imagesArray.push(imageObj);
 
-                } else {
-                    imageObj.Value = changedDocument[index].parentNode.querySelector("textarea").placeholder;
-
-                }
-                imagesArray.push(imageObj);
-            }
 
         }
         else if (changedDocument[index].value != "") {
@@ -682,17 +667,6 @@ function sendEditedDocument() {
                 editedDocument[name] = array;
             } else {
                 editedDocument[name] = changedDocument[index].value;
-            }
-        } else {
-            node = changedDocument[index].parentNode.parentNode.querySelector("th") == null ? changedDocument[index].parentNode.parentNode.parentNode : changedDocument[index].parentNode.parentNode;
-            let name = node.querySelector("th").innerText;
-            let value = changedDocument[index].placeholder;
-            let array;
-            if (value.includes(',')) {
-                array = value.match(/(\w+)/gm);
-                editedDocument[name] = array;
-            } else {
-                editedDocument[name] = changedDocument[index].placeholder;
             }
         }
     }
@@ -770,7 +744,7 @@ function sendMessageResponse(event) {
 }
 
 function deleteDocument(doc, collection) {
-    if(collection == "messages"){
+    if (collection == "messages") {
         fetch('/deleteDocument?' + new URLSearchParams({
             collection: collection,
             id: doc._id,
@@ -779,14 +753,14 @@ function deleteDocument(doc, collection) {
             .then(response => { window.location.reload(); }
             )
     }
-    else{
+    else {
         fetch('/deleteDocument?' + new URLSearchParams({
-        collection: collection,
-        id: doc._id
-    }))
-        .then(response => { window.location.reload(); }
-        )
-}
+            collection: collection,
+            id: doc._id
+        }))
+            .then(response => { window.location.reload(); }
+            )
+    }
 }
 
 function sendAddedDocument() {
