@@ -47,14 +47,15 @@ function ShowCommon(){
     var max_length=0;
         for(var i=0;i<answer.length;i++){
             //remove commas
-            var answerUpdated=(answer[i].innerText).replaceAll(",","") ;
+            var answerUpdated=(answer[i].innerText).replaceAll(","," ") ;
             answerUpdated=answerUpdated.replaceAll("\'","");
-            CommonsearchBarValue=CommonsearchBarValue.replaceAll(",","");
+            CommonsearchBarValue=CommonsearchBarValue.replaceAll(","," ");
             CommonsearchBarValue=CommonsearchBarValue.replaceAll("\'","");
             //remove excess space at the begining and end
             CommonsearchBarValue=CommonsearchBarValue.trim();
             //remove excess whitespace in between words
             CommonsearchBarValue=CommonsearchBarValue.replaceAll(/\s+/g," ")
+            answerUpdated=answerUpdated.replaceAll(/\s+/g," ")
 
             var answerUpdatedarr=answerUpdated.split(" ");
             var firstletter=new Array(answerUpdatedarr.length)
@@ -138,13 +139,14 @@ function ShowScientific(){
     if(ScientificsearchBarValue==""){
         return
     }
-    var max_length=0;
+        var max_length=0;
         for(var i=0;i<answer.length;i++){
-            //remove commas
-            var answerUpdated=(answer[i].innerText).replaceAll(",","") ;
+            //remove commas and ' 
+            var answerUpdated=(answer[i].innerText).replaceAll(","," ") ;
             answerUpdated=answerUpdated.replaceAll("\'","");
-            ScientificsearchBarValue=ScientificsearchBarValue.replaceAll(",","");
+            ScientificsearchBarValue=ScientificsearchBarValue.replaceAll(","," ");
             ScientificsearchBarValue=ScientificsearchBarValue.replaceAll("\'","");
+
             //remove excess space at the begining and end
             ScientificsearchBarValue=ScientificsearchBarValue.trim();
             //remove excess whitespace in between words
@@ -153,12 +155,15 @@ function ShowScientific(){
             var answerUpdatedarr=answerUpdated.split(" ");
             var firstletter=new Array(answerUpdatedarr.length)
             var lengthString=0;
+            
+            //returns a list of all the starting indexes of words in a Plant Name
             for(var j=0;j<answerUpdatedarr.length;j++){
                 firstletter[j]=lengthString
                 lengthString+=(answerUpdatedarr[j]).length
                 lengthString++
             }
             lengthString-=1
+            
             /*console.log(answerUpdated)
             console.log(lengthString)
             console.log(answerUpdated.length)*/
@@ -179,7 +184,7 @@ function ShowScientific(){
                 }else{
                     var startindex2=(answerUpdated.toLowerCase()).search((" "+ScientificsearchBarValue).toLowerCase())
                     console.log(startindex2)
-                    firstletter.splice(0,1)
+                    firstletter[0]="NAN"
                     if(startindex2+1==firstletter[j]){
                         display=true;
                         continue;
