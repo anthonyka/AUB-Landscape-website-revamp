@@ -55,11 +55,51 @@ function ShowCommon(){
             CommonsearchBarValue=CommonsearchBarValue.trim();
             //remove excess whitespace in between words
             CommonsearchBarValue=CommonsearchBarValue.replaceAll(/\s+/g," ")
+
+            var answerUpdatedarr=answerUpdated.split(" ");
+            var firstletter=new Array(answerUpdatedarr.length)
+            var lengthString=0;
+            for(var j=0;j<answerUpdatedarr.length;j++){
+                firstletter[j]=lengthString
+                lengthString+=(answerUpdatedarr[j]).length
+                lengthString++
+            }
+            lengthString-=1
+            /*console.log(answerUpdated)
+            console.log(lengthString)
+            console.log(answerUpdated.length)*/
+            //console.log(firstletter);
+            if(CommonsearchBarValue==""){
+                return;
+            }
+            var display=false;
+            for(var j=0;j<firstletter.length;j++){
+                var startindex=(answerUpdated.toLowerCase()).search(CommonsearchBarValue.toLowerCase());
+                //console.log(startindex);
+                /*if(startindex==-1){
+                    continue plants;
+                }*/
+                if(firstletter[j]==startindex){
+                    display=true
+                    continue;
+                }else{
+                    var startindex2=(answerUpdated.toLowerCase()).search((" "+CommonsearchBarValue).toLowerCase())
+                    console.log(startindex2)
+                    firstletter.splice(0,1)
+                    if(startindex2+1==firstletter[j]){
+                        display=true;
+                        continue;
+                    }
+                }
+            }
+            console.log(answerUpdated)
+            console.log(display)
+
             if(max_length==8|| CommonsearchBarValue==""){
                 return;
             }
-            var commonarr=answerUpdated.split(" ");
-            if ((answerUpdated.toLowerCase()).indexOf(CommonsearchBarValue.toLowerCase())!==-1){
+
+            if (display==true){
                 answer[i].style.display="block";
                  max_length++;
             }
@@ -101,20 +141,63 @@ function ShowScientific(){
     var max_length=0;
         for(var i=0;i<answer.length;i++){
             //remove commas
-            var answerUpdated=(answer[i].innerText).replaceAll(",","") 
-            ScientificsearchBarValue=ScientificsearchBarValue.replaceAll(",","")
+            var answerUpdated=(answer[i].innerText).replaceAll(",","") ;
+            answerUpdated=answerUpdated.replaceAll("\'","");
+            ScientificsearchBarValue=ScientificsearchBarValue.replaceAll(",","");
+            ScientificsearchBarValue=ScientificsearchBarValue.replaceAll("\'","");
             //remove excess space at the begining and end
             ScientificsearchBarValue=ScientificsearchBarValue.trim();
             //remove excess whitespace in between words
             ScientificsearchBarValue=ScientificsearchBarValue.replaceAll(/\s+/g," ")
-            if(max_length==8){
+
+            var answerUpdatedarr=answerUpdated.split(" ");
+            var firstletter=new Array(answerUpdatedarr.length)
+            var lengthString=0;
+            for(var j=0;j<answerUpdatedarr.length;j++){
+                firstletter[j]=lengthString
+                lengthString+=(answerUpdatedarr[j]).length
+                lengthString++
+            }
+            lengthString-=1
+            /*console.log(answerUpdated)
+            console.log(lengthString)
+            console.log(answerUpdated.length)*/
+            //console.log(firstletter);
+            if(ScientificsearchBarValue==""){
                 return;
             }
-            if ((answerUpdated.toLowerCase()).indexOf(ScientificsearchBarValue.toLowerCase())!==-1){
-                answer[i].style.display="block";
-                max_length++;
+            var display=false;
+            for(var j=0;j<firstletter.length;j++){
+                var startindex=(answerUpdated.toLowerCase()).search(ScientificsearchBarValue.toLowerCase());
+                //console.log(startindex);
+                /*if(startindex==-1){
+                    continue plants;
+                }*/
+                if(firstletter[j]==startindex){
+                    display=true
+                    continue;
+                }else{
+                    var startindex2=(answerUpdated.toLowerCase()).search((" "+ScientificsearchBarValue).toLowerCase())
+                    console.log(startindex2)
+                    firstletter.splice(0,1)
+                    if(startindex2+1==firstletter[j]){
+                        display=true;
+                        continue;
+                    }
+                }
             }
-    }
+            console.log(answerUpdated)
+            console.log(display)
+
+            if(max_length==8|| ScientificsearchBarValue==""){
+                return;
+            }
+
+            if (display==true){
+                answer[i].style.display="block";
+                 max_length++;
+            }
+        }
 }
 
 
