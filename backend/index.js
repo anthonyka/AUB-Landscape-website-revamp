@@ -78,6 +78,8 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
         let allPlantsCollection = client.db("landscapeAUB").collection("allPlants");
         let messages = client.db("landscapeAUB").collection("messages");
 
+        //------------------ANTHONY START------------------//
+
         //mail client -- just for testing
         var transporter = nodemailer.createTransport({
             service: 'gmail',
@@ -112,34 +114,7 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
                 })
                 .catch(error => console.error(error))
         })
-        app.get("/categories", (req, res) => {
-            console.log(">>>>>>>>>>>>>>>>>>in countries");
-            categoriesCollection.find().toArray()
-                .then(results => {
-                    res.send(results)
-                })
-                .catch(error => console.error(error))
-        })
-        // app.get("/plants", (req, res) => {
-        //     console.log(">>>>>>>>>>>>>>>>>>in plants");
-        //     console.log(req.query.type);
-        //     if (req.query.type=="all"){
-        //         plantsCollection.find().toArray()
-        //         .then(results => {
-        //             res.send(results)
-        //         })
-        //         .catch(error => console.error(error))
-        //     }
-        //     else {
-        //         plantsCollection.find({type: req.query.type}).toArray()
-        //         .then(results => {
-        //             res.send(results)
-        //         })
-        //         .catch(error => console.error(error))
 
-        //     }
-
-        // })
         app.get("/allplants", (req, res) => {
             console.log(">>>>>>>>>>>>>>>>>>in plants");
             console.log(req.query.type);
@@ -161,64 +136,6 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
 
         })
 
-
-
-        app.get("/plantsfiltered", (req, res) => {
-
-            console.log(">>>>>>>>>>>>>>>>>>in plantsfiltered");
-            console.log(req.query.filter);
-            let sentFilters = new Object();
-            sentFilters.category = req.query.filter;
-            if (req.query.filter == "fragrant") {
-                allPlantsCollection.find({ flowerScent: { $in: ["scentFlowerPleasant", "scentFlowerUnpleasant"] } }).toArray()
-                    .then(results => {
-                        res.render("searchResults", { plants: results,  partial: -1, filters: sentFilters });
-                    })
-                    .catch(error => console.error(error))
-            }
-            else if (req.query.filter == "flowering") {
-                allPlantsCollection.find({ colorFlower: { $exists: true, $ne: [] } }).toArray()
-                    .then(results => {
-                        res.render("searchResults", { plants: results,  partial: -1, filters: sentFilters });
-                    })
-                    .catch(error => console.error(error))
-
-            }
-            else if (req.query.filter == "edible") {
-                allPlantsCollection.find({ edible: "yes" }).toArray()
-                    .then(results => {
-                        res.render("searchResults", { plants: results,  partial: -1, filters: sentFilters });
-                    })
-                    .catch(error => console.error(error))
-            }
-            else if (req.query.filter == "arid") {
-                allPlantsCollection.find({ water: "Low" }).toArray()
-                    .then(results => {
-                        res.render("searchResults", { plants: results,  partial: -1, filters: sentFilters });
-                    })
-                    .catch(error => console.error(error))
-            }
-            else if (req.query.filter == "shade") {
-                allPlantsCollection.find({ light: "Shade" }).toArray()
-                    .then(results => {
-                        res.render("searchResults", { plants: results,  partial: -1, filters: sentFilters });
-                    })
-                    .catch(error => console.error(error))
-            }
-            else if (req.query.filter == "ground") {
-                allPlantsCollection.find({ plantType: "Ground Cover" }).toArray()
-                    .then(results => {
-                        res.render("searchResults", { plants: results,  partial: -1, filters: sentFilters });
-                    })
-                    .catch(error => console.error(error))
-            }
-            else {
-                res.send({})
-
-
-            }
-
-        })
         //route for plant filter by criteria
         app.post("/searchByCriteria", (req, res) => {
             let filters = JSON.parse(req.body.sentFilters);
@@ -573,41 +490,6 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
                 });
         })
 
-        app.get("/SearchByName", (req, res) => {
-            console.log(">>>>>>>>>>>>>>>>>>in searchByName");
-            res.render(path.join(__dirname, 'public/search_by_name.ejs'));
-
-        })
-        app.get("/names", (req, res) => {
-            console.log(req.query);
-            let Scientific_Name = req.query.Scientific_Name;
-            let Common_Name = req.query.Common_Name;
-            let queryOr = { $and: [] };
-            if (Scientific_Name!=""){
-                queryOr.$and.push({ScientificName: {$regex:Scientific_Name}});
-            }
-            if (Common_Name!=""){
-                queryOr.$and.push({CommonEnglishName : {$regex:Common_Name}});
-                }
-            allPlantsCollection.find(queryOr).toArray()
-            .then(results => {
-                console.log(results);
-                return res.render("searchResults", { plants: results, partial: -1, filters:{ScientificName: Scientific_Name, CommonName: Common_Name} });
-            });
-        
-        })
-
-        app.get('/SearchByLetter', (req, res) => {
-            var q = url.parse(req.url, true).query;
-            var letter = q.letter;
-            allPlantsCollection.find({ ScientificName: { '$regex': "^" + letter.toString() } }).toArray()
-                .then(results => {
-                    console.log(results);
-                    res.render('searchResults', { plants: results,  partial: -1, filters: {letter: letter} });
-                })
-                .catch(error => console.error(error))
-        });
-
         app.post("/sendMessage", upload.single('upload'), (req, res) => {
             if (req.file != null) {
                 messages.insertOne({
@@ -761,12 +643,6 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
 
         })
 
-        // app.post("/addDocumentImages", upload.fields([{ name: 'Image0', maxCount: 1 }, { name: 'Image1', maxCount: 1 }, { name: 'Image2', maxCount: 1 }, { name: 'Image3', maxCount: 1 }, { name: 'Image4', maxCount: 1 }]), (req, res) => {
-        //     console.log("addDocImages");
-        //     let doc = req.files;
-        //     console.log(doc);
-        // })
-
         app.get("/getMessages", (req, res) => {
             console.log(req.query);
             let filter = req.query.filter;
@@ -820,6 +696,114 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
 
         })
 
+        //------------------ANTHONY END------------------//
+
+        app.get("/categories", (req, res) => {
+            console.log(">>>>>>>>>>>>>>>>>>in countries");
+            categoriesCollection.find().toArray()
+                .then(results => {
+                    res.send(results)
+                })
+                .catch(error => console.error(error))
+        })
+
+        app.get("/plantsfiltered", (req, res) => {
+
+            console.log(">>>>>>>>>>>>>>>>>>in plantsfiltered");
+            console.log(req.query.filter);
+            let sentFilters = new Object();
+            sentFilters.category = req.query.filter;
+            if (req.query.filter == "fragrant") {
+                allPlantsCollection.find({ flowerScent: { $in: ["scentFlowerPleasant", "scentFlowerUnpleasant"] } }).toArray()
+                    .then(results => {
+                        res.render("searchResults", { plants: results,  partial: -1, filters: sentFilters });
+                    })
+                    .catch(error => console.error(error))
+            }
+            else if (req.query.filter == "flowering") {
+                allPlantsCollection.find({ colorFlower: { $exists: true, $ne: [] } }).toArray()
+                    .then(results => {
+                        res.render("searchResults", { plants: results,  partial: -1, filters: sentFilters });
+                    })
+                    .catch(error => console.error(error))
+
+            }
+            else if (req.query.filter == "edible") {
+                allPlantsCollection.find({ edible: "yes" }).toArray()
+                    .then(results => {
+                        res.render("searchResults", { plants: results,  partial: -1, filters: sentFilters });
+                    })
+                    .catch(error => console.error(error))
+            }
+            else if (req.query.filter == "arid") {
+                allPlantsCollection.find({ water: "Low" }).toArray()
+                    .then(results => {
+                        res.render("searchResults", { plants: results,  partial: -1, filters: sentFilters });
+                    })
+                    .catch(error => console.error(error))
+            }
+            else if (req.query.filter == "shade") {
+                allPlantsCollection.find({ light: "Shade" }).toArray()
+                    .then(results => {
+                        res.render("searchResults", { plants: results,  partial: -1, filters: sentFilters });
+                    })
+                    .catch(error => console.error(error))
+            }
+            else if (req.query.filter == "ground") {
+                allPlantsCollection.find({ plantType: "Ground Cover" }).toArray()
+                    .then(results => {
+                        res.render("searchResults", { plants: results,  partial: -1, filters: sentFilters });
+                    })
+                    .catch(error => console.error(error))
+            }
+            else {
+                res.send({})
+
+
+            }
+
+        })
+        
+
+        app.get("/SearchByName", (req, res) => {
+            console.log(">>>>>>>>>>>>>>>>>>in searchByName");
+            res.render(path.join(__dirname, 'public/search_by_name.ejs'));
+
+        })
+        app.get("/names", (req, res) => {
+            console.log(req.query);
+            let Scientific_Name = req.query.Scientific_Name;
+            let Common_Name = req.query.Common_Name;
+            let queryOr = { $and: [] };
+            if (Scientific_Name!=""){
+                queryOr.$and.push({ScientificName: {$regex:Scientific_Name}});
+            }
+            if (Common_Name!=""){
+                queryOr.$and.push({CommonEnglishName : {$regex:Common_Name}});
+                }
+            allPlantsCollection.find(queryOr).toArray()
+            .then(results => {
+                console.log(results);
+                return res.render("searchResults", { plants: results, partial: -1, filters:{ScientificName: Scientific_Name, CommonName: Common_Name} });
+            });
+        
+        })
+
+        app.get('/SearchByLetter', (req, res) => {
+            var q = url.parse(req.url, true).query;
+            var letter = q.letter;
+            allPlantsCollection.find({ ScientificName: { '$regex': "^" + letter.toString() } }).toArray()
+                .then(results => {
+                    console.log(results);
+                    res.render('searchResults', { plants: results,  partial: -1, filters: {letter: letter} });
+                })
+                .catch(error => console.error(error))
+        });
+
+        
+
+        
+
 
 
         app.listen(port, () => {
@@ -829,5 +813,3 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
     .catch((err) => {
         console.log(err);
     })
-
-//------------ADMIN-------------//

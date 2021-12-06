@@ -542,6 +542,9 @@ body {
   }
 
   @media print{
+    .Topnav{
+      display: none !important;
+    }
     .nav{
       display: none !important;
     }
