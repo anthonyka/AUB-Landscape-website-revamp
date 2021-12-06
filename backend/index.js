@@ -470,66 +470,7 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
                 });
         })
 
-        app.get("/SearchByName", (req, res) => {
-            console.log(">>>>>>>>>>>>>>>>>>in searchByName");
-            res.render(path.join(__dirname, 'public/search_by_name.ejs'));
-
-        })
-        app.get("/names", (req, res) => {
-            console.log(req.query);
-            let Scientific_Name = req.query.Scientific_Name;
-            /*f(Scientific_Name!=""){
-                Scientific_Name=Scientific_Name.trim();
-                Scientific_Name=Scientific_Name.replaceAll(","," ");
-                Scientific_Name=Scientific_Name.replaceAll("\'","");
-                Scientific_Name=Scientific_Name.replaceAll(/\s+/g," ");
-            }*/
-            let Common_Name = req.query.Common_Name;
-            /*if(Common_Name!=""){
-                Common_Name=Common_Name.trim();
-                Common_Name=Common_Name.replaceAll(","," ");
-                Common_Name=Common_Name.replaceAll("\'"," ");
-                Common_Name=Common_Name.replaceAll(/\s+/g," ");
-            }*/
-            let queryOr = { $or: [] };
-            if (Scientific_Name!=""){
-                queryOr.$or.push({ScientificName: {$regex:"^"+Scientific_Name,$options:'i'}});
-            }
-            if (Common_Name!=""){
-                queryOr.$or.push({CommonEnglishName : {$regex:"^"+Common_Name,$options:'i'}});
-            }
-            if(Scientific_Name==""&& Common_Name==""){
-                queryOr.$or.push({CommonEnglishName: ""});
-            }
-            
-            allPlantsCollection.find().forEach(function(x){
-                EnglishMongo=x.CommonEnglishName;
-                EnglishMongo=(EnglishMongo.toString()).replaceAll(","," ");
-                EnglishMongo=EnglishMongo.replaceAll("\'","");
-                EnglishMongo=EnglishMongo.replaceAll(/\s+/g," ");
-                //console.log(EnglishMongo);
-            })
-
-            allPlantsCollection.find(queryOr).toArray()
-            .then(results => {
-                //console.log(results);
-                console.log(queryOr.$or.ScientificName);
-                return res.render("searchResults", { plants: results, partial: -1, filters:{ScientificName: Scientific_Name, CommonName: Common_Name} });
-            });
         
-        })
-
-        app.get('/SearchByLetter', (req, res) => {
-            var q = url.parse(req.url, true).query;
-            var letter = q.letter;
-            allPlantsCollection.find({ ScientificName: { '$regex': "^" + letter.toString() } }).toArray()
-                .then(results => {
-                    console.log(results);
-                    res.render('searchResults', { plants: results,  partial: -1, filters: {letter: letter} });
-                })
-                .catch(error => console.error(error))
-        });
-
         app.post("/sendMessage", upload.single('upload'), (req, res) => {
             if (req.file != null) {
                 messages.insertOne({
@@ -828,6 +769,9 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
 
         })
         //------------------PAUL END------------------//
+
+        //------------------JAD START------------------//
+
         app.get("/SearchByName", (req, res) => {
             console.log(">>>>>>>>>>>>>>>>>>in searchByName");
             res.render(path.join(__dirname, 'public/search_by_name.ejs'));
@@ -856,12 +800,16 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
             if (Common_Name!=""){
                 queryOr.$or.push({CommonEnglishName : {$regex:"^"+Common_Name,$options:'i'}});
             }
+            if(Scientific_Name==""&& Common_Name==""){
+                queryOr.$or.push({CommonEnglishName: ""});
+            }
+            
             allPlantsCollection.find().forEach(function(x){
                 EnglishMongo=x.CommonEnglishName;
                 EnglishMongo=(EnglishMongo.toString()).replaceAll(","," ");
                 EnglishMongo=EnglishMongo.replaceAll("\'","");
                 EnglishMongo=EnglishMongo.replaceAll(/\s+/g," ");
-                console.log(EnglishMongo);
+                //console.log(EnglishMongo);
             })
 
             allPlantsCollection.find(queryOr).toArray()
@@ -883,13 +831,7 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
                 })
                 .catch(error => console.error(error))
         });
-
-        
-
-        
-
-
-
+        //------------------JAD END------------------//
         app.listen(port, () => {
             console.log(`listening at http://localhost:${port}`)
         })
