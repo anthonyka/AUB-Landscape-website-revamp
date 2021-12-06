@@ -115,26 +115,6 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
                 .catch(error => console.error(error))
         })
 
-        app.get("/allplants", (req, res) => {
-            console.log(">>>>>>>>>>>>>>>>>>in plants");
-            console.log(req.query.type);
-            if (req.query.type == "all") {
-                allPlantsCollection.find().toArray()
-                    .then(results => {
-                        res.send(results)
-                    })
-                    .catch(error => console.error(error))
-            }
-            else {
-                allPlantsCollection.find({ plantType: req.query.type }).toArray()
-                    .then(results => {
-                        res.send(results)
-                    })
-                    .catch(error => console.error(error))
-
-            }
-
-        })
 
         //route for plant filter by criteria
         app.post("/searchByCriteria", (req, res) => {
@@ -698,6 +678,30 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
 
         //------------------ANTHONY END------------------//
 
+        //------------------PAUL START------------------//
+        app.get("/allplants", (req, res) => {
+            console.log(">>>>>>>>>>>>>>>>>>in plants");
+            console.log(req.query.type);
+            if (req.query.type == "all") {
+                allPlantsCollection.find().toArray()
+                    .then(results => {
+                        res.send(results)
+                    })
+                    .catch(error => console.error(error))
+            }
+            else {
+                allPlantsCollection.find({ plantType: req.query.type }).toArray()
+                    .then(results => {
+                        res.send(results)
+                    })
+                    .catch(error => console.error(error))
+
+            }
+
+        })
+
+
+
         app.get("/categories", (req, res) => {
             console.log(">>>>>>>>>>>>>>>>>>in countries");
             categoriesCollection.find().toArray()
@@ -706,7 +710,7 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
                 })
                 .catch(error => console.error(error))
         })
-
+        
         app.get("/plantsfiltered", (req, res) => {
 
             console.log(">>>>>>>>>>>>>>>>>>in plantsfiltered");
@@ -763,7 +767,7 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
             }
 
         })
-
+        //------------------PAUL END------------------//
         app.get("/SearchByName", (req, res) => {
             console.log(">>>>>>>>>>>>>>>>>>in searchByName");
             res.render(path.join(__dirname, 'public/search_by_name.ejs'));
