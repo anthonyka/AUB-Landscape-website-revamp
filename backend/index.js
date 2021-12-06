@@ -596,15 +596,23 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
             }*/
             let queryOr = { $or: [] };
             if (Scientific_Name!=""){
-                queryOr.$or.push({ScientificName: {$regex:Scientific_Name}});
+                queryOr.$or.push({ScientificName: {$regex:"^"+Scientific_Name,$options:'i'}});
             }
             if (Common_Name!=""){
-                queryOr.$or.push({CommonEnglishName : {$regex:Common_Name}});
+                queryOr.$or.push({CommonEnglishName : {$regex:"^"+Common_Name,$options:'i'}});
             }
-            
+            allPlantsCollection.find().forEach(function(x){
+                EnglishMongo=x.CommonEnglishName;
+                EnglishMongo=(EnglishMongo.toString()).replaceAll(","," ");
+                EnglishMongo=EnglishMongo.replaceAll("\'","");
+                EnglishMongo=EnglishMongo.replaceAll(/\s+/g," ");
+                console.log(EnglishMongo);
+            })
+
             allPlantsCollection.find(queryOr).toArray()
             .then(results => {
-                console.log(results);
+                //console.log(results);
+                console.log(queryOr.$or.ScientificName);
                 return res.render("searchResults", { plants: results, partial: -1, filters:{ScientificName: Scientific_Name, CommonName: Common_Name} });
             });
         
