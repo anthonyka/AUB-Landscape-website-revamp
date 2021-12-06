@@ -470,7 +470,6 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
                 });
         })
 
-<<<<<<< HEAD
         app.get("/SearchByName", (req, res) => {
             console.log(">>>>>>>>>>>>>>>>>>in searchByName");
             res.render(path.join(__dirname, 'public/search_by_name.ejs'));
@@ -531,8 +530,6 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
                 .catch(error => console.error(error))
         });
 
-=======
->>>>>>> 76882a499bc6d08b55b1a065627e6391178737dc
         app.post("/sendMessage", upload.single('upload'), (req, res) => {
             if (req.file != null) {
                 messages.insertOne({
