@@ -601,12 +601,16 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
             if (Common_Name!=""){
                 queryOr.$or.push({CommonEnglishName : {$regex:"^"+Common_Name,$options:'i'}});
             }
+            if(Scientific_Name==""&& Common_Name==""){
+                queryOr.$or.push({CommonEnglishName: ""});
+            }
+            
             allPlantsCollection.find().forEach(function(x){
                 EnglishMongo=x.CommonEnglishName;
                 EnglishMongo=(EnglishMongo.toString()).replaceAll(","," ");
                 EnglishMongo=EnglishMongo.replaceAll("\'","");
                 EnglishMongo=EnglishMongo.replaceAll(/\s+/g," ");
-                console.log(EnglishMongo);
+                //console.log(EnglishMongo);
             })
 
             allPlantsCollection.find(queryOr).toArray()

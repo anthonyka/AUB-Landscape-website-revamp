@@ -4,7 +4,9 @@
 #CommonsearchBar,#ScientificsearchBar{
     width: 70%;
 }
-
+.SearchByName{
+    margin-bottom: 5%;
+}
 .answer{
     width: 70%;
     height: min-content;
