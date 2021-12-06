@@ -22,7 +22,7 @@ body {
     height: 234px;
     position: relative;
 }
-.aub_logo{
+/* .aub_logo{
     position: relative;
     top: 20px;
     left: 20px;
@@ -43,7 +43,7 @@ body {
     top:12px;
     left:5px;
     color:whitesmoke;
-}
+} */
 
 .titles{
     color: rgb(20, 139, 20);
